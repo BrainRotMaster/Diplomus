@@ -1,19 +1,15 @@
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace PCG
 {
+    using System.Collections.Generic;
+    using UnityEngine;
+
     [CreateAssetMenu(fileName = "New PCG Graph", menuName = "PCG/Graph")]
     public class PCGGraphData : ScriptableObject
     {
         public List<PCGNodeData> nodes = new List<PCGNodeData>();
         public List<PCGEdgeData> edges = new List<PCGEdgeData>();
-
-        // Входная нода (откуда начинается генерация)
         public string entryNodeGUID;
 
-        // Кэш для быстрого доступа
-        [System.NonSerialized]
         private Dictionary<string, PCGNodeData> nodeDictionary;
 
         public void InitCache()
@@ -21,14 +17,19 @@ namespace PCG
             nodeDictionary = new Dictionary<string, PCGNodeData>();
             foreach (var node in nodes)
             {
-                nodeDictionary[node.GUID] = node;
+                if (!string.IsNullOrEmpty(node.GUID))
+                {
+                    nodeDictionary[node.GUID] = node;
+                }
             }
         }
 
         public PCGNodeData GetNodeByGUID(string guid)
         {
             if (nodeDictionary == null) InitCache();
-            return nodeDictionary.GetValueOrDefault(guid);
+            if (nodeDictionary == null) return null;
+            nodeDictionary.TryGetValue(guid, out var node);
+            return node;
         }
 
         public List<PCGNodeData> GetOutputNodes(string nodeGUID)
@@ -44,28 +45,5 @@ namespace PCG
             }
             return result;
         }
-
-        public List<PCGNodeData> GetInputNodes(string nodeGUID)
-        {
-            var result = new List<PCGNodeData>();
-            foreach (var edge in edges)
-            {
-                if (edge.targetNodeGUID == nodeGUID)
-                {
-                    var sourceNode = GetNodeByGUID(edge.sourceNodeGUID);
-                    if (sourceNode != null) result.Add(sourceNode);
-                }
-            }
-            return result;
-        }
-    }
-
-    [System.Serializable]
-    public class PCGEdgeData
-    {
-        public string sourceNodeGUID;
-        public string sourcePortName;
-        public string targetNodeGUID;
-        public string targetPortName;
     }
 }

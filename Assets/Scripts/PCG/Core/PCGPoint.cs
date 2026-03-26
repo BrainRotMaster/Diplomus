@@ -1,9 +1,7 @@
-using UnityEngine;
-using Unity.Collections;
 
 namespace PCG
 {
-
+    using UnityEngine;
 
     [System.Serializable]
     public struct PCGPoint
@@ -11,12 +9,10 @@ namespace PCG
         public Vector3 position;
         public Quaternion rotation;
         public Vector3 scale;
-        public float density;        // Плотность/вес точки
-        public Color color;          // Цвет для отладки
-
-        // Расширенные атрибуты (можно хранить в NativeHashMap для Jobs)
+        public float density;
+        public Color color;
         public int seed;
-        public int tag;              // Битовые флаги для фильтрации
+        public int tag;
 
         public PCGPoint(Vector3 pos)
         {

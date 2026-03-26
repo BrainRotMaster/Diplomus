@@ -50,32 +50,33 @@ namespace PCG.Windows
 
         public bool OnSelectEntry(SearchTreeEntry SearchTreeEntry, SearchWindowContext context)
         {
-            Vector2 localMousePosition = graphView.GetLocalMousePosition(context.screenMousePosition, true);
-            switch (SearchTreeEntry.userData)
-            {
-                case PCGNodeType.Type1:
-                    {
-                        PCGType1Node type1Node = (PCGType1Node)graphView.CreateNode(PCGNodeType.Type1, localMousePosition);
-                        graphView.AddElement(type1Node);
-                        return true; 
-                    }
-                case PCGNodeType.Type2:
-                    {
-                        PCGType2Node type2Node = (PCGType2Node)graphView.CreateNode(PCGNodeType.Type2, localMousePosition);
-                        graphView.AddElement(type2Node);
-                        return true;
-                    }
-                case Group _:
-                    {
-                        Group group = graphView.CreateGroup("New Group", localMousePosition);
-                        graphView.AddElement(group);
-                        return true; 
-                    }
-                default:
-                    {
-                        return false;
-                    }
-            }
+            //Vector2 localMousePosition = graphView.GetLocalMousePosition(context.screenMousePosition, true);
+            //switch (SearchTreeEntry.userData)
+            //{
+            //    case PCGNodeType.Type1:
+            //        {
+            //            PCGType1Node type1Node = (PCGType1Node)graphView.CreateNode(PCGNodeType.Type1, localMousePosition);
+            //            graphView.AddElement(type1Node);
+            //            return true;
+            //        }
+            //    case PCGNodeType.Type2:
+            //        {
+            //            PCGType2Node type2Node = (PCGType2Node)graphView.CreateNode(PCGNodeType.Type2, localMousePosition);
+            //            graphView.AddElement(type2Node);
+            //            return true;
+            //        }
+            //    case Group _:
+            //        {
+            //            Group group = graphView.CreateGroup("New Group", localMousePosition);
+            //            graphView.AddElement(group);
+            //            return true;
+            //        }
+            //    default:
+            //        {
+            //            return false;
+            //        }
+            //}
+            return true;
         }
     }
 }
