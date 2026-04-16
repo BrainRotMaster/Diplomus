@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3edaf780ba0cdf478d47a26327b0a86, type: 3}
-  m_Name: Source_7e93b4fe-2287-49bf-815d-f7be5a7747c5
+  m_Name: Source_3700e23a-b366-480c-8337-e1096a53f2a5
   m_EditorClassIdentifier: 
-  GUID: 7e93b4fe-2287-49bf-815d-f7be5a7747c5
-  position: {x: 280, y: 211}
+  GUID: 3700e23a-b366-480c-8337-e1096a53f2a5
+  position: {x: 270, y: 220}
   nodeName: Source Node
   sourceType: 0
-  gridWidth: 10
-  gridHeight: 10
+  gridWidth: 20
+  gridHeight: 20
   spacing: 1
-  randomPointCount: 100
+  randomPointCount: 8

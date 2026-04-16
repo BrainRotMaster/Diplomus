@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03d2247bd1abd0349a24b93cd9dad0d3, type: 3}
-  m_Name: Spawner_44a11906-be21-4c3d-9d99-6a99c228a265
+  m_Script: {fileID: 11500000, guid: cdfd10407a77fc941b58a9227c013958, type: 3}
+  m_Name: Filter_d89a6a16-f4a2-454f-bacb-5ca1c2c3b023
   m_EditorClassIdentifier: 
-  GUID: 44a11906-be21-4c3d-9d99-6a99c228a265
-  position: {x: 943, y: 381}
-  nodeName: Spawner Node
-  prefab: {fileID: 0}
-  randomizeRotation: 1
-  prefabGUID: 
+  GUID: d89a6a16-f4a2-454f-bacb-5ca1c2c3b023
+  position: {x: 586, y: 324}
+  nodeName: Filter Node
+  filterType: 0
+  randomChance: 0.38
+  minDensity: 0.8

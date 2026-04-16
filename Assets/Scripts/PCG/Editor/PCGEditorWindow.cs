@@ -1,7 +1,6 @@
-namespace PCG.Windows 
+namespace PCG.Windows
 {
     using UnityEditor;
-    using UnityEditor.Experimental.GraphView;
     using UnityEngine;
     using UnityEngine.UIElements;
 
@@ -10,9 +9,9 @@ namespace PCG.Windows
         private PCGGraphView graphView;
         private PCGGraphData currentGraph;
         private VisualElement mainContainer;
-        private VisualElement toolbarContainer;
         private Label graphNameLabel;
         private bool isDirty;
+        private VisualElement emptyStateLabel;
 
         [MenuItem("Tools/PCG Graph Editor")]
         public static void OpenWindow()
@@ -32,16 +31,20 @@ namespace PCG.Windows
 
             CreateToolbar();
 
-            if (currentGraph == null)
+            // Загружаем последний использованный граф
+            string lastGraphPath = EditorPrefs.GetString("PCG_LastGraph", "");
+            if (!string.IsNullOrEmpty(lastGraphPath) && System.IO.File.Exists(lastGraphPath))
             {
-                CreateNewGraph();
-            }
-            else
-            {
-                CreateGraphView();
+                var lastGraph = AssetDatabase.LoadAssetAtPath<PCGGraphData>(lastGraphPath);
+                if (lastGraph != null)
+                {
+                    currentGraph = lastGraph;
+                    CreateGraphView();
+                    return;
+                }
             }
 
-            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+            ShowEmptyState();
         }
 
         private void OnDisable()
@@ -50,81 +53,73 @@ namespace PCG.Windows
             {
                 SaveGraph();
             }
-            EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
         }
 
-        private void OnPlayModeStateChanged(PlayModeStateChange state)
+        private void ClearMainContainer()
         {
-            if (state == PlayModeStateChange.ExitingEditMode && isDirty)
+            // Удаляем всё, кроме тулбара (тулбар находится в mainContainer, но мы его не трогаем)
+            // Лучше хранить ссылки на добавляемые элементы
+            if (graphView != null)
             {
-                SaveGraph();
+                mainContainer.Remove(graphView);
+                graphView = null;
             }
+
+            if (emptyStateLabel != null)
+            {
+                mainContainer.Remove(emptyStateLabel);
+                emptyStateLabel = null;
+            }
+        }
+
+        private void ShowEmptyState()
+        {
+            ClearMainContainer();
+
+            emptyStateLabel = new Label("No graph loaded.\n\n• Double-click a .asset graph file in Project window\n• Or click Load Graph button");
+            emptyStateLabel.style.unityTextAlign = TextAnchor.MiddleCenter;
+            emptyStateLabel.style.fontSize = 14;
+            emptyStateLabel.style.color = Color.gray;
+            emptyStateLabel.style.whiteSpace = WhiteSpace.Normal;
+            emptyStateLabel.style.flexGrow = 1;
+            mainContainer.Add(emptyStateLabel);
         }
 
         private void CreateToolbar()
         {
-            if (toolbarContainer != null)
-            {
-                mainContainer.Remove(toolbarContainer);
-            }
+            var toolbar = new VisualElement();
+            toolbar.style.flexDirection = FlexDirection.Row;
+            toolbar.style.height = 30;
+            toolbar.style.backgroundColor = new Color(0.2f, 0.2f, 0.2f);
+            toolbar.style.paddingLeft = 5;
+            toolbar.style.paddingRight = 5;
 
-            toolbarContainer = new VisualElement();
-            toolbarContainer.style.flexDirection = FlexDirection.Row;
-            toolbarContainer.style.height = 30;
-            toolbarContainer.style.backgroundColor = new Color(0.2f, 0.2f, 0.2f);
-            toolbarContainer.style.paddingLeft = 5;
-            toolbarContainer.style.paddingRight = 5;
-
-            var saveButton = new Button(() => SaveGraph());
-            saveButton.text = "Save Graph";
-            saveButton.style.marginLeft = 5;
-            saveButton.style.marginRight = 5;
-            toolbarContainer.Add(saveButton);
-
-            var loadButton = new Button(() => LoadGraph());
-            loadButton.text = "Load Graph";
-            loadButton.style.marginLeft = 5;
-            loadButton.style.marginRight = 5;
-            toolbarContainer.Add(loadButton);
-
-            var newButton = new Button(() => NewGraph());
-            newButton.text = "New Graph";
-            newButton.style.marginLeft = 5;
-            newButton.style.marginRight = 5;
-            toolbarContainer.Add(newButton);
-
-            var generateButton = new Button(() => Generate());
-            generateButton.text = "Generate";
-            generateButton.style.marginLeft = 5;
-            generateButton.style.marginRight = 5;
-            generateButton.style.backgroundColor = new Color(0.2f, 0.5f, 0.2f);
-            toolbarContainer.Add(generateButton);
+            toolbar.Add(new Button(SaveGraph) { text = "Save Graph", style = { marginLeft = 5, marginRight = 5 } });
+            toolbar.Add(new Button(LoadGraphFromFile) { text = "Load Graph", style = { marginLeft = 5, marginRight = 5 } });
+            toolbar.Add(new Button(CreateNewGraph) { text = "New Graph", style = { marginLeft = 5, marginRight = 5 } });
+            toolbar.Add(new Button(Generate) { text = "Generate", style = { marginLeft = 5, marginRight = 5, backgroundColor = new Color(0.2f, 0.5f, 0.2f) } });
 
             var spacer = new VisualElement();
             spacer.style.flexGrow = 1;
-            toolbarContainer.Add(spacer);
+            toolbar.Add(spacer);
 
             graphNameLabel = new Label();
             graphNameLabel.style.color = Color.white;
             graphNameLabel.style.unityTextAlign = TextAnchor.MiddleRight;
             graphNameLabel.style.marginRight = 10;
-            UpdateGraphNameLabel();
-            toolbarContainer.Add(graphNameLabel);
+            toolbar.Add(graphNameLabel);
 
-            mainContainer.Add(toolbarContainer);
+            mainContainer.Add(toolbar);
         }
 
         private void CreateGraphView()
         {
-            if (graphView != null)
-            {
-                mainContainer.Remove(graphView);
-            }
+            ClearMainContainer();
 
             if (currentGraph == null)
             {
                 currentGraph = ScriptableObject.CreateInstance<PCGGraphData>();
-                currentGraph.name = "New PCG Graph";
+                currentGraph.name = "Unsaved Graph";
             }
 
             graphView = new PCGGraphView(currentGraph, this);
@@ -136,16 +131,9 @@ namespace PCG.Windows
 
         private void UpdateGraphNameLabel()
         {
-            if (graphNameLabel != null)
+            if (graphNameLabel != null && currentGraph != null)
             {
-                if (currentGraph != null)
-                {
-                    graphNameLabel.text = $"Graph: {currentGraph.name} {(isDirty ? "*" : "")}";
-                }
-                else
-                {
-                    graphNameLabel.text = "Graph: None";
-                }
+                graphNameLabel.text = $"Graph: {currentGraph.name}{(isDirty ? "*" : "")}";
             }
         }
 
@@ -164,7 +152,6 @@ namespace PCG.Windows
             }
 
             string assetPath = $"{path}/NewGraph_{System.Guid.NewGuid()}.asset";
-
             int counter = 1;
             while (System.IO.File.Exists(assetPath))
             {
@@ -177,6 +164,8 @@ namespace PCG.Windows
             AssetDatabase.CreateAsset(currentGraph, assetPath);
             AssetDatabase.SaveAssets();
 
+            EditorPrefs.SetString("PCG_LastGraph", assetPath);
+
             isDirty = false;
             CreateGraphView();
 
@@ -185,55 +174,63 @@ namespace PCG.Windows
 
         private void SaveGraph()
         {
-            if (currentGraph != null)
+            if (currentGraph == null)
             {
-                EditorUtility.SetDirty(currentGraph);
+                Debug.LogWarning("No graph to save!");
+                return;
+            }
 
-                // Сохраняем все ноды
-                foreach (var node in currentGraph.nodes)
-                {
-                    EditorUtility.SetDirty(node);
-                }
+            EditorUtility.SetDirty(currentGraph);
+            foreach (var node in currentGraph.nodes)
+            {
+                EditorUtility.SetDirty(node);
+            }
+            AssetDatabase.SaveAssets();
 
-                AssetDatabase.SaveAssets();
-                isDirty = false;
-                UpdateGraphNameLabel();
-                Debug.Log($"Graph saved: {currentGraph.name}");
+            isDirty = false;
+            UpdateGraphNameLabel();
+            Debug.Log($"Graph saved: {currentGraph.name}");
+        }
+
+        public void LoadGraph(PCGGraphData graphToLoad)
+        {
+            if (graphToLoad == null)
+            {
+                Debug.LogError("Cannot load null graph");
+                return;
+            }
+
+            currentGraph = graphToLoad;
+            isDirty = false;
+
+            string path = AssetDatabase.GetAssetPath(currentGraph);
+            EditorPrefs.SetString("PCG_LastGraph", path);
+
+            CreateGraphView();
+            titleContent = new GUIContent($"PCG Graph: {currentGraph.name}");
+
+            Debug.Log($"Graph loaded: {currentGraph.name}");
+        }
+
+        private void LoadGraphFromFile()
+        {
+            string path = EditorUtility.OpenFilePanel("Load PCG Graph", "Assets/PCG/Graphs", "asset");
+            if (string.IsNullOrEmpty(path)) return;
+
+            if (path.StartsWith(Application.dataPath))
+            {
+                path = "Assets" + path.Substring(Application.dataPath.Length);
+            }
+
+            var loadedGraph = AssetDatabase.LoadAssetAtPath<PCGGraphData>(path);
+            if (loadedGraph != null)
+            {
+                LoadGraph(loadedGraph);
             }
             else
             {
-                Debug.LogWarning("No graph to save!");
+                Debug.LogError($"Failed to load graph from: {path}");
             }
-        }
-
-        private void LoadGraph()
-        {
-            string path = EditorUtility.OpenFilePanel("Load PCG Graph", "Assets/PCG/Graphs", "asset");
-            if (!string.IsNullOrEmpty(path))
-            {
-                if (path.StartsWith(Application.dataPath))
-                {
-                    path = "Assets" + path.Substring(Application.dataPath.Length);
-                }
-
-                var loadedGraph = AssetDatabase.LoadAssetAtPath<PCGGraphData>(path);
-                if (loadedGraph != null)
-                {
-                    currentGraph = loadedGraph;
-                    isDirty = false;
-                    CreateGraphView();
-                    Debug.Log($"Graph loaded: {currentGraph.name}");
-                }
-                else
-                {
-                    Debug.LogError($"Failed to load graph from: {path}");
-                }
-            }
-        }
-
-        private void NewGraph()
-        {
-            CreateNewGraph();
         }
 
         private void Generate()
@@ -244,7 +241,6 @@ namespace PCG.Windows
                 return;
             }
 
-            // Сохраняем перед генерацией
             if (isDirty)
             {
                 SaveGraph();
@@ -256,7 +252,7 @@ namespace PCG.Windows
                 var go = new GameObject("PCG Generator");
                 generator = go.AddComponent<PCGGenerator>();
                 generator.graph = currentGraph;
-                Debug.Log("Created PCGGenerator component. Adjust bounds in inspector and click Generate again.");
+                Debug.Log("Created PCGGenerator. Set bounds in Inspector and click Generate again.");
                 Selection.activeObject = generator.gameObject;
             }
             else
@@ -267,4 +263,3 @@ namespace PCG.Windows
         }
     }
 }
-
