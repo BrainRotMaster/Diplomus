@@ -1,6 +1,5 @@
 namespace PCG
 {
-
     using UnityEngine;
 
     public class PCGExecutionContext
@@ -8,6 +7,7 @@ namespace PCG
         public int randomSeed;
         public System.Random random;
         public Bounds generationBounds;
+        public Transform generatorTransform;
         public Transform worldRoot;
         public float globalDensityScale = 1f;
         public int pointsGenerated;

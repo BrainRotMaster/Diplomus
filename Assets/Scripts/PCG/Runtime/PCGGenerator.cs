@@ -19,12 +19,12 @@ namespace PCG
                 return;
             }
 
-            // Очищаем предыдущие сгенерированные объекты
             ClearGeneratedObjects();
 
             var context = new PCGExecutionContext(randomSeed)
             {
                 generationBounds = generationBounds,
+                generatorTransform = transform,
                 worldRoot = spawnRoot != null ? spawnRoot : transform
             };
 
@@ -34,7 +34,6 @@ namespace PCG
             Debug.Log($"Generation complete! Final points: {points.Count}");
             Debug.Log($"Stats - Generated: {context.pointsGenerated}, Filtered: {context.pointsFiltered}");
 
-            // Визуализация точек для отладки
             if (debugDrawPoints)
             {
                 StartCoroutine(DrawDebugPoints(points));
@@ -45,7 +44,6 @@ namespace PCG
         {
             Transform root = spawnRoot != null ? spawnRoot : transform;
 
-            // Удаляем все дочерние объекты, которые были сгенерированы
             for (int i = root.childCount - 1; i >= 0; i--)
             {
                 var child = root.GetChild(i);
@@ -64,7 +62,6 @@ namespace PCG
 
         private System.Collections.IEnumerator DrawDebugPoints(System.Collections.Generic.List<PCGPoint> points)
         {
-            // Рисуем точки в течение 5 секунд
             float duration = 5f;
             float startTime = Time.time;
 
@@ -83,7 +80,9 @@ namespace PCG
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.green;
+            Gizmos.matrix = transform.localToWorldMatrix;
             Gizmos.DrawWireCube(generationBounds.center, generationBounds.size);
+            Gizmos.matrix = Matrix4x4.identity;
         }
 
         private void OnDrawGizmos()
@@ -91,7 +90,6 @@ namespace PCG
             if (debugDrawPoints && Application.isPlaying)
             {
                 Gizmos.color = Color.yellow;
-                // Здесь можно добавить отрисовку точек если нужно
             }
         }
     }

@@ -15,9 +15,7 @@ MonoBehaviour:
   GUID: f8370544-25d6-4a21-9117-1b6fd9af64d1
   position: {x: 173, y: 99}
   nodeName: Source Node
-  sourceType: 1
-  gridWidth: 10
-  gridHeight: 10
+  sourceType: 0
   spacing: 1
   randomPointCount: 13
 --- !u!114 &11400000
@@ -80,4 +78,4 @@ MonoBehaviour:
   position: {x: 922, y: 273}
   nodeName: Spawner Node
   prefab: {fileID: 8221297005902463547, guid: 02f39c36404376a42b5bf2678e181053, type: 3}
-  randomizeRotation: 1
+  randomizeRotation: 0

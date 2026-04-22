@@ -1,5 +1,4 @@
 using PCG;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,17 +7,11 @@ public class PCGSourceNodeData : PCGNodeData
 {
     public enum SourceType { Grid, Random }
 
-    // Сериализуемые поля (сохраняются)
     [SerializeField] private SourceType sourceType = SourceType.Grid;
-    [SerializeField] private int gridWidth = 10;
-    [SerializeField] private int gridHeight = 10;
     [SerializeField] private float spacing = 1f;
     [SerializeField] private int randomPointCount = 100;
 
-    // Публичные свойства для доступа
     public SourceType SourceTypeValue { get => sourceType; set => sourceType = value; }
-    public int GridWidth { get => gridWidth; set => gridWidth = value; }
-    public int GridHeight { get => gridHeight; set => gridHeight = value; }
     public float Spacing { get => spacing; set => spacing = value; }
     public int RandomPointCount { get => randomPointCount; set => randomPointCount = value; }
 
@@ -30,17 +23,9 @@ public class PCGSourceNodeData : PCGNodeData
             {
                 options = new[] { "Grid", "Random" }
             },
-            new PCGNodeParameter("Grid Width", PCGParameterType.Int, gridWidth)
-            {
-                minValue = 1, maxValue = 100
-            },
-            new PCGNodeParameter("Grid Height", PCGParameterType.Int, gridHeight)
-            {
-                minValue = 1, maxValue = 100
-            },
             new PCGNodeParameter("Spacing", PCGParameterType.Float, spacing)
             {
-                minValue = 0.1f, maxValue = 10f
+                minValue = 0.1f, maxValue = 100f
             },
             new PCGNodeParameter("Point Count", PCGParameterType.Int, randomPointCount)
             {
@@ -54,8 +39,6 @@ public class PCGSourceNodeData : PCGNodeData
         switch (name)
         {
             case "Source Type": sourceType = (SourceType)(int)value; break;
-            case "Grid Width": gridWidth = (int)value; break;
-            case "Grid Height": gridHeight = (int)value; break;
             case "Spacing": spacing = (float)value; break;
             case "Point Count": randomPointCount = (int)value; break;
         }
@@ -69,16 +52,21 @@ public class PCGSourceNodeData : PCGNodeData
         switch (sourceType)
         {
             case SourceType.Grid:
-                for (int x = 0; x < gridWidth; x++)
+                float clampedSpacing = Mathf.Max(0.01f, spacing);
+                int xCount = Mathf.Max(1, Mathf.FloorToInt(bounds.size.x / clampedSpacing) + 1);
+                int zCount = Mathf.Max(1, Mathf.FloorToInt(bounds.size.z / clampedSpacing) + 1);
+
+                for (int x = 0; x < xCount; x++)
                 {
-                    for (int z = 0; z < gridHeight; z++)
+                    for (int z = 0; z < zCount; z++)
                     {
-                        var pos = new Vector3(
-                            bounds.min.x + x * spacing,
+                        var localPos = new Vector3(
+                            bounds.min.x + x * clampedSpacing,
                             bounds.center.y,
-                            bounds.min.z + z * spacing
+                            bounds.min.z + z * clampedSpacing
                         );
-                        points.Add(new PCGPoint(pos));
+
+                        points.Add(new PCGPoint(TransformPoint(context, localPos)));
                     }
                 }
                 break;
@@ -86,12 +74,13 @@ public class PCGSourceNodeData : PCGNodeData
             case SourceType.Random:
                 for (int i = 0; i < randomPointCount; i++)
                 {
-                    var pos = new Vector3(
+                    var localPos = new Vector3(
                         context.GetRandomFloat(bounds.min.x, bounds.max.x),
                         bounds.center.y,
                         context.GetRandomFloat(bounds.min.z, bounds.max.z)
                     );
-                    points.Add(new PCGPoint(pos));
+
+                    points.Add(new PCGPoint(TransformPoint(context, localPos)));
                 }
                 break;
         }
@@ -101,4 +90,14 @@ public class PCGSourceNodeData : PCGNodeData
     }
 
     public override string GetViewTypeName() => "PCGSourceNodeView";
+
+    private static Vector3 TransformPoint(PCGExecutionContext context, Vector3 localPoint)
+    {
+        if (context.generatorTransform == null)
+        {
+            return localPoint;
+        }
+
+        return context.generatorTransform.TransformPoint(localPoint);
+    }
 }
