@@ -41,7 +41,7 @@ namespace PCG
 
         private void LoadNodes()
         {
-            // Создаем копии списков, чтобы избежать ошибки "коллекция изменена"
+            // Use list copies to avoid collection-modified errors while rebuilding the view.
             var nodesToCreate = new List<PCGNodeData>(graphData.nodes);
 
             foreach (var nodeData in nodesToCreate)
@@ -71,16 +71,16 @@ namespace PCG
         {
             string viewTypeName = nodeData.GetViewTypeName();
 
-            // Ищем тип в сборке UnityEditor
+            // Resolve the node view type at runtime because the view lives in an editor assembly.
             Type viewType = null;
 
-            // Проходим по всем загруженным сборкам
+            // Search through loaded assemblies for the matching node view type.
             foreach (var assembly in System.AppDomain.CurrentDomain.GetAssemblies())
             {
                 viewType = assembly.GetType(viewTypeName);
                 if (viewType != null) break;
 
-                // Пробуем с пространством имен
+                // Try the default namespace used by the editor views.
                 viewType = assembly.GetType($"PCG.{viewTypeName}");
                 if (viewType != null) break;
             }
@@ -91,6 +91,7 @@ namespace PCG
 
                 if (nodeView != null)
                 {
+                    nodeView.OnNodeChanged = MarkGraphDirty;
                     nodeView.Initialize(nodeData, nodeData.position);
                     nodeView.SetPosition(new Rect(nodeData.position, new Vector2(250, 150)));
 
@@ -154,7 +155,7 @@ namespace PCG
         {
             if (graphData == null) return;
 
-            // Проверяем, нет ли уже такой связи
+            // Avoid duplicating serialized edges when the view reconnects an existing link.
             bool exists = graphData.edges.Any(e =>
                 e.sourceNodeGUID == sourceGUID && e.targetNodeGUID == targetGUID);
 
@@ -167,7 +168,7 @@ namespace PCG
                 };
 
                 graphData.edges.Add(edgeData);
-                EditorUtility.SetDirty(graphData);
+                PersistGraphChange(true);
             }
         }
 
@@ -189,7 +190,7 @@ namespace PCG
                     if (edgeToRemove != null)
                     {
                         graphData.edges.Remove(edgeToRemove);
-                        EditorUtility.SetDirty(graphData);
+                        PersistGraphChange(true);
                     }
                 }
             }
@@ -207,7 +208,7 @@ namespace PCG
                         {
                             graphData.nodes.Remove(nodeView.nodeData);
                             nodeDictionary.Remove(nodeView.GUID);
-                            EditorUtility.SetDirty(graphData);
+                            PersistGraphChange(true);
                         }
                     }
                     else if (element is Edge edge)
@@ -269,8 +270,7 @@ namespace PCG
             if (graphData != null)
             {
                 graphData.nodes.Add(nodeData);
-                EditorUtility.SetDirty(graphData);
-                AssetDatabase.SaveAssets();
+                PersistGraphChange(true);
             }
 
             CreateNodeFromData(nodeData);
@@ -289,8 +289,7 @@ namespace PCG
             if (graphData != null)
             {
                 graphData.nodes.Add(nodeData);
-                EditorUtility.SetDirty(graphData);
-                AssetDatabase.SaveAssets();
+                PersistGraphChange(true);
             }
 
             CreateNodeFromData(nodeData);
@@ -309,8 +308,7 @@ namespace PCG
             if (graphData != null)
             {
                 graphData.nodes.Add(nodeData);
-                EditorUtility.SetDirty(graphData);
-                AssetDatabase.SaveAssets();
+                PersistGraphChange(true);
             }
 
             CreateNodeFromData(nodeData);
@@ -343,9 +341,30 @@ namespace PCG
             nodeData.GUID = Guid.NewGuid().ToString();
 
             graphData.nodes.Add(nodeData);
-            EditorUtility.SetDirty(graphData);
+            PersistGraphChange(false);
 
             CreateNodeFromData(nodeData);
+        }
+
+        private void MarkGraphDirty()
+        {
+            PersistGraphChange(false);
+        }
+
+        private void PersistGraphChange(bool saveAssets)
+        {
+            if (graphData == null)
+            {
+                return;
+            }
+
+            EditorUtility.SetDirty(graphData);
+            editorWindow?.MarkDirty();
+
+            if (saveAssets)
+            {
+                AssetDatabase.SaveAssets();
+            }
         }
 
         public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)

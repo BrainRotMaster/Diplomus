@@ -42,13 +42,20 @@ namespace PCG
 
             Debug.Log($"Node {node.name} output points count: {output.Count}");
 
+            if (outputNodes.Count == 0)
+            {
+                return output;
+            }
+
+            var finalResults = new List<PCGPoint>();
+
             foreach (var outputNode in outputNodes)
             {
                 Debug.Log($"Passing to child node: {outputNode.name}");
-                ExecuteNode(outputNode, output, context);
+                finalResults.AddRange(ExecuteNode(outputNode, output, context));
             }
 
-            return output;
+            return finalResults;
         }
 
         private List<PCGNodeData> GetStartNodes()

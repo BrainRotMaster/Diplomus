@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cdfd10407a77fc941b58a9227c013958, type: 3}
-  m_Name: Filter_d89a6a16-f4a2-454f-bacb-5ca1c2c3b023
+  m_Name: Filter_c9846326-e592-41ef-9b84-4ae9c7ff12fa
   m_EditorClassIdentifier: 
-  GUID: d89a6a16-f4a2-454f-bacb-5ca1c2c3b023
-  position: {x: 586, y: 324}
+  GUID: c9846326-e592-41ef-9b84-4ae9c7ff12fa
+  position: {x: 631, y: 245}
   nodeName: Filter Node
   filterType: 0
-  randomChance: 0.38
-  minDensity: 0.8
+  randomChance: 0.5
+  minDensity: 0.5

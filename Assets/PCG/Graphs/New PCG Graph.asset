@@ -10,9 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae94e66fccc95df4fa3c1b8263912fab, type: 3}
-  m_Name: NewGraph_0c421f05-eca5-4590-b936-d3bf0576ba65
+  m_Name: New PCG Graph
   m_EditorClassIdentifier: 
   nodes:
-  - {fileID: 11400000, guid: cc180de0e091256458f14eb9662f0d59, type: 2}
-  edges: []
+  - {fileID: 11400000, guid: 265ba3af5ae220b42afa46c90f33a2de, type: 2}
+  - {fileID: 11400000, guid: 23101cd41d776024fb0465ebf4c4146d, type: 2}
+  edges:
+  - sourceNodeGUID: 342305cd-661d-47de-be13-a4b313ca34f8
+    sourcePortName: 
+    targetNodeGUID: c9846326-e592-41ef-9b84-4ae9c7ff12fa
+    targetPortName: 
   entryNodeGUID: 
