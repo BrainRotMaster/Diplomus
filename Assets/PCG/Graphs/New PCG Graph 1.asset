@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-4035057910597133234
+--- !u!114 &-3837223557142168015
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3edaf780ba0cdf478d47a26327b0a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUID: f8370544-25d6-4a21-9117-1b6fd9af64d1
-  position: {x: 173, y: 99}
+  GUID: 9fc5d800-9e2f-4f6a-a7d6-359d0c4d8dbe
+  position: {x: 311, y: -164.39996}
   nodeName: Source Node
-  sourceType: 1
+  sourceType: 0
   gridWidth: 10
   gridHeight: 10
   spacing: 1
-  randomPointCount: 13
+  randomPointCount: 100
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30,23 +30,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae94e66fccc95df4fa3c1b8263912fab, type: 3}
-  m_Name: New PCG Graph
+  m_Name: New PCG Graph 1
   m_EditorClassIdentifier: 
   nodes:
-  - {fileID: -4035057910597133234}
-  - {fileID: 4858452351912534014}
-  - {fileID: 8351577855960067388}
+  - {fileID: 3547209514964183988}
+  - {fileID: -3837223557142168015}
   edges:
-  - sourceNodeGUID: f8370544-25d6-4a21-9117-1b6fd9af64d1
+  - sourceNodeGUID: 9fc5d800-9e2f-4f6a-a7d6-359d0c4d8dbe
     sourcePortName: 
-    targetNodeGUID: 2d3725f5-a80b-4fac-97cb-27ad8a0885ec
-    targetPortName: 
-  - sourceNodeGUID: 2d3725f5-a80b-4fac-97cb-27ad8a0885ec
-    sourcePortName: 
-    targetNodeGUID: 1aa6ec19-56ef-424d-8b8c-3a6926104e40
+    targetNodeGUID: 1ff43b3e-435a-4695-8141-802a993daafc
     targetPortName: 
   entryNodeGUID: 
---- !u!114 &4858452351912534014
+--- !u!114 &3547209514964183988
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,26 +53,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdfd10407a77fc941b58a9227c013958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUID: 2d3725f5-a80b-4fac-97cb-27ad8a0885ec
-  position: {x: 552, y: 80}
+  GUID: 1ff43b3e-435a-4695-8141-802a993daafc
+  position: {x: 294, y: 163}
   nodeName: Filter Node
   filterType: 0
   randomChance: 0.5
   minDensity: 0.5
---- !u!114 &8351577855960067388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03d2247bd1abd0349a24b93cd9dad0d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GUID: 1aa6ec19-56ef-424d-8b8c-3a6926104e40
-  position: {x: 922, y: 273}
-  nodeName: Spawner Node
-  prefab: {fileID: 8221297005902463547, guid: 02f39c36404376a42b5bf2678e181053, type: 3}
-  randomizeRotation: 1

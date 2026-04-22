@@ -1,5 +1,6 @@
 namespace PCG.Windows
 {
+    using PCG.Editor;
     using UnityEditor;
     using UnityEngine;
     using UnityEngine.UIElements;
@@ -31,7 +32,7 @@ namespace PCG.Windows
 
             CreateToolbar();
 
-            // «агружаем последний использованный граф
+            // Load the most recently opened graph, if it still exists.
             string lastGraphPath = EditorPrefs.GetString("PCG_LastGraph", "");
             if (!string.IsNullOrEmpty(lastGraphPath) && System.IO.File.Exists(lastGraphPath))
             {
@@ -57,8 +58,8 @@ namespace PCG.Windows
 
         private void ClearMainContainer()
         {
-            // ”дал€ем всЄ, кроме тулбара (тулбар находитс€ в mainContainer, но мы его не трогаем)
-            // Ћучше хранить ссылки на добавл€емые элементы
+            // Remove the active content while keeping the toolbar in place.
+
             if (graphView != null)
             {
                 mainContainer.Remove(graphView);
@@ -76,7 +77,7 @@ namespace PCG.Windows
         {
             ClearMainContainer();
 
-            emptyStateLabel = new Label("No graph loaded.\n\nХ Double-click a .asset graph file in Project window\nХ Or click Load Graph button");
+            emptyStateLabel = new Label("No graph loaded.\n\n- Double-click a .asset graph file in Project window\n- Or click Load Graph button");
             emptyStateLabel.style.unityTextAlign = TextAnchor.MiddleCenter;
             emptyStateLabel.style.fontSize = 14;
             emptyStateLabel.style.color = Color.gray;

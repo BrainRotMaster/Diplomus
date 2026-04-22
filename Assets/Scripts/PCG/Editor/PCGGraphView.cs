@@ -1,5 +1,6 @@
 namespace PCG
 {
+    using PCG.Editor;
     using PCG.Windows;
     using System;
     using System.Collections.Generic;
@@ -12,14 +13,12 @@ namespace PCG
     public class PCGGraphView : GraphView
     {
         private PCGGraphData graphData;
-        private PCGGraphData currentGraph;
         private Dictionary<string, PCGNodeView> nodeDictionary = new Dictionary<string, PCGNodeView>();
         private PCGEditorWindow editorWindow;
 
         public PCGGraphView(PCGGraphData data, PCGEditorWindow window)
         {
             graphData = data;
-            currentGraph = data;
             editorWindow = window;
 
             SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
@@ -208,6 +207,7 @@ namespace PCG
                         {
                             graphData.nodes.Remove(nodeView.nodeData);
                             nodeDictionary.Remove(nodeView.GUID);
+                            PCGGraphAssetUtility.DeleteNodeAsset(nodeView.nodeData);
                             PersistGraphChange(true);
                         }
                     }
@@ -264,11 +264,9 @@ namespace PCG
             nodeData.GUID = Guid.NewGuid().ToString();
             nodeData.position = position;
 
-            string assetPath = GetAssetPathForNode(nodeData.GUID, "Source");
-            AssetDatabase.CreateAsset(nodeData, assetPath);
-
             if (graphData != null)
             {
+                PCGGraphAssetUtility.AddNodeToGraph(graphData, nodeData);
                 graphData.nodes.Add(nodeData);
                 PersistGraphChange(true);
             }
@@ -283,11 +281,9 @@ namespace PCG
             nodeData.GUID = Guid.NewGuid().ToString();
             nodeData.position = position;
 
-            string assetPath = GetAssetPathForNode(nodeData.GUID, "Filter");
-            AssetDatabase.CreateAsset(nodeData, assetPath);
-
             if (graphData != null)
             {
+                PCGGraphAssetUtility.AddNodeToGraph(graphData, nodeData);
                 graphData.nodes.Add(nodeData);
                 PersistGraphChange(true);
             }
@@ -302,35 +298,14 @@ namespace PCG
             nodeData.GUID = Guid.NewGuid().ToString();
             nodeData.position = position;
 
-            string assetPath = GetAssetPathForNode(nodeData.GUID, "Spawner");
-            AssetDatabase.CreateAsset(nodeData, assetPath);
-
             if (graphData != null)
             {
+                PCGGraphAssetUtility.AddNodeToGraph(graphData, nodeData);
                 graphData.nodes.Add(nodeData);
                 PersistGraphChange(true);
             }
 
             CreateNodeFromData(nodeData);
-        }
-
-        private string GetAssetPathForNode(string guid, string type)
-        {
-            string basePath = "Assets/PCG/Graphs";
-            if (!System.IO.Directory.Exists(basePath))
-            {
-                System.IO.Directory.CreateDirectory(basePath);
-            }
-
-            string graphName = currentGraph != null ? currentGraph.name : "Graph";
-            string graphFolder = $"{basePath}/{graphName}_Nodes";
-
-            if (!System.IO.Directory.Exists(graphFolder))
-            {
-                System.IO.Directory.CreateDirectory(graphFolder);
-            }
-
-            return $"{graphFolder}/{type}_{guid}.asset";
         }
 
         public void AddNode(PCGNodeData nodeData, Vector2 position)
@@ -340,6 +315,7 @@ namespace PCG
             nodeData.position = position;
             nodeData.GUID = Guid.NewGuid().ToString();
 
+            PCGGraphAssetUtility.AddNodeToGraph(graphData, nodeData);
             graphData.nodes.Add(nodeData);
             PersistGraphChange(false);
 
