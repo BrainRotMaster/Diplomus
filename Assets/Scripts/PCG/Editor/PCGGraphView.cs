@@ -251,6 +251,36 @@ namespace PCG
                 CreateFilterNode(mousePosition);
             });
 
+            evt.menu.AppendAction("Add Node/Transform Node", (action) =>
+            {
+                CreateTransformNode(mousePosition);
+            });
+
+            evt.menu.AppendAction("Add Node/Merge Node", (action) =>
+            {
+                CreateMergeNode(mousePosition);
+            });
+
+            evt.menu.AppendAction("Add Node/Distance Filter Node", (action) =>
+            {
+                CreateDistanceFilterNode(mousePosition);
+            });
+
+            evt.menu.AppendAction("Add Node/Density Noise Node", (action) =>
+            {
+                CreateDensityNoiseNode(mousePosition);
+            });
+
+            evt.menu.AppendAction("Add Node/Attribute Set Node", (action) =>
+            {
+                CreateAttributeSetNode(mousePosition);
+            });
+
+            evt.menu.AppendAction("Add Node/Jitter Node", (action) =>
+            {
+                CreateJitterNode(mousePosition);
+            });
+
             evt.menu.AppendAction("Add Node/Spawner Node", (action) =>
             {
                 CreateSpawnerNode(mousePosition);
@@ -259,53 +289,47 @@ namespace PCG
 
         private void CreateSourceNode(Vector2 position)
         {
-            var nodeData = ScriptableObject.CreateInstance<PCGSourceNodeData>();
-            nodeData.nodeName = "Source Node";
-            nodeData.GUID = Guid.NewGuid().ToString();
-            nodeData.position = position;
-
-            if (graphData != null)
-            {
-                PCGGraphAssetUtility.AddNodeToGraph(graphData, nodeData);
-                graphData.nodes.Add(nodeData);
-                PersistGraphChange(true);
-            }
-
-            CreateNodeFromData(nodeData);
+            CreateNode<PCGSourceNodeData>(position, "Source Node");
         }
 
         private void CreateFilterNode(Vector2 position)
         {
-            var nodeData = ScriptableObject.CreateInstance<PCGFilterNodeData>();
-            nodeData.nodeName = "Filter Node";
-            nodeData.GUID = Guid.NewGuid().ToString();
-            nodeData.position = position;
+            CreateNode<PCGFilterNodeData>(position, "Filter Node");
+        }
 
-            if (graphData != null)
-            {
-                PCGGraphAssetUtility.AddNodeToGraph(graphData, nodeData);
-                graphData.nodes.Add(nodeData);
-                PersistGraphChange(true);
-            }
+        private void CreateTransformNode(Vector2 position)
+        {
+            CreateNode<PCGTransformNodeData>(position, "Transform Node");
+        }
 
-            CreateNodeFromData(nodeData);
+        private void CreateMergeNode(Vector2 position)
+        {
+            CreateNode<PCGMergeNodeData>(position, "Merge Node");
+        }
+
+        private void CreateDistanceFilterNode(Vector2 position)
+        {
+            CreateNode<PCGDistanceFilterNodeData>(position, "Distance Filter Node");
+        }
+
+        private void CreateDensityNoiseNode(Vector2 position)
+        {
+            CreateNode<PCGDensityNoiseNodeData>(position, "Density Noise Node");
+        }
+
+        private void CreateAttributeSetNode(Vector2 position)
+        {
+            CreateNode<PCGAttributeSetNodeData>(position, "Attribute Set Node");
+        }
+
+        private void CreateJitterNode(Vector2 position)
+        {
+            CreateNode<PCGJitterNodeData>(position, "Jitter Node");
         }
 
         private void CreateSpawnerNode(Vector2 position)
         {
-            var nodeData = ScriptableObject.CreateInstance<PCGSpawnerNodeData>();
-            nodeData.nodeName = "Spawner Node";
-            nodeData.GUID = Guid.NewGuid().ToString();
-            nodeData.position = position;
-
-            if (graphData != null)
-            {
-                PCGGraphAssetUtility.AddNodeToGraph(graphData, nodeData);
-                graphData.nodes.Add(nodeData);
-                PersistGraphChange(true);
-            }
-
-            CreateNodeFromData(nodeData);
+            CreateNode<PCGSpawnerNodeData>(position, "Spawner Node");
         }
 
         public void AddNode(PCGNodeData nodeData, Vector2 position)
@@ -318,6 +342,23 @@ namespace PCG
             PCGGraphAssetUtility.AddNodeToGraph(graphData, nodeData);
             graphData.nodes.Add(nodeData);
             PersistGraphChange(false);
+
+            CreateNodeFromData(nodeData);
+        }
+
+        private void CreateNode<TNode>(Vector2 position, string displayName) where TNode : PCGNodeData
+        {
+            var nodeData = ScriptableObject.CreateInstance<TNode>();
+            nodeData.nodeName = displayName;
+            nodeData.GUID = Guid.NewGuid().ToString();
+            nodeData.position = position;
+
+            if (graphData != null)
+            {
+                PCGGraphAssetUtility.AddNodeToGraph(graphData, nodeData);
+                graphData.nodes.Add(nodeData);
+                PersistGraphChange(true);
+            }
 
             CreateNodeFromData(nodeData);
         }

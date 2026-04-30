@@ -1,12 +1,11 @@
 namespace PCG
 {
     using System.Collections.Generic;
-    using System.Linq;
     using UnityEngine;
 
     public class PCGGraphExecutor
     {
-        private PCGGraphData graphData;
+        private readonly PCGGraphData graphData;
 
         public PCGGraphExecutor(PCGGraphData data)
         {
@@ -16,58 +15,108 @@ namespace PCG
 
         public List<PCGPoint> Execute(PCGExecutionContext context)
         {
-            var startNodes = GetStartNodes();
-            var results = new List<PCGPoint>();
-
-            Debug.Log($"Found {startNodes.Count} start nodes");
-
-            foreach (var startNode in startNodes)
-            {
-                Debug.Log($"Executing start node: {startNode.name}");
-                var points = ExecuteNode(startNode, null, context);
-                results.AddRange(points);
-                Debug.Log($"Node {startNode.name} generated {points.Count} points");
-            }
-
-            Debug.Log($"Total points after execution: {results.Count}");
-            return results;
-        }
-
-        private List<PCGPoint> ExecuteNode(PCGNodeData node, List<PCGPoint> input, PCGExecutionContext context)
-        {
-            Debug.Log($"Executing node: {node.name}");
-
-            var outputNodes = graphData.GetOutputNodes(node.GUID);
-            var output = node.Process(input ?? new List<PCGPoint>(), context);
-
-            Debug.Log($"Node {node.name} output points count: {output.Count}");
-
-            if (outputNodes.Count == 0)
-            {
-                return output;
-            }
-
+            var indegreeByNode = BuildIndegreeMap();
+            var outputsByNode = BuildOutputMap();
+            var accumulatedInputs = new Dictionary<string, List<PCGPoint>>();
+            var readyQueue = new Queue<PCGNodeData>();
             var finalResults = new List<PCGPoint>();
+            int processedNodes = 0;
 
-            foreach (var outputNode in outputNodes)
+            foreach (var node in graphData.nodes)
             {
-                Debug.Log($"Passing to child node: {outputNode.name}");
-                finalResults.AddRange(ExecuteNode(outputNode, output, context));
+                if (indegreeByNode[node.GUID] == 0)
+                {
+                    readyQueue.Enqueue(node);
+                }
             }
 
+            Debug.Log($"Executing PCG graph with {readyQueue.Count} start nodes");
+
+            while (readyQueue.Count > 0)
+            {
+                var node = readyQueue.Dequeue();
+                processedNodes++;
+
+                accumulatedInputs.TryGetValue(node.GUID, out var inputPoints);
+                inputPoints ??= new List<PCGPoint>();
+
+                Debug.Log($"Executing node: {node.name} with {inputPoints.Count} input points");
+                var outputPoints = node.Process(inputPoints, context) ?? new List<PCGPoint>();
+
+                if (!outputsByNode.TryGetValue(node.GUID, out var childNodes) || childNodes.Count == 0)
+                {
+                    finalResults.AddRange(outputPoints);
+                    continue;
+                }
+
+                foreach (var childNode in childNodes)
+                {
+                    if (!accumulatedInputs.TryGetValue(childNode.GUID, out var childInputs))
+                    {
+                        childInputs = new List<PCGPoint>();
+                        accumulatedInputs[childNode.GUID] = childInputs;
+                    }
+
+                    childInputs.AddRange(outputPoints);
+                    indegreeByNode[childNode.GUID]--;
+
+                    if (indegreeByNode[childNode.GUID] == 0)
+                    {
+                        readyQueue.Enqueue(childNode);
+                    }
+                }
+            }
+
+            if (processedNodes != graphData.nodes.Count)
+            {
+                Debug.LogError("PCG graph execution failed because the graph contains a cycle or invalid dependency chain.");
+            }
+
+            Debug.Log($"PCG execution complete. Final point count: {finalResults.Count}");
             return finalResults;
         }
 
-        private List<PCGNodeData> GetStartNodes()
+        private Dictionary<string, int> BuildIndegreeMap()
         {
-            var nodesWithInputs = new HashSet<string>();
+            var indegreeByNode = new Dictionary<string, int>();
+
+            foreach (var node in graphData.nodes)
+            {
+                indegreeByNode[node.GUID] = 0;
+            }
 
             foreach (var edge in graphData.edges)
             {
-                nodesWithInputs.Add(edge.targetNodeGUID);
+                if (indegreeByNode.ContainsKey(edge.targetNodeGUID))
+                {
+                    indegreeByNode[edge.targetNodeGUID]++;
+                }
             }
 
-            return graphData.nodes.Where(n => !nodesWithInputs.Contains(n.GUID)).ToList();
+            return indegreeByNode;
+        }
+
+        private Dictionary<string, List<PCGNodeData>> BuildOutputMap()
+        {
+            var outputsByNode = new Dictionary<string, List<PCGNodeData>>();
+
+            foreach (var node in graphData.nodes)
+            {
+                outputsByNode[node.GUID] = new List<PCGNodeData>();
+            }
+
+            foreach (var edge in graphData.edges)
+            {
+                var targetNode = graphData.GetNodeByGUID(edge.targetNodeGUID);
+                if (targetNode == null || !outputsByNode.ContainsKey(edge.sourceNodeGUID))
+                {
+                    continue;
+                }
+
+                outputsByNode[edge.sourceNodeGUID].Add(targetNode);
+            }
+
+            return outputsByNode;
         }
     }
 }

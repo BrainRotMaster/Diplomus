@@ -1,5 +1,4 @@
 using PCG;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,50 +6,45 @@ using UnityEngine;
 public class PCGSpawnerNodeData : PCGNodeData
 {
     [SerializeField] private GameObject prefab;
-    [SerializeField] private bool randomizeRotation = true;
 
     public GameObject Prefab { get => prefab; set => prefab = value; }
-    public bool RandomizeRotation { get => randomizeRotation; set => randomizeRotation = value; }
 
     public override List<PCGNodeParameter> GetParameters()
     {
         return new List<PCGNodeParameter>
         {
-            new PCGNodeParameter("Prefab", PCGParameterType.GameObject, prefab),
-            new PCGNodeParameter("Random Rotation", PCGParameterType.Bool, randomizeRotation)
+            new PCGNodeParameter("Prefab", PCGParameterType.GameObject, prefab)
         };
     }
 
     public override void UpdateParameter(string name, object value)
     {
-        switch (name)
+        if (name == "Prefab")
         {
-            case "Prefab": prefab = (GameObject)value; break;
-            case "Random Rotation": randomizeRotation = (bool)value; break;
+            prefab = (GameObject)value;
         }
     }
 
     public override List<PCGPoint> Process(List<PCGPoint> inputPoints, PCGExecutionContext context)
     {
         if (inputPoints == null || inputPoints.Count == 0 || prefab == null)
+        {
             return inputPoints ?? new List<PCGPoint>();
+        }
 
         foreach (var point in inputPoints)
         {
-            Quaternion rotation = point.rotation;
-            if (randomizeRotation)
-            {
-                rotation = Quaternion.Euler(0, context.GetRandomFloat(0, 360), 0);
-            }
-
+            GameObject instance;
             if (context.worldRoot != null)
             {
-                Instantiate(prefab, point.position, rotation, context.worldRoot);
+                instance = Object.Instantiate(prefab, point.position, point.rotation, context.worldRoot);
             }
             else
             {
-                Instantiate(prefab, point.position, rotation);
+                instance = Object.Instantiate(prefab, point.position, point.rotation);
             }
+
+            instance.transform.localScale = point.scale;
         }
 
         return inputPoints;

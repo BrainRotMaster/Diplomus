@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7415469174502955383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca3a4227860408c42a7513225f20668c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: b5f92f7b-272b-4b87-b60f-398b74716736
+  position: {x: 1020, y: 301}
+  nodeName: Jitter Node
+  amountX: 1.32
+  amountY: 0.83
+  amountZ: 0.5
+--- !u!114 &-2543038853546113405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3edaf780ba0cdf478d47a26327b0a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: c1b612f5-cc65-448e-b27c-adae24679d7c
+  position: {x: 481, y: 208}
+  nodeName: Source Node
+  sourceType: 0
+  spacing: 2
+  randomPointCount: 100
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae94e66fccc95df4fa3c1b8263912fab, type: 3}
+  m_Name: GraphJitter
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -2543038853546113405}
+  - {fileID: 3970591436962544626}
+  - {fileID: -7415469174502955383}
+  - {fileID: 5983340713308076054}
+  edges:
+  - sourceNodeGUID: c1b612f5-cc65-448e-b27c-adae24679d7c
+    sourcePortName: 
+    targetNodeGUID: 1fdc3bbc-8330-4f7a-8310-12f32617b14f
+    targetPortName: 
+  - sourceNodeGUID: 1fdc3bbc-8330-4f7a-8310-12f32617b14f
+    sourcePortName: 
+    targetNodeGUID: b5f92f7b-272b-4b87-b60f-398b74716736
+    targetPortName: 
+  - sourceNodeGUID: b5f92f7b-272b-4b87-b60f-398b74716736
+    sourcePortName: 
+    targetNodeGUID: 523e6bcd-911f-4a0c-9174-a391b4aea34d
+    targetPortName: 
+  entryNodeGUID: 
+--- !u!114 &3970591436962544626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b893e52ff832ef4cb922b8840e2eca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 1fdc3bbc-8330-4f7a-8310-12f32617b14f
+  position: {x: 794, y: 283}
+  nodeName: Transform Node
+  offsetX: 0
+  offsetY: 0
+  offsetZ: 0
+  rotationX: 0
+  rotationY: 0
+  rotationZ: 0
+  scaleMultiplier: 1
+--- !u!114 &5983340713308076054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03d2247bd1abd0349a24b93cd9dad0d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 523e6bcd-911f-4a0c-9174-a391b4aea34d
+  position: {x: 1228, y: 358}
+  nodeName: Spawner Node
+  prefab: {fileID: 8221297005902463547, guid: 02f39c36404376a42b5bf2678e181053, type: 3}
