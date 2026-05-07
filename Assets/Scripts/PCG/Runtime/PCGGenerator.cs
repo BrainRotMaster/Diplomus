@@ -1,5 +1,6 @@
 namespace PCG
 {
+    using System.Collections.Generic;
     using UnityEngine;
 
     public class PCGGenerator : MonoBehaviour
@@ -9,6 +10,8 @@ namespace PCG
         public int randomSeed = 42;
         public Transform spawnRoot;
         public bool debugDrawPoints = true;
+
+        [System.NonSerialized] private List<PCGPoint> lastGeneratedPoints = new List<PCGPoint>();
 
         [ContextMenu("Generate")]
         public void Generate()
@@ -30,14 +33,10 @@ namespace PCG
 
             var executor = new PCGGraphExecutor(graph);
             var points = executor.Execute(context);
+            lastGeneratedPoints = points ?? new List<PCGPoint>();
 
             Debug.Log($"Generation complete! Final points: {points.Count}");
             Debug.Log($"Stats - Generated: {context.pointsGenerated}, Filtered: {context.pointsFiltered}");
-
-            if (debugDrawPoints)
-            {
-                StartCoroutine(DrawDebugPoints(points));
-            }
         }
 
         private void ClearGeneratedObjects()
@@ -60,36 +59,35 @@ namespace PCG
             Debug.Log("Cleared previous generated objects");
         }
 
-        private System.Collections.IEnumerator DrawDebugPoints(System.Collections.Generic.List<PCGPoint> points)
-        {
-            float duration = 5f;
-            float startTime = Time.time;
-
-            while (Time.time - startTime < duration)
-            {
-                foreach (var point in points)
-                {
-                    Debug.DrawRay(point.position, Vector3.up * 0.5f, Color.green, 0.1f);
-                }
-                yield return null;
-            }
-
-            Debug.Log($"Debug visualization ended. {points.Count} points were shown");
-        }
-
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.green;
             Gizmos.matrix = transform.localToWorldMatrix;
             Gizmos.DrawWireCube(generationBounds.center, generationBounds.size);
             Gizmos.matrix = Matrix4x4.identity;
+
+            DrawDebugPointsGizmos();
         }
 
         private void OnDrawGizmos()
         {
-            if (debugDrawPoints && Application.isPlaying)
+            DrawDebugPointsGizmos();
+        }
+
+        private void DrawDebugPointsGizmos()
+        {
+            if (!debugDrawPoints || lastGeneratedPoints == null || lastGeneratedPoints.Count == 0)
+            {
+                return;
+            }
+
+            float pointRadius = Mathf.Max(0.05f, Mathf.Min(generationBounds.size.x, generationBounds.size.z) * 0.01f);
+            Gizmos.matrix = Matrix4x4.identity;
+
+            foreach (var point in lastGeneratedPoints)
             {
                 Gizmos.color = Color.yellow;
+                Gizmos.DrawSphere(point.position, pointRadius);
             }
         }
     }

@@ -104,4 +104,4 @@ MonoBehaviour:
   GUID: 523e6bcd-911f-4a0c-9174-a391b4aea34d
   position: {x: 1228, y: 358}
   nodeName: Spawner Node
-  prefab: {fileID: 8221297005902463547, guid: 02f39c36404376a42b5bf2678e181053, type: 3}
+  prefab: {fileID: 0}
