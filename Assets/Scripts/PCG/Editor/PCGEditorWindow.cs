@@ -11,7 +11,6 @@ namespace PCG.Windows
         private PCGGraphData currentGraph;
         private VisualElement mainContainer;
         private Label graphNameLabel;
-        private bool isDirty;
         private VisualElement emptyStateLabel;
 
         [MenuItem("Tools/PCG Graph Editor")]
@@ -48,20 +47,13 @@ namespace PCG.Windows
             ShowEmptyState();
         }
 
-        private void OnDisable()
-        {
-            if (isDirty && currentGraph != null)
-            {
-                SaveGraph();
-            }
-        }
-
         private void ClearMainContainer()
         {
             // Remove the active content while keeping the toolbar in place.
 
             if (graphView != null)
             {
+                graphView.Dispose();
                 mainContainer.Remove(graphView);
                 graphView = null;
             }
@@ -95,10 +87,8 @@ namespace PCG.Windows
             toolbar.style.paddingLeft = 5;
             toolbar.style.paddingRight = 5;
 
-            toolbar.Add(new Button(SaveGraph) { text = "Save Graph", style = { marginLeft = 5, marginRight = 5 } });
             toolbar.Add(new Button(LoadGraphFromFile) { text = "Load Graph", style = { marginLeft = 5, marginRight = 5 } });
             toolbar.Add(new Button(CreateNewGraph) { text = "New Graph", style = { marginLeft = 5, marginRight = 5 } });
-            toolbar.Add(new Button(Generate) { text = "Generate", style = { marginLeft = 5, marginRight = 5, backgroundColor = new Color(0.2f, 0.5f, 0.2f) } });
 
             var spacer = new VisualElement();
             spacer.style.flexGrow = 1;
@@ -130,18 +120,18 @@ namespace PCG.Windows
             UpdateGraphNameLabel();
         }
 
+        private void OnDisable()
+        {
+            graphView?.Dispose();
+            graphView = null;
+        }
+
         private void UpdateGraphNameLabel()
         {
             if (graphNameLabel != null && currentGraph != null)
             {
-                graphNameLabel.text = $"Graph: {currentGraph.name}{(isDirty ? "*" : "")}";
+                graphNameLabel.text = $"Graph: {currentGraph.name}";
             }
-        }
-
-        public void MarkDirty()
-        {
-            isDirty = true;
-            UpdateGraphNameLabel();
         }
 
         private void CreateNewGraph()
@@ -167,30 +157,9 @@ namespace PCG.Windows
 
             EditorPrefs.SetString("PCG_LastGraph", assetPath);
 
-            isDirty = false;
             CreateGraphView();
 
             Debug.Log($"Created new graph: {assetPath}");
-        }
-
-        private void SaveGraph()
-        {
-            if (currentGraph == null)
-            {
-                Debug.LogWarning("No graph to save!");
-                return;
-            }
-
-            EditorUtility.SetDirty(currentGraph);
-            foreach (var node in currentGraph.nodes)
-            {
-                EditorUtility.SetDirty(node);
-            }
-            AssetDatabase.SaveAssets();
-
-            isDirty = false;
-            UpdateGraphNameLabel();
-            Debug.Log($"Graph saved: {currentGraph.name}");
         }
 
         public void LoadGraph(PCGGraphData graphToLoad)
@@ -202,7 +171,6 @@ namespace PCG.Windows
             }
 
             currentGraph = graphToLoad;
-            isDirty = false;
 
             string path = AssetDatabase.GetAssetPath(currentGraph);
             EditorPrefs.SetString("PCG_LastGraph", path);
@@ -231,35 +199,6 @@ namespace PCG.Windows
             else
             {
                 Debug.LogError($"Failed to load graph from: {path}");
-            }
-        }
-
-        private void Generate()
-        {
-            if (currentGraph == null)
-            {
-                Debug.LogError("No graph to generate!");
-                return;
-            }
-
-            if (isDirty)
-            {
-                SaveGraph();
-            }
-
-            var generator = FindObjectOfType<PCGGenerator>();
-            if (generator == null)
-            {
-                var go = new GameObject("PCG Generator");
-                generator = go.AddComponent<PCGGenerator>();
-                generator.graph = currentGraph;
-                Debug.Log("Created PCGGenerator. Set bounds in Inspector and click Generate again.");
-                Selection.activeObject = generator.gameObject;
-            }
-            else
-            {
-                generator.graph = currentGraph;
-                generator.Generate();
             }
         }
     }

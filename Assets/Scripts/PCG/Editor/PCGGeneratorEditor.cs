@@ -9,6 +9,27 @@ namespace PCG.Editor
     {
         private readonly BoxBoundsHandle boundsHandle = new BoxBoundsHandle();
 
+        public override void OnInspectorGUI()
+        {
+            DrawDefaultInspector();
+
+            EditorGUILayout.Space();
+
+            var generator = (PCGGenerator)target;
+            using (new EditorGUI.DisabledScope(generator.graph == null))
+            {
+                if (GUILayout.Button("Generate"))
+                {
+                    generator.Generate();
+                }
+            }
+
+            if (generator.graph == null)
+            {
+                EditorGUILayout.HelpBox("Assign a PCG Graph before generating.", MessageType.Info);
+            }
+        }
+
         private void OnSceneGUI()
         {
             var generator = (PCGGenerator)target;

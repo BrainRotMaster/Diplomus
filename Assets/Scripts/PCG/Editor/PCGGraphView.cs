@@ -15,6 +15,9 @@ namespace PCG
         private PCGGraphData graphData;
         private Dictionary<string, PCGNodeView> nodeDictionary = new Dictionary<string, PCGNodeView>();
         private PCGEditorWindow editorWindow;
+        private bool hasPendingSave;
+        private double nextSaveTime;
+        private const double SaveDelaySeconds = 0.75;
 
         public PCGGraphView(PCGGraphData data, PCGEditorWindow window)
         {
@@ -31,6 +34,7 @@ namespace PCG
             Insert(0, grid);
 
             graphViewChanged += OnGraphViewChanged;
+            EditorApplication.update += OnEditorUpdate;
 
             if (graphData != null)
             {
@@ -167,7 +171,7 @@ namespace PCG
                 };
 
                 graphData.edges.Add(edgeData);
-                PersistGraphChange(true);
+                ScheduleGraphSave();
             }
         }
 
@@ -189,7 +193,7 @@ namespace PCG
                     if (edgeToRemove != null)
                     {
                         graphData.edges.Remove(edgeToRemove);
-                        PersistGraphChange(true);
+                        ScheduleGraphSave();
                     }
                 }
             }
@@ -208,7 +212,7 @@ namespace PCG
                             graphData.nodes.Remove(nodeView.nodeData);
                             nodeDictionary.Remove(nodeView.GUID);
                             PCGGraphAssetUtility.DeleteNodeAsset(nodeView.nodeData);
-                            PersistGraphChange(true);
+                            ScheduleGraphSave();
                         }
                     }
                     else if (element is Edge edge)
@@ -341,7 +345,7 @@ namespace PCG
 
             PCGGraphAssetUtility.AddNodeToGraph(graphData, nodeData);
             graphData.nodes.Add(nodeData);
-            PersistGraphChange(false);
+            ScheduleGraphSave();
 
             CreateNodeFromData(nodeData);
         }
@@ -357,7 +361,7 @@ namespace PCG
             {
                 PCGGraphAssetUtility.AddNodeToGraph(graphData, nodeData);
                 graphData.nodes.Add(nodeData);
-                PersistGraphChange(true);
+                ScheduleGraphSave();
             }
 
             CreateNodeFromData(nodeData);
@@ -365,10 +369,26 @@ namespace PCG
 
         private void MarkGraphDirty()
         {
-            PersistGraphChange(false);
+            ScheduleGraphSave();
         }
 
-        private void PersistGraphChange(bool saveAssets)
+        public void FlushPendingSave()
+        {
+            if (!hasPendingSave)
+            {
+                return;
+            }
+
+            SaveGraphAssets();
+        }
+
+        public void Dispose()
+        {
+            FlushPendingSave();
+            EditorApplication.update -= OnEditorUpdate;
+        }
+
+        private void ScheduleGraphSave()
         {
             if (graphData == null)
             {
@@ -376,12 +396,47 @@ namespace PCG
             }
 
             EditorUtility.SetDirty(graphData);
-            editorWindow?.MarkDirty();
-
-            if (saveAssets)
+            foreach (var node in graphData.nodes)
             {
-                AssetDatabase.SaveAssets();
+                if (node != null)
+                {
+                    EditorUtility.SetDirty(node);
+                }
             }
+
+            hasPendingSave = true;
+            nextSaveTime = EditorApplication.timeSinceStartup + SaveDelaySeconds;
+        }
+
+        private void OnEditorUpdate()
+        {
+            if (!hasPendingSave || EditorApplication.timeSinceStartup < nextSaveTime)
+            {
+                return;
+            }
+
+            SaveGraphAssets();
+        }
+
+        private void SaveGraphAssets()
+        {
+            if (graphData == null)
+            {
+                hasPendingSave = false;
+                return;
+            }
+
+            EditorUtility.SetDirty(graphData);
+            foreach (var node in graphData.nodes)
+            {
+                if (node != null)
+                {
+                    EditorUtility.SetDirty(node);
+                }
+            }
+
+            AssetDatabase.SaveAssets();
+            hasPendingSave = false;
         }
 
         public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
@@ -402,4 +457,5 @@ namespace PCG
         }
     }
 }
+
 

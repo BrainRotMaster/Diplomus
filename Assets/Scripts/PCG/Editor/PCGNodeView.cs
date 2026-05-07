@@ -166,7 +166,6 @@ namespace PCG
         {
             EditorUtility.SetDirty(nodeData);
             OnNodeChanged?.Invoke();
-            AssetDatabase.SaveAssets();
         }
 
         public override void OnSelected()

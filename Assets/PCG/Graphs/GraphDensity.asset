@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: 68e2b44b-a453-4196-85b2-da6a812eb80e
-  position: {x: 938, y: 295}
+  position: {x: 930, y: 142}
   nodeName: Density Noise Node
   noiseScale: 0.13
   densityMultiplier: 1.16
@@ -127,4 +127,4 @@ MonoBehaviour:
   GUID: 5f9d44b6-544d-4347-a17f-725f3438172e
   position: {x: 1708, y: 319}
   nodeName: Spawner Node
-  prefab: {fileID: 8221297005902463547, guid: 02f39c36404376a42b5bf2678e181053, type: 3}
+  prefab: {fileID: 8711782543570934703, guid: b36c97d45962cc14b8c038001dcbb4dc, type: 3}
