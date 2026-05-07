@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: e658c865-9cc8-4cd4-9ec8-e33c3e81a4dd
-  position: {x: 643, y: 236}
+  position: {x: 494.65005, y: 254.00008}
   nodeName: Source Node
   sourceType: 0
   spacing: 1.5
@@ -75,11 +75,8 @@ MonoBehaviour:
   - {fileID: 2133507234433355153}
   - {fileID: -6590073647597121719}
   - {fileID: -8056197922389257395}
+  - {fileID: 500067896211281578}
   edges:
-  - sourceNodeGUID: e658c865-9cc8-4cd4-9ec8-e33c3e81a4dd
-    sourcePortName: 
-    targetNodeGUID: 68e2b44b-a453-4196-85b2-da6a812eb80e
-    targetPortName: 
   - sourceNodeGUID: 68e2b44b-a453-4196-85b2-da6a812eb80e
     sourcePortName: 
     targetNodeGUID: dba9c757-ae30-4bb1-a80e-2daf7e54d62d
@@ -92,7 +89,35 @@ MonoBehaviour:
     sourcePortName: 
     targetNodeGUID: 284f8f2a-542f-4b9a-9eb3-8f2889328b55
     targetPortName: 
+  - sourceNodeGUID: e658c865-9cc8-4cd4-9ec8-e33c3e81a4dd
+    sourcePortName: 
+    targetNodeGUID: 12e203fc-da1b-45d6-8448-558a4ad9711f
+    targetPortName: 
+  - sourceNodeGUID: 12e203fc-da1b-45d6-8448-558a4ad9711f
+    sourcePortName: 
+    targetNodeGUID: 68e2b44b-a453-4196-85b2-da6a812eb80e
+    targetPortName: 
   entryNodeGUID: 
+--- !u!114 &500067896211281578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a53b215e6fc0c4b9c88bf1e70cbea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 12e203fc-da1b-45d6-8448-558a4ad9711f
+  position: {x: 754.0502, y: 248}
+  nodeName: Project To Surface Node
+  rayStartOffset: 100
+  maxDistance: 200
+  alignToSurfaceNormal: 1
+  discardMisses: 0
+  layerMask: 1
 --- !u!114 &2133507234433355153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: 68e2b44b-a453-4196-85b2-da6a812eb80e
-  position: {x: 929.4526, y: 383.31}
+  position: {x: 967.65, y: 254}
   nodeName: Density Noise Node
   noiseScale: 0.2
   densityMultiplier: 1.16

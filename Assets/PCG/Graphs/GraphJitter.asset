@@ -31,7 +31,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: c1b612f5-cc65-448e-b27c-adae24679d7c
-  position: {x: 481, y: 208}
+  position: {x: 391, y: 211}
   nodeName: Source Node
   sourceType: 0
   spacing: 2
@@ -53,16 +53,21 @@ MonoBehaviour:
   - {fileID: 3970591436962544626}
   - {fileID: -7415469174502955383}
   - {fileID: 5983340713308076054}
+  - {fileID: 7596678803573453299}
   edges:
-  - sourceNodeGUID: c1b612f5-cc65-448e-b27c-adae24679d7c
-    sourcePortName: 
-    targetNodeGUID: 1fdc3bbc-8330-4f7a-8310-12f32617b14f
-    targetPortName: 
   - sourceNodeGUID: 1fdc3bbc-8330-4f7a-8310-12f32617b14f
     sourcePortName: 
     targetNodeGUID: b5f92f7b-272b-4b87-b60f-398b74716736
     targetPortName: 
+  - sourceNodeGUID: c1b612f5-cc65-448e-b27c-adae24679d7c
+    sourcePortName: 
+    targetNodeGUID: 1fdc3bbc-8330-4f7a-8310-12f32617b14f
+    targetPortName: 
   - sourceNodeGUID: b5f92f7b-272b-4b87-b60f-398b74716736
+    sourcePortName: 
+    targetNodeGUID: d6944254-8d69-4239-b6e6-54470d875a0e
+    targetPortName: 
+  - sourceNodeGUID: d6944254-8d69-4239-b6e6-54470d875a0e
     sourcePortName: 
     targetNodeGUID: 523e6bcd-911f-4a0c-9174-a391b4aea34d
     targetPortName: 
@@ -80,7 +85,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: 1fdc3bbc-8330-4f7a-8310-12f32617b14f
-  position: {x: 794, y: 283}
+  position: {x: 827, y: 241.5}
   nodeName: Transform Node
   offsetX: 0
   offsetY: 0
@@ -102,6 +107,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: 523e6bcd-911f-4a0c-9174-a391b4aea34d
-  position: {x: 1228, y: 358}
+  position: {x: 1520, y: 359}
   nodeName: Spawner Node
-  prefab: {fileID: 0}
+  prefabEntries:
+  - prefab: {fileID: 8221297005902463547, guid: 02f39c36404376a42b5bf2678e181053, type: 3}
+    weight: 1
+--- !u!114 &7596678803573453299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a53b215e6fc0c4b9c88bf1e70cbea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: d6944254-8d69-4239-b6e6-54470d875a0e
+  position: {x: 1283.2, y: 176.00002}
+  nodeName: Project To Surface Node
+  rayStartOffset: 100
+  maxDistance: 200
+  alignToSurfaceNormal: 1
+  discardMisses: 0
+  layerMask: -1

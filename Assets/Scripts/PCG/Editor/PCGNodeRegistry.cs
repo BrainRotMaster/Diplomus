@@ -11,6 +11,7 @@ namespace PCG.Editor
             new PCGNodeDescriptor("Filter Node", "Filter", typeof(PCGFilterNodeData)),
             new PCGNodeDescriptor("Distance Filter Node", "Filter", typeof(PCGDistanceFilterNodeData)),
             new PCGNodeDescriptor("Transform Node", "Transform", typeof(PCGTransformNodeData)),
+            new PCGNodeDescriptor("Project To Surface Node", "Transform", typeof(PCGProjectToSurfaceNodeData)),
             new PCGNodeDescriptor("Jitter Node", "Transform", typeof(PCGJitterNodeData)),
             new PCGNodeDescriptor("Density Noise Node", "Attributes", typeof(PCGDensityNoiseNodeData)),
             new PCGNodeDescriptor("Attribute Set Node", "Attributes", typeof(PCGAttributeSetNodeData)),
