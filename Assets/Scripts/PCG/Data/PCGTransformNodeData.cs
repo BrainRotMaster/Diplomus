@@ -13,6 +13,48 @@ public class PCGTransformNodeData : PCGNodeData
     [SerializeField] private float rotationZ;
     [SerializeField] private float scaleMultiplier = 1f;
 
+    public float OffsetX
+    {
+        get => offsetX;
+        set => offsetX = value;
+    }
+
+    public float OffsetY
+    {
+        get => offsetY;
+        set => offsetY = value;
+    }
+
+    public float OffsetZ
+    {
+        get => offsetZ;
+        set => offsetZ = value;
+    }
+
+    public float RotationX
+    {
+        get => rotationX;
+        set => rotationX = value;
+    }
+
+    public float RotationY
+    {
+        get => rotationY;
+        set => rotationY = value;
+    }
+
+    public float RotationZ
+    {
+        get => rotationZ;
+        set => rotationZ = value;
+    }
+
+    public float ScaleMultiplier
+    {
+        get => scaleMultiplier;
+        set => scaleMultiplier = value;
+    }
+
     public override List<PCGNodeParameter> GetParameters()
     {
         return new List<PCGNodeParameter>
