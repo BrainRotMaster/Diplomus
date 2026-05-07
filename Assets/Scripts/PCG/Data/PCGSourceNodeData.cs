@@ -19,10 +19,7 @@ public class PCGSourceNodeData : PCGNodeData
     {
         return new List<PCGNodeParameter>
         {
-            new PCGNodeParameter("Source Type", PCGParameterType.Dropdown, (int)sourceType)
-            {
-                options = new[] { "Grid", "Random" }
-            },
+            PCGNodeParameter.CreateEnum("Source Type", sourceType),
             new PCGNodeParameter("Spacing", PCGParameterType.Float, spacing)
             {
                 minValue = 0.1f, maxValue = 100f

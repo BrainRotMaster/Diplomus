@@ -20,10 +20,7 @@ public class PCGFilterNodeData : PCGNodeData
     {
         return new List<PCGNodeParameter>
         {
-            new PCGNodeParameter("Filter Type", PCGParameterType.Dropdown, (int)filterType)
-            {
-                options = new[] { "Random Chance", "Density Threshold" }
-            },
+            PCGNodeParameter.CreateEnum("Filter Type", filterType),
             new PCGNodeParameter("Random Chance", PCGParameterType.Float, randomChance)
             {
                 minValue = 0f, maxValue = 1f

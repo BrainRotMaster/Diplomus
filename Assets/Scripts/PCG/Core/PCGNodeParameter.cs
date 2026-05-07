@@ -11,12 +11,21 @@ namespace PCG
         public float minValue;
         public float maxValue;
         public string[] options;
+        public System.Type enumType;
 
         public PCGNodeParameter(string name, PCGParameterType type, object value)
         {
             this.name = name;
             this.type = type;
             this.value = value;
+        }
+
+        public static PCGNodeParameter CreateEnum<TEnum>(string name, TEnum value) where TEnum : System.Enum
+        {
+            return new PCGNodeParameter(name, PCGParameterType.Enum, value)
+            {
+                enumType = typeof(TEnum)
+            };
         }
     }
 
@@ -26,7 +35,8 @@ namespace PCG
         Int,
         Bool,
         String,
+        Enum,
         Dropdown,
-        GameObject  // Добавляем новый тип
+        GameObject
     }
 }

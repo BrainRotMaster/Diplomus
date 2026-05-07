@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: eaa06f14-3ee3-4d3f-b3ee-f13956002569
-  position: {x: 1500.0027, y: 141.50003}
+  position: {x: 1481, y: 248.20001}
   nodeName: Attribute Set Node
   overrideDensity: 0
   density: 1
@@ -108,10 +108,10 @@ MonoBehaviour:
   GUID: 68e2b44b-a453-4196-85b2-da6a812eb80e
   position: {x: 929.4526, y: 383.31}
   nodeName: Density Noise Node
-  noiseScale: 0.13
+  noiseScale: 0.2
   densityMultiplier: 1.16
-  offsetX: 0.22
-  offsetZ: 0
+  offsetX: -0
+  offsetZ: 4.68
 --- !u!114 &6650444328317755773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,6 +125,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: 5f9d44b6-544d-4347-a17f-725f3438172e
-  position: {x: 1708, y: 319}
+  position: {x: 1751, y: 275}
   nodeName: Spawner Node
-  prefab: {fileID: 0}
+  prefabEntries:
+  - prefab: {fileID: 8221297005902463547, guid: 02f39c36404376a42b5bf2678e181053, type: 3}
+    weight: 1
+  - prefab: {fileID: 8711782543570934703, guid: b36c97d45962cc14b8c038001dcbb4dc, type: 3}
+    weight: 0.1

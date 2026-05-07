@@ -72,6 +72,7 @@ namespace PCG
                 }
             }
         }
+
         private VisualElement CreateFieldForParameter(PCGNodeParameter param)
         {
             switch (param.type)
@@ -86,6 +87,7 @@ namespace PCG
                         UpdateNodeData();
                     });
                     return textField;
+
                 case PCGParameterType.Int:
                     var intField = new IntegerField(param.name);
                     intField.value = (int)param.value;
@@ -118,6 +120,21 @@ namespace PCG
                         UpdateNodeData();
                     });
                     return toggle;
+
+                case PCGParameterType.Enum:
+                    if (param.enumType != null && param.value is Enum enumValue)
+                    {
+                        var enumField = new EnumField(param.name, enumValue);
+                        enumField.Init(enumValue);
+                        enumField.RegisterValueChangedCallback(evt =>
+                        {
+                            param.value = evt.newValue;
+                            nodeData.UpdateParameter(param.name, Convert.ToInt32(evt.newValue));
+                            UpdateNodeData();
+                        });
+                        return enumField;
+                    }
+                    break;
 
                 case PCGParameterType.GameObject:
                     var container = new VisualElement();
@@ -159,6 +176,7 @@ namespace PCG
                     }
                     break;
             }
+
             return null;
         }
 
