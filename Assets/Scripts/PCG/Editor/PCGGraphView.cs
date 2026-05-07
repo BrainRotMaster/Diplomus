@@ -15,6 +15,7 @@ namespace PCG
         private PCGGraphData graphData;
         private Dictionary<string, PCGNodeView> nodeDictionary = new Dictionary<string, PCGNodeView>();
         private PCGEditorWindow editorWindow;
+        private PCGNodeSearchWindow nodeSearchWindow;
         private bool hasPendingSave;
         private double nextSaveTime;
         private const double SaveDelaySeconds = 0.75;
@@ -35,6 +36,10 @@ namespace PCG
 
             graphViewChanged += OnGraphViewChanged;
             EditorApplication.update += OnEditorUpdate;
+            RegisterCallback<KeyDownEvent>(OnKeyDown);
+
+            nodeSearchWindow = ScriptableObject.CreateInstance<PCGNodeSearchWindow>();
+            nodeSearchWindow.Initialize(this);
 
             if (graphData != null)
             {
@@ -244,96 +249,7 @@ namespace PCG
             base.BuildContextualMenu(evt);
 
             Vector2 mousePosition = evt.localMousePosition;
-
-            evt.menu.AppendAction("Add Node/Source Node", (action) =>
-            {
-                CreateSourceNode(mousePosition);
-            });
-
-            evt.menu.AppendAction("Add Node/Filter Node", (action) =>
-            {
-                CreateFilterNode(mousePosition);
-            });
-
-            evt.menu.AppendAction("Add Node/Transform Node", (action) =>
-            {
-                CreateTransformNode(mousePosition);
-            });
-
-            evt.menu.AppendAction("Add Node/Merge Node", (action) =>
-            {
-                CreateMergeNode(mousePosition);
-            });
-
-            evt.menu.AppendAction("Add Node/Distance Filter Node", (action) =>
-            {
-                CreateDistanceFilterNode(mousePosition);
-            });
-
-            evt.menu.AppendAction("Add Node/Density Noise Node", (action) =>
-            {
-                CreateDensityNoiseNode(mousePosition);
-            });
-
-            evt.menu.AppendAction("Add Node/Attribute Set Node", (action) =>
-            {
-                CreateAttributeSetNode(mousePosition);
-            });
-
-            evt.menu.AppendAction("Add Node/Jitter Node", (action) =>
-            {
-                CreateJitterNode(mousePosition);
-            });
-
-            evt.menu.AppendAction("Add Node/Spawner Node", (action) =>
-            {
-                CreateSpawnerNode(mousePosition);
-            });
-        }
-
-        private void CreateSourceNode(Vector2 position)
-        {
-            CreateNode<PCGSourceNodeData>(position, "Source Node");
-        }
-
-        private void CreateFilterNode(Vector2 position)
-        {
-            CreateNode<PCGFilterNodeData>(position, "Filter Node");
-        }
-
-        private void CreateTransformNode(Vector2 position)
-        {
-            CreateNode<PCGTransformNodeData>(position, "Transform Node");
-        }
-
-        private void CreateMergeNode(Vector2 position)
-        {
-            CreateNode<PCGMergeNodeData>(position, "Merge Node");
-        }
-
-        private void CreateDistanceFilterNode(Vector2 position)
-        {
-            CreateNode<PCGDistanceFilterNodeData>(position, "Distance Filter Node");
-        }
-
-        private void CreateDensityNoiseNode(Vector2 position)
-        {
-            CreateNode<PCGDensityNoiseNodeData>(position, "Density Noise Node");
-        }
-
-        private void CreateAttributeSetNode(Vector2 position)
-        {
-            CreateNode<PCGAttributeSetNodeData>(position, "Attribute Set Node");
-        }
-
-        private void CreateJitterNode(Vector2 position)
-        {
-            CreateNode<PCGJitterNodeData>(position, "Jitter Node");
-        }
-
-        private void CreateSpawnerNode(Vector2 position)
-        {
-            CreateNode<PCGSpawnerNodeData>(position, "Spawner Node");
+            evt.menu.AppendAction("Add Node...", _ => OpenNodeSearch(mousePosition));
         }
 
         public void AddNode(PCGNodeData nodeData, Vector2 position)
@@ -350,9 +266,25 @@ namespace PCG
             CreateNodeFromData(nodeData);
         }
 
-        private void CreateNode<TNode>(Vector2 position, string displayName) where TNode : PCGNodeData
+        public void CreateNodeFromDescriptor(PCGNodeDescriptor descriptor, Vector2 position)
         {
-            var nodeData = ScriptableObject.CreateInstance<TNode>();
+            if (descriptor == null)
+            {
+                return;
+            }
+
+            CreateNode(descriptor.NodeType, position, descriptor.DisplayName);
+        }
+
+        private void CreateNode(Type nodeType, Vector2 position, string displayName)
+        {
+            var nodeData = ScriptableObject.CreateInstance(nodeType) as PCGNodeData;
+            if (nodeData == null)
+            {
+                Debug.LogError($"Failed to create node for type {nodeType?.Name}");
+                return;
+            }
+
             nodeData.nodeName = displayName;
             nodeData.GUID = Guid.NewGuid().ToString();
             nodeData.position = position;
@@ -365,6 +297,37 @@ namespace PCG
             }
 
             CreateNodeFromData(nodeData);
+        }
+
+        private void OpenNodeSearch(Vector2 graphMousePosition)
+        {
+            if (nodeSearchWindow == null || editorWindow == null)
+            {
+                return;
+            }
+
+            nodeSearchWindow.SetCreatePosition(ConvertToContentPosition(graphMousePosition));
+
+            Vector2 windowPosition = this.ChangeCoordinatesTo(editorWindow.rootVisualElement, graphMousePosition);
+            Vector2 screenMousePosition = editorWindow.position.position + windowPosition;
+            SearchWindow.Open(new SearchWindowContext(screenMousePosition), nodeSearchWindow);
+        }
+
+        private void OnKeyDown(KeyDownEvent evt)
+        {
+            if (evt.keyCode != KeyCode.Space)
+            {
+                return;
+            }
+
+            Vector2 centerPosition = new Vector2(layout.width * 0.5f, layout.height * 0.5f);
+            OpenNodeSearch(centerPosition);
+            evt.StopPropagation();
+        }
+
+        private Vector2 ConvertToContentPosition(Vector2 graphViewLocalPosition)
+        {
+            return this.ChangeCoordinatesTo(contentViewContainer, graphViewLocalPosition);
         }
 
         private void MarkGraphDirty()
@@ -386,6 +349,7 @@ namespace PCG
         {
             FlushPendingSave();
             EditorApplication.update -= OnEditorUpdate;
+            UnregisterCallback<KeyDownEvent>(OnKeyDown);
         }
 
         private void ScheduleGraphSave()

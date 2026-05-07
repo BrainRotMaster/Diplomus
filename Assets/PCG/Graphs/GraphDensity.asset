@@ -1,5 +1,23 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8056197922389257395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03d2247bd1abd0349a24b93cd9dad0d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 284f8f2a-542f-4b9a-9eb3-8f2889328b55
+  position: {x: 1752, y: 291.88}
+  nodeName: Spawner Node
+  prefabEntries:
+  - prefab: {fileID: 8221297005902463547, guid: 02f39c36404376a42b5bf2678e181053, type: 3}
+    weight: 1
 --- !u!114 &-6590073647597121719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56,7 +74,7 @@ MonoBehaviour:
   - {fileID: 3012436369507391775}
   - {fileID: 2133507234433355153}
   - {fileID: -6590073647597121719}
-  - {fileID: 6650444328317755773}
+  - {fileID: -8056197922389257395}
   edges:
   - sourceNodeGUID: e658c865-9cc8-4cd4-9ec8-e33c3e81a4dd
     sourcePortName: 
@@ -72,7 +90,7 @@ MonoBehaviour:
     targetPortName: 
   - sourceNodeGUID: eaa06f14-3ee3-4d3f-b3ee-f13956002569
     sourcePortName: 
-    targetNodeGUID: 5f9d44b6-544d-4347-a17f-725f3438172e
+    targetNodeGUID: 284f8f2a-542f-4b9a-9eb3-8f2889328b55
     targetPortName: 
   entryNodeGUID: 
 --- !u!114 &2133507234433355153
@@ -112,23 +130,3 @@ MonoBehaviour:
   densityMultiplier: 1.16
   offsetX: -0
   offsetZ: 4.68
---- !u!114 &6650444328317755773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03d2247bd1abd0349a24b93cd9dad0d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GUID: 5f9d44b6-544d-4347-a17f-725f3438172e
-  position: {x: 1751, y: 275}
-  nodeName: Spawner Node
-  prefabEntries:
-  - prefab: {fileID: 8221297005902463547, guid: 02f39c36404376a42b5bf2678e181053, type: 3}
-    weight: 1
-  - prefab: {fileID: 8711782543570934703, guid: b36c97d45962cc14b8c038001dcbb4dc, type: 3}
-    weight: 0.1
