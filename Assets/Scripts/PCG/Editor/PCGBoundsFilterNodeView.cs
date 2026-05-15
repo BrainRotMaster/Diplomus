@@ -5,36 +5,46 @@ using UnityEngine.UIElements;
 
 namespace PCG
 {
-    public class PCGTransformNodeView : PCGNodeView
+    public class PCGBoundsFilterNodeView : PCGNodeView
     {
         protected override void CreateParameterFields()
         {
-            var transformNode = nodeData as PCGTransformNodeData;
-            if (transformNode == null)
+            var boundsNode = nodeData as PCGBoundsFilterNodeData;
+            if (boundsNode == null)
             {
                 base.CreateParameterFields();
                 return;
             }
 
             extensionContainer.Add(CreateVectorRow(
-                "Offset",
-                transformNode.OffsetX,
-                transformNode.OffsetY,
-                transformNode.OffsetZ,
-                value => transformNode.OffsetX = value,
-                value => transformNode.OffsetY = value,
-                value => transformNode.OffsetZ = value));
+                "Center",
+                boundsNode.CenterX,
+                boundsNode.CenterY,
+                boundsNode.CenterZ,
+                value => boundsNode.CenterX = value,
+                value => boundsNode.CenterY = value,
+                value => boundsNode.CenterZ = value));
 
             extensionContainer.Add(CreateVectorRow(
-                "Rotation",
-                transformNode.RotationX,
-                transformNode.RotationY,
-                transformNode.RotationZ,
-                value => transformNode.RotationX = value,
-                value => transformNode.RotationY = value,
-                value => transformNode.RotationZ = value));
+                "Size",
+                boundsNode.SizeX,
+                boundsNode.SizeY,
+                boundsNode.SizeZ,
+                value => boundsNode.SizeX = value,
+                value => boundsNode.SizeY = value,
+                value => boundsNode.SizeZ = value));
 
-            extensionContainer.Add(CreateFloatField("Scale Multiplier", transformNode.ScaleMultiplier, value => transformNode.ScaleMultiplier = value));
+            var invertField = new Toggle("Invert")
+            {
+                value = boundsNode.Invert
+            };
+            invertField.RegisterValueChangedCallback(evt =>
+            {
+                RecordNodeUndo();
+                boundsNode.Invert = evt.newValue;
+                UpdateNodeData();
+            });
+            extensionContainer.Add(invertField);
         }
 
         private VisualElement CreateVectorRow(
@@ -88,23 +98,6 @@ namespace PCG
             container.Add(field);
 
             return container;
-        }
-
-        private FloatField CreateFloatField(string label, float initialValue, System.Action<float> onChanged)
-        {
-            var field = new FloatField(label)
-            {
-                value = initialValue
-            };
-
-            field.RegisterValueChangedCallback(evt =>
-            {
-                RecordNodeUndo();
-                onChanged(evt.newValue);
-                UpdateNodeData();
-            });
-
-            return field;
         }
 
         protected override void UpdateNodeData()

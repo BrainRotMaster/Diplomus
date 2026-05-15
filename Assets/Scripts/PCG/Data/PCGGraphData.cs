@@ -17,7 +17,7 @@ namespace PCG
             nodeDictionary = new Dictionary<string, PCGNodeData>();
             foreach (var node in nodes)
             {
-                if (!string.IsNullOrEmpty(node.GUID))
+                if (node != null && !string.IsNullOrEmpty(node.GUID))
                 {
                     nodeDictionary[node.GUID] = node;
                 }

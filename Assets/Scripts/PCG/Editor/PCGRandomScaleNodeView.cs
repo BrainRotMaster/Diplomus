@@ -22,6 +22,7 @@ namespace PCG
             modeField.Init(scaleNode.Mode);
             modeField.RegisterValueChangedCallback(evt =>
             {
+                RecordNodeUndo();
                 scaleNode.Mode = (PCGRandomScaleNodeData.ScaleMode)evt.newValue;
                 RebuildModeFields(scaleNode);
                 UpdateNodeData();
@@ -113,6 +114,7 @@ namespace PCG
 
             field.RegisterValueChangedCallback(evt =>
             {
+                RecordNodeUndo();
                 onChanged(evt.newValue);
                 UpdateNodeData();
             });

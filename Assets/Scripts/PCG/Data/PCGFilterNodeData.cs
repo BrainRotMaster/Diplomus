@@ -6,15 +6,17 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Filter Node", menuName = "PCG/Nodes/Filter")]
 public class PCGFilterNodeData : PCGNodeData
 {
-    public enum FilterType { RandomChance, DensityThreshold }
+    public enum FilterType { RandomChance, DensityThreshold, TagEquals }
 
     [SerializeField] private FilterType filterType = FilterType.RandomChance;
     [SerializeField] private float randomChance = 0.5f;
     [SerializeField] private float minDensity = 0.5f;
+    [SerializeField] private int requiredTag;
 
     public FilterType FilterTypeValue { get => filterType; set => filterType = value; }
     public float RandomChance { get => randomChance; set => randomChance = value; }
     public float MinDensity { get => minDensity; set => minDensity = value; }
+    public int RequiredTag { get => requiredTag; set => requiredTag = value; }
 
     public override List<PCGNodeParameter> GetParameters()
     {
@@ -28,7 +30,8 @@ public class PCGFilterNodeData : PCGNodeData
             new PCGNodeParameter("Min Density", PCGParameterType.Float, minDensity)
             {
                 minValue = 0f, maxValue = 1f
-            }
+            },
+            new PCGNodeParameter("Tag", PCGParameterType.Int, requiredTag)
         };
     }
 
@@ -39,6 +42,7 @@ public class PCGFilterNodeData : PCGNodeData
             case "Filter Type": filterType = (FilterType)(int)value; break;
             case "Random Chance": randomChance = (float)value; break;
             case "Min Density": minDensity = (float)value; break;
+            case "Tag": requiredTag = (int)value; break;
         }
     }
 
@@ -59,6 +63,9 @@ public class PCGFilterNodeData : PCGNodeData
                     break;
                 case FilterType.DensityThreshold:
                     shouldKeep = point.density >= minDensity;
+                    break;
+                case FilterType.TagEquals:
+                    shouldKeep = point.tag == requiredTag;
                     break;
             }
 

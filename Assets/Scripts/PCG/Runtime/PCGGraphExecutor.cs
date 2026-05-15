@@ -6,11 +6,13 @@ namespace PCG
     public class PCGGraphExecutor
     {
         private readonly PCGGraphData graphData;
+        private readonly List<PCGNodeData> validNodes = new List<PCGNodeData>();
 
         public PCGGraphExecutor(PCGGraphData data)
         {
             graphData = data;
             graphData.InitCache();
+            CacheValidNodes();
         }
 
         public List<PCGPoint> Execute(PCGExecutionContext context)
@@ -22,7 +24,7 @@ namespace PCG
             var finalResults = new List<PCGPoint>();
             int processedNodes = 0;
 
-            foreach (var node in graphData.nodes)
+            foreach (var node in validNodes)
             {
                 if (indegreeByNode[node.GUID] == 0)
                 {
@@ -67,7 +69,7 @@ namespace PCG
                 }
             }
 
-            if (processedNodes != graphData.nodes.Count)
+            if (processedNodes != validNodes.Count)
             {
                 Debug.LogError("PCG graph execution failed because the graph contains a cycle or invalid dependency chain.");
             }
@@ -80,14 +82,14 @@ namespace PCG
         {
             var indegreeByNode = new Dictionary<string, int>();
 
-            foreach (var node in graphData.nodes)
+            foreach (var node in validNodes)
             {
                 indegreeByNode[node.GUID] = 0;
             }
 
             foreach (var edge in graphData.edges)
             {
-                if (indegreeByNode.ContainsKey(edge.targetNodeGUID))
+                if (edge != null && !string.IsNullOrEmpty(edge.targetNodeGUID) && indegreeByNode.ContainsKey(edge.targetNodeGUID))
                 {
                     indegreeByNode[edge.targetNodeGUID]++;
                 }
@@ -100,13 +102,18 @@ namespace PCG
         {
             var outputsByNode = new Dictionary<string, List<PCGNodeData>>();
 
-            foreach (var node in graphData.nodes)
+            foreach (var node in validNodes)
             {
                 outputsByNode[node.GUID] = new List<PCGNodeData>();
             }
 
             foreach (var edge in graphData.edges)
             {
+                if (edge == null || string.IsNullOrEmpty(edge.targetNodeGUID) || string.IsNullOrEmpty(edge.sourceNodeGUID))
+                {
+                    continue;
+                }
+
                 var targetNode = graphData.GetNodeByGUID(edge.targetNodeGUID);
                 if (targetNode == null || !outputsByNode.ContainsKey(edge.sourceNodeGUID))
                 {
@@ -117,6 +124,28 @@ namespace PCG
             }
 
             return outputsByNode;
+        }
+
+        private void CacheValidNodes()
+        {
+            validNodes.Clear();
+
+            int skippedNodeCount = 0;
+            foreach (var node in graphData.nodes)
+            {
+                if (node == null || string.IsNullOrEmpty(node.GUID))
+                {
+                    skippedNodeCount++;
+                    continue;
+                }
+
+                validNodes.Add(node);
+            }
+
+            if (skippedNodeCount > 0)
+            {
+                Debug.LogWarning($"PCG graph executor skipped {skippedNodeCount} missing or invalid node entries.");
+            }
         }
     }
 }

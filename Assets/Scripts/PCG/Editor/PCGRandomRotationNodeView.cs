@@ -77,6 +77,7 @@ namespace PCG
 
             field.RegisterValueChangedCallback(evt =>
             {
+                RecordNodeUndo();
                 onChanged(evt.newValue);
                 UpdateNodeData();
             });

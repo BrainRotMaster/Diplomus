@@ -22,6 +22,7 @@ namespace PCG
             filterTypeField.Init(filterNode.FilterTypeValue);
             filterTypeField.RegisterValueChangedCallback(evt =>
             {
+                RecordNodeUndo();
                 filterNode.FilterTypeValue = (PCGFilterNodeData.FilterType)evt.newValue;
                 RebuildModeFields(filterNode);
                 UpdateNodeData();
@@ -42,9 +43,13 @@ namespace PCG
             {
                 modeFieldsContainer.Add(CreateFloatField("Random Chance", filterNode.RandomChance, value => filterNode.RandomChance = value));
             }
-            else
+            else if (filterNode.FilterTypeValue == PCGFilterNodeData.FilterType.DensityThreshold)
             {
                 modeFieldsContainer.Add(CreateFloatField("Min Density", filterNode.MinDensity, value => filterNode.MinDensity = value));
+            }
+            else
+            {
+                modeFieldsContainer.Add(CreateIntField("Tag", filterNode.RequiredTag, value => filterNode.RequiredTag = value));
             }
 
             RefreshExpandedState();
@@ -59,6 +64,24 @@ namespace PCG
 
             field.RegisterValueChangedCallback(evt =>
             {
+                RecordNodeUndo();
+                onChanged(evt.newValue);
+                UpdateNodeData();
+            });
+
+            return field;
+        }
+
+        private IntegerField CreateIntField(string label, int initialValue, System.Action<int> onChanged)
+        {
+            var field = new IntegerField(label)
+            {
+                value = initialValue
+            };
+
+            field.RegisterValueChangedCallback(evt =>
+            {
+                RecordNodeUndo();
                 onChanged(evt.newValue);
                 UpdateNodeData();
             });

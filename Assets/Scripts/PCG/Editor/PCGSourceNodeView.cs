@@ -22,6 +22,7 @@ namespace PCG
             sourceTypeField.Init(sourceNode.SourceTypeValue);
             sourceTypeField.RegisterValueChangedCallback(evt =>
             {
+                RecordNodeUndo();
                 sourceNode.SourceTypeValue = (PCGSourceNodeData.SourceType)evt.newValue;
                 RebuildModeFields(sourceNode);
                 UpdateNodeData();
@@ -59,6 +60,7 @@ namespace PCG
 
             field.RegisterValueChangedCallback(evt =>
             {
+                RecordNodeUndo();
                 onChanged(evt.newValue);
                 UpdateNodeData();
             });
@@ -75,6 +77,7 @@ namespace PCG
 
             field.RegisterValueChangedCallback(evt =>
             {
+                RecordNodeUndo();
                 onChanged(evt.newValue);
                 UpdateNodeData();
             });

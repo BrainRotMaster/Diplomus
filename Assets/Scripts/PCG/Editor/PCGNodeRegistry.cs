@@ -10,13 +10,14 @@ namespace PCG.Editor
             new PCGNodeDescriptor("Source Node", "Source", typeof(PCGSourceNodeData)),
             new PCGNodeDescriptor("Filter Node", "Filter", typeof(PCGFilterNodeData)),
             new PCGNodeDescriptor("Distance Filter Node", "Filter", typeof(PCGDistanceFilterNodeData)),
+            new PCGNodeDescriptor("Bounds Filter Node", "Filter", typeof(PCGBoundsFilterNodeData)),
             new PCGNodeDescriptor("Transform Node", "Transform", typeof(PCGTransformNodeData)),
             new PCGNodeDescriptor("Project To Surface Node", "Transform", typeof(PCGProjectToSurfaceNodeData)),
             new PCGNodeDescriptor("Random Rotation Node", "Transform", typeof(PCGRandomRotationNodeData)),
             new PCGNodeDescriptor("Random Scale Node", "Transform", typeof(PCGRandomScaleNodeData)),
             new PCGNodeDescriptor("Random Offset Node", "Transform", typeof(PCGRandomOffsetNodeData)),
             new PCGNodeDescriptor("Density Noise Node", "Attributes", typeof(PCGDensityNoiseNodeData)),
-            new PCGNodeDescriptor("Attribute Set Node", "Attributes", typeof(PCGAttributeSetNodeData)),
+            new PCGNodeDescriptor("Tag Set Node", "Attributes", typeof(PCGAttributeSetNodeData)),
             new PCGNodeDescriptor("Merge Node", "Utility", typeof(PCGMergeNodeData)),
             new PCGNodeDescriptor("Spawner Node", "Spawn", typeof(PCGSpawnerNodeData))
         };

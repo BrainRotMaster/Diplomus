@@ -1,0 +1,279 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3204360241449943754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03d2247bd1abd0349a24b93cd9dad0d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: fbf4559c-24ad-4d2f-89be-7993848ede36
+  position: {x: 2151.6504, y: 170.00003}
+  nodeName: Spawner Node
+  prefabEntries:
+  - prefab: {fileID: 9154215057541871321, guid: 2554008d6447a2540b44e55f0c0b576e, type: 3}
+    weight: 1
+  - prefab: {fileID: 2636820298107493410, guid: a2bd798ea40c7e341aa61ad124d95342, type: 3}
+    weight: 1
+  - prefab: {fileID: 4032642331417584291, guid: e133dac167ef59c40b7678ba58107c6a, type: 3}
+    weight: 1
+  - prefab: {fileID: 6846767348704259191, guid: 273b8f4150121d249ac7e2fd11da7005, type: 3}
+    weight: 1
+  - prefab: {fileID: 4577034113271871886, guid: 24457fdf8e66c3c49b7599931e0fdcb2, type: 3}
+    weight: 1
+  - prefab: {fileID: 4500668923149335752, guid: a524090786e7ba545bd5ce3d24c9a3fb, type: 3}
+    weight: 1
+--- !u!114 &-2853420176348440350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2683eedcc9f5cb643916ee08a7ce808e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: b2529eda-7e1e-4b3f-97c0-46c0d99c765f
+  position: {x: 1068, y: 169}
+  nodeName: Random Scale Node
+  scaleMode: 0
+  uniformMin: 0.8
+  uniformMax: 1.2
+  minScaleX: 1
+  maxScaleX: 1
+  minScaleY: 1
+  maxScaleY: 1
+  minScaleZ: 1
+  maxScaleZ: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae94e66fccc95df4fa3c1b8263912fab, type: 3}
+  m_Name: TestGraph
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 7457537166824661658}
+  - {fileID: 1867065685701481703}
+  - {fileID: 32719517873395593}
+  - {fileID: 4193696681695614697}
+  - {fileID: -2853420176348440350}
+  - {fileID: 8514314836706056695}
+  - {fileID: 4376818416669059637}
+  - {fileID: 2012773860296685063}
+  - {fileID: 6718317458548783132}
+  - {fileID: -3204360241449943754}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  edges:
+  - sourceNodeGUID: 9fc3f3b6-99c0-4416-80e3-012543178bd2
+    sourcePortName: 
+    targetNodeGUID: fa08741f-ac46-4c15-b857-90f60127657f
+    targetPortName: 
+  - sourceNodeGUID: fa08741f-ac46-4c15-b857-90f60127657f
+    sourcePortName: 
+    targetNodeGUID: d59e9140-0e59-45a3-a7a7-a86007fc2f58
+    targetPortName: 
+  - sourceNodeGUID: d59e9140-0e59-45a3-a7a7-a86007fc2f58
+    sourcePortName: 
+    targetNodeGUID: b2529eda-7e1e-4b3f-97c0-46c0d99c765f
+    targetPortName: 
+  - sourceNodeGUID: b2529eda-7e1e-4b3f-97c0-46c0d99c765f
+    sourcePortName: 
+    targetNodeGUID: 92a6688a-2630-445f-9a2c-5b1a6d68bfef
+    targetPortName: 
+  - sourceNodeGUID: 92a6688a-2630-445f-9a2c-5b1a6d68bfef
+    sourcePortName: 
+    targetNodeGUID: 2f6655da-3d8f-401a-afc1-3b9c53f67466
+    targetPortName: 
+  - sourceNodeGUID: 2f6655da-3d8f-401a-afc1-3b9c53f67466
+    sourcePortName: 
+    targetNodeGUID: f0deae58-9d1c-40b1-9c33-225ce9143b7f
+    targetPortName: 
+  - sourceNodeGUID: f0deae58-9d1c-40b1-9c33-225ce9143b7f
+    sourcePortName: 
+    targetNodeGUID: 83412e16-02cc-430d-a7e1-9f5be4e9cf39
+    targetPortName: 
+  - sourceNodeGUID: 83412e16-02cc-430d-a7e1-9f5be4e9cf39
+    sourcePortName: 
+    targetNodeGUID: fbf4559c-24ad-4d2f-89be-7993848ede36
+    targetPortName: 
+  - sourceNodeGUID: 21bf6b13-b756-442c-aec5-7968a2200988
+    sourcePortName: 
+    targetNodeGUID: 9fc3f3b6-99c0-4416-80e3-012543178bd2
+    targetPortName: 
+  entryNodeGUID: 
+--- !u!114 &32719517873395593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfd10407a77fc941b58a9227c013958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: fa08741f-ac46-4c15-b857-90f60127657f
+  position: {x: 607, y: 169}
+  nodeName: Filter Node
+  filterType: 1
+  randomChance: 0.57
+  minDensity: 0.5
+  requiredTag: 0
+--- !u!114 &1867065685701481703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52a649c5d1ebb6e4892fb63cb9588894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 9fc3f3b6-99c0-4416-80e3-012543178bd2
+  position: {x: 404, y: 169}
+  nodeName: Density Noise Node
+  noiseScale: 0.1
+  densityMultiplier: 1.2
+  offsetX: 10
+  offsetZ: 10
+--- !u!114 &2012773860296685063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b893e52ff832ef4cb922b8840e2eca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: f0deae58-9d1c-40b1-9c33-225ce9143b7f
+  position: {x: 1756.3003, y: 169}
+  nodeName: Transform Node
+  offsetX: 0
+  offsetY: -0.5
+  offsetZ: 0
+  rotationX: 0
+  rotationY: 0
+  rotationZ: 0
+  scaleMultiplier: 1
+--- !u!114 &4193696681695614697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bb0f434e6c01dc4f9ef6d987532b4c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: d59e9140-0e59-45a3-a7a7-a86007fc2f58
+  position: {x: 881, y: 169}
+  nodeName: Random Offset Node
+  amountX: 0.5
+  amountY: 0
+  amountZ: 0.5
+--- !u!114 &4376818416669059637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7df65f8a8fd10140ba337c66f5b0270, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 2f6655da-3d8f-401a-afc1-3b9c53f67466
+  position: {x: 1542.4003, y: 169}
+  nodeName: Random Rotation Node
+  minRotationX: 0
+  maxRotationX: 0
+  minRotationY: 0
+  maxRotationY: 360
+  minRotationZ: 0
+  maxRotationZ: 0
+--- !u!114 &6718317458548783132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 412852091aa28a54581a663d2cc9bcfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 83412e16-02cc-430d-a7e1-9f5be4e9cf39
+  position: {x: 1961.9003, y: 169}
+  nodeName: Distance Filter Node
+  minimumDistance: 2
+--- !u!114 &7457537166824661658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3edaf780ba0cdf478d47a26327b0a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 21bf6b13-b756-442c-aec5-7968a2200988
+  position: {x: 168, y: 169}
+  nodeName: Source Node
+  sourceType: 0
+  spacing: 4
+  randomPointCount: 10000
+--- !u!114 &8514314836706056695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a53b215e6fc0c4b9c88bf1e70cbea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 92a6688a-2630-445f-9a2c-5b1a6d68bfef
+  position: {x: 1297.2001, y: 169}
+  nodeName: Project To Surface Node
+  rayStartOffset: 100
+  maxDistance: 200
+  maxSurfaceAngle: 45
+  alignToSurfaceNormal: 1
+  discardMisses: 1
+  layerMask: -1

@@ -46,6 +46,7 @@ namespace PCG
                 return;
             }
 
+            Undo.RecordObject(nodeData, "Move PCG Node");
             nodeData.position = newPos.position;
             EditorUtility.SetDirty(nodeData);
             OnNodeChanged?.Invoke();
@@ -82,6 +83,7 @@ namespace PCG
                     textField.value = (string)param.value;
                     textField.RegisterValueChangedCallback(evt =>
                     {
+                        RecordNodeUndo();
                         param.value = evt.newValue;
                         nodeData.UpdateParameter(param.name, evt.newValue);
                         UpdateNodeData();
@@ -93,6 +95,7 @@ namespace PCG
                     intField.value = (int)param.value;
                     intField.RegisterValueChangedCallback(evt =>
                     {
+                        RecordNodeUndo();
                         param.value = evt.newValue;
                         nodeData.UpdateParameter(param.name, evt.newValue);
                         UpdateNodeData();
@@ -104,6 +107,7 @@ namespace PCG
                     floatField.value = (float)param.value;
                     floatField.RegisterValueChangedCallback(evt =>
                     {
+                        RecordNodeUndo();
                         param.value = evt.newValue;
                         nodeData.UpdateParameter(param.name, evt.newValue);
                         UpdateNodeData();
@@ -115,6 +119,7 @@ namespace PCG
                     toggle.value = (bool)param.value;
                     toggle.RegisterValueChangedCallback(evt =>
                     {
+                        RecordNodeUndo();
                         param.value = evt.newValue;
                         nodeData.UpdateParameter(param.name, evt.newValue);
                         UpdateNodeData();
@@ -128,6 +133,7 @@ namespace PCG
                         enumField.Init(enumValue);
                         enumField.RegisterValueChangedCallback(evt =>
                         {
+                            RecordNodeUndo();
                             param.value = evt.newValue;
                             nodeData.UpdateParameter(param.name, Convert.ToInt32(evt.newValue));
                             UpdateNodeData();
@@ -154,6 +160,7 @@ namespace PCG
 
                     objectField.RegisterValueChangedCallback(evt =>
                     {
+                        RecordNodeUndo();
                         param.value = evt.newValue;
                         nodeData.UpdateParameter(param.name, evt.newValue);
                         UpdateNodeData();
@@ -168,6 +175,7 @@ namespace PCG
                         var dropdown = new PopupField<string>(param.name, new List<string>(param.options), (int)param.value);
                         dropdown.RegisterValueChangedCallback(evt =>
                         {
+                            RecordNodeUndo();
                             param.value = dropdown.index;
                             nodeData.UpdateParameter(param.name, dropdown.index);
                             UpdateNodeData();
@@ -184,6 +192,14 @@ namespace PCG
         {
             EditorUtility.SetDirty(nodeData);
             OnNodeChanged?.Invoke();
+        }
+
+        protected void RecordNodeUndo(string actionName = "Edit PCG Node")
+        {
+            if (nodeData != null)
+            {
+                Undo.RecordObject(nodeData, actionName);
+            }
         }
 
         public override void OnSelected()

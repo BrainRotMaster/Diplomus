@@ -17,7 +17,7 @@ namespace PCG.Editor
             EditorUtility.SetDirty(graphData);
         }
 
-        public static void DeleteNodeAsset(PCGNodeData nodeData)
+        public static void DeleteNodeAsset(PCGNodeData nodeData, bool useUndo = false)
         {
             if (nodeData == null)
             {
@@ -26,11 +26,26 @@ namespace PCG.Editor
 
             if (AssetDatabase.Contains(nodeData))
             {
-                Object.DestroyImmediate(nodeData, true);
+                if (useUndo)
+                {
+                    Undo.DestroyObjectImmediate(nodeData);
+                }
+                else
+                {
+                    Object.DestroyImmediate(nodeData, true);
+                }
+
                 return;
             }
 
-            Object.DestroyImmediate(nodeData);
+            if (useUndo)
+            {
+                Undo.DestroyObjectImmediate(nodeData);
+            }
+            else
+            {
+                Object.DestroyImmediate(nodeData);
+            }
         }
     }
 }

@@ -29,6 +29,7 @@ namespace PCG
 
             var addButton = new Button(() =>
             {
+                RecordNodeUndo();
                 spawnerNode.AddPrefabEntry();
                 RebuildPrefabList(spawnerNode);
                 UpdateNodeData();
@@ -70,6 +71,7 @@ namespace PCG
                 objectField.style.flexGrow = 1;
                 objectField.RegisterValueChangedCallback(evt =>
                 {
+                    RecordNodeUndo();
                     entry.prefab = evt.newValue as GameObject;
                     UpdateNodeData();
                 });
@@ -83,6 +85,7 @@ namespace PCG
                 weightField.style.marginLeft = 4;
                 weightField.RegisterValueChangedCallback(evt =>
                 {
+                    RecordNodeUndo();
                     entry.weight = Mathf.Max(0f, evt.newValue);
                     if (!Mathf.Approximately(weightField.value, entry.weight))
                     {
@@ -94,6 +97,7 @@ namespace PCG
 
                 var removeButton = new Button(() =>
                 {
+                    RecordNodeUndo();
                     spawnerNode.RemovePrefabEntryAt(index);
                     RebuildPrefabList(spawnerNode);
                     UpdateNodeData();

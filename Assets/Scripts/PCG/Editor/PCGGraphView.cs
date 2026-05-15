@@ -19,6 +19,33 @@ namespace PCG
         private bool hasPendingSave;
         private double nextSaveTime;
         private const double SaveDelaySeconds = 0.75;
+        private const string ClipboardDataType = "PCGGraphClipboard";
+        private static readonly Vector2 PasteOffsetStep = new Vector2(30f, 30f);
+        private int pasteOperationCount;
+        private string lastPastedSerializedData;
+
+        [Serializable]
+        private class ClipboardPayload
+        {
+            public string type = ClipboardDataType;
+            public List<ClipboardNodePayload> nodes = new List<ClipboardNodePayload>();
+            public List<ClipboardEdgePayload> edges = new List<ClipboardEdgePayload>();
+        }
+
+        [Serializable]
+        private class ClipboardNodePayload
+        {
+            public string sourceGuid;
+            public string typeName;
+            public string json;
+        }
+
+        [Serializable]
+        private class ClipboardEdgePayload
+        {
+            public string sourceGuid;
+            public string targetGuid;
+        }
 
         public PCGGraphView(PCGGraphData data, PCGEditorWindow window)
         {
@@ -36,7 +63,11 @@ namespace PCG
 
             graphViewChanged += OnGraphViewChanged;
             EditorApplication.update += OnEditorUpdate;
+            Undo.undoRedoPerformed += OnUndoRedoPerformed;
             RegisterCallback<KeyDownEvent>(OnKeyDown);
+            serializeGraphElements = SerializeGraphElements;
+            canPasteSerializedData = CanPasteSerializedData;
+            unserializeAndPaste = UnserializeAndPaste;
 
             nodeSearchWindow = ScriptableObject.CreateInstance<PCGNodeSearchWindow>();
             nodeSearchWindow.Initialize(this);
@@ -50,14 +81,23 @@ namespace PCG
         private void LoadNodes()
         {
             // Use list copies to avoid collection-modified errors while rebuilding the view.
-            var nodesToCreate = new List<PCGNodeData>(graphData.nodes);
+            var nodesToCreate = new List<PCGNodeData>(graphData.nodes.Where(node => node != null));
+            var validGuids = new HashSet<string>(
+                nodesToCreate
+                    .Where(node => !string.IsNullOrEmpty(node.GUID))
+                    .Select(node => node.GUID));
 
             foreach (var nodeData in nodesToCreate)
             {
                 CreateNodeFromData(nodeData);
             }
 
-            var edgesToCreate = new List<PCGEdgeData>(graphData.edges);
+            var edgesToCreate = new List<PCGEdgeData>(graphData.edges.Where(edge =>
+                edge != null &&
+                !string.IsNullOrEmpty(edge.sourceNodeGUID) &&
+                !string.IsNullOrEmpty(edge.targetNodeGUID) &&
+                validGuids.Contains(edge.sourceNodeGUID) &&
+                validGuids.Contains(edge.targetNodeGUID)));
 
             foreach (var edgeData in edgesToCreate)
             {
@@ -77,6 +117,11 @@ namespace PCG
 
         private void CreateNodeFromData(PCGNodeData nodeData)
         {
+            if (nodeData == null)
+            {
+                return;
+            }
+
             string viewTypeName = nodeData.GetViewTypeName();
 
             // Resolve the node view type at runtime because the view lives in an editor assembly.
@@ -154,12 +199,12 @@ namespace PCG
             outputPort.Connect(edge);
             inputPort.Connect(edge);
 
-            SaveEdgeData(fromNode.GUID, toNode.GUID);
+            SaveEdgeData(fromNode.GUID, toNode.GUID, "Connect PCG Nodes");
 
             return edge;
         }
 
-        private void SaveEdgeData(string sourceGUID, string targetGUID)
+        private void SaveEdgeData(string sourceGUID, string targetGUID, string undoActionName = "Edit PCG Edge")
         {
             if (graphData == null) return;
 
@@ -169,6 +214,7 @@ namespace PCG
 
             if (!exists)
             {
+                Undo.RecordObject(graphData, undoActionName);
                 var edgeData = new PCGEdgeData
                 {
                     sourceNodeGUID = sourceGUID,
@@ -197,6 +243,7 @@ namespace PCG
 
                     if (edgeToRemove != null)
                     {
+                        Undo.RecordObject(graphData, "Disconnect PCG Nodes");
                         graphData.edges.Remove(edgeToRemove);
                         ScheduleGraphSave();
                     }
@@ -214,9 +261,11 @@ namespace PCG
                     {
                         if (graphData != null)
                         {
+                            Undo.RecordObject(graphData, "Delete PCG Node");
                             graphData.nodes.Remove(nodeView.nodeData);
                             nodeDictionary.Remove(nodeView.GUID);
-                            PCGGraphAssetUtility.DeleteNodeAsset(nodeView.nodeData);
+                            RemoveEdgesForNode(nodeView.GUID);
+                            PCGGraphAssetUtility.DeleteNodeAsset(nodeView.nodeData, true);
                             ScheduleGraphSave();
                         }
                     }
@@ -236,7 +285,7 @@ namespace PCG
 
                     if (fromNode != null && toNode != null)
                     {
-                        SaveEdgeData(fromNode.GUID, toNode.GUID);
+                        SaveEdgeData(fromNode.GUID, toNode.GUID, "Connect PCG Nodes");
                     }
                 }
             }
@@ -256,14 +305,21 @@ namespace PCG
         {
             if (graphData == null) return;
 
+            Undo.IncrementCurrentGroup();
+            Undo.SetCurrentGroupName("Create PCG Node");
+            int undoGroup = Undo.GetCurrentGroup();
+
             nodeData.position = position;
             nodeData.GUID = Guid.NewGuid().ToString();
 
+            Undo.RecordObject(graphData, "Create PCG Node");
             PCGGraphAssetUtility.AddNodeToGraph(graphData, nodeData);
+            Undo.RegisterCreatedObjectUndo(nodeData, "Create PCG Node");
             graphData.nodes.Add(nodeData);
             ScheduleGraphSave();
 
             CreateNodeFromData(nodeData);
+            Undo.CollapseUndoOperations(undoGroup);
         }
 
         public void CreateNodeFromDescriptor(PCGNodeDescriptor descriptor, Vector2 position)
@@ -291,9 +347,16 @@ namespace PCG
 
             if (graphData != null)
             {
+                Undo.IncrementCurrentGroup();
+                Undo.SetCurrentGroupName("Create PCG Node");
+                int undoGroup = Undo.GetCurrentGroup();
+
+                Undo.RecordObject(graphData, "Create PCG Node");
                 PCGGraphAssetUtility.AddNodeToGraph(graphData, nodeData);
+                Undo.RegisterCreatedObjectUndo(nodeData, "Create PCG Node");
                 graphData.nodes.Add(nodeData);
                 ScheduleGraphSave();
+                Undo.CollapseUndoOperations(undoGroup);
             }
 
             CreateNodeFromData(nodeData);
@@ -335,6 +398,179 @@ namespace PCG
             ScheduleGraphSave();
         }
 
+        private new string SerializeGraphElements(IEnumerable<GraphElement> elements)
+        {
+            var selectedNodeViews = elements
+                .OfType<PCGNodeView>()
+                .Where(nodeView => nodeView.nodeData != null)
+                .Distinct()
+                .ToList();
+
+            if (selectedNodeViews.Count == 0)
+            {
+                return string.Empty;
+            }
+
+            var selectedGuids = new HashSet<string>(selectedNodeViews.Select(nodeView => nodeView.GUID));
+            var payload = new ClipboardPayload();
+
+            foreach (var nodeView in selectedNodeViews)
+            {
+                payload.nodes.Add(new ClipboardNodePayload
+                {
+                    sourceGuid = nodeView.GUID,
+                    typeName = nodeView.nodeData.GetType().AssemblyQualifiedName,
+                    json = EditorJsonUtility.ToJson(nodeView.nodeData)
+                });
+            }
+
+            foreach (var edgeData in graphData.edges)
+            {
+                if (edgeData == null)
+                {
+                    continue;
+                }
+
+                if (selectedGuids.Contains(edgeData.sourceNodeGUID) && selectedGuids.Contains(edgeData.targetNodeGUID))
+                {
+                    payload.edges.Add(new ClipboardEdgePayload
+                    {
+                        sourceGuid = edgeData.sourceNodeGUID,
+                        targetGuid = edgeData.targetNodeGUID
+                    });
+                }
+            }
+
+            return JsonUtility.ToJson(payload);
+        }
+
+        private new bool CanPasteSerializedData(string serializedData)
+        {
+            if (string.IsNullOrEmpty(serializedData))
+            {
+                return false;
+            }
+
+            var payload = JsonUtility.FromJson<ClipboardPayload>(serializedData);
+            return payload != null &&
+                payload.type == ClipboardDataType &&
+                payload.nodes != null &&
+                payload.nodes.Count > 0;
+        }
+
+        private void UnserializeAndPaste(string operationName, string serializedData)
+        {
+            if (graphData == null || string.IsNullOrEmpty(serializedData))
+            {
+                return;
+            }
+
+            var payload = JsonUtility.FromJson<ClipboardPayload>(serializedData);
+            if (payload == null || payload.type != ClipboardDataType || payload.nodes == null || payload.nodes.Count == 0)
+            {
+                return;
+            }
+
+            if (!string.Equals(lastPastedSerializedData, serializedData, StringComparison.Ordinal))
+            {
+                pasteOperationCount = 0;
+                lastPastedSerializedData = serializedData;
+            }
+
+            pasteOperationCount++;
+            Vector2 pasteOffset = PasteOffsetStep * pasteOperationCount;
+            var guidMap = new Dictionary<string, string>();
+            var pastedNodeViews = new List<PCGNodeView>();
+            Undo.IncrementCurrentGroup();
+            Undo.SetCurrentGroupName("Paste PCG Nodes");
+            int undoGroup = Undo.GetCurrentGroup();
+
+            foreach (var nodePayload in payload.nodes)
+            {
+                Type nodeType = ResolveType(nodePayload.typeName);
+                if (nodeType == null)
+                {
+                    Debug.LogWarning($"Cannot paste node because type was not found: {nodePayload.typeName}");
+                    continue;
+                }
+
+                var pastedNodeData = ScriptableObject.CreateInstance(nodeType) as PCGNodeData;
+                if (pastedNodeData == null)
+                {
+                    Debug.LogWarning($"Cannot paste node because type is not a PCG node: {nodePayload.typeName}");
+                    continue;
+                }
+
+                EditorJsonUtility.FromJsonOverwrite(nodePayload.json, pastedNodeData);
+                pastedNodeData.GUID = Guid.NewGuid().ToString();
+                pastedNodeData.position += pasteOffset;
+
+                Undo.RecordObject(graphData, "Paste PCG Nodes");
+                PCGGraphAssetUtility.AddNodeToGraph(graphData, pastedNodeData);
+                Undo.RegisterCreatedObjectUndo(pastedNodeData, "Paste PCG Nodes");
+                graphData.nodes.Add(pastedNodeData);
+                CreateNodeFromData(pastedNodeData);
+
+                guidMap[nodePayload.sourceGuid] = pastedNodeData.GUID;
+
+                var pastedNodeView = GetNodeByGUID(pastedNodeData.GUID);
+                if (pastedNodeView != null)
+                {
+                    pastedNodeViews.Add(pastedNodeView);
+                }
+            }
+
+            foreach (var edgePayload in payload.edges)
+            {
+                if (!guidMap.TryGetValue(edgePayload.sourceGuid, out var pastedSourceGuid) ||
+                    !guidMap.TryGetValue(edgePayload.targetGuid, out var pastedTargetGuid))
+                {
+                    continue;
+                }
+
+                var sourceNode = GetNodeByGUID(pastedSourceGuid);
+                var targetNode = GetNodeByGUID(pastedTargetGuid);
+                if (sourceNode != null && targetNode != null)
+                {
+                    ConnectNodes(sourceNode, targetNode);
+                }
+            }
+
+            ClearSelection();
+            foreach (var pastedNodeView in pastedNodeViews)
+            {
+                AddToSelection(pastedNodeView);
+            }
+
+            ScheduleGraphSave();
+            Undo.CollapseUndoOperations(undoGroup);
+        }
+
+        private static Type ResolveType(string assemblyQualifiedName)
+        {
+            if (string.IsNullOrEmpty(assemblyQualifiedName))
+            {
+                return null;
+            }
+
+            Type resolvedType = Type.GetType(assemblyQualifiedName);
+            if (resolvedType != null)
+            {
+                return resolvedType;
+            }
+
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                resolvedType = assembly.GetType(assemblyQualifiedName);
+                if (resolvedType != null)
+                {
+                    return resolvedType;
+                }
+            }
+
+            return null;
+        }
+
         public void FlushPendingSave()
         {
             if (!hasPendingSave)
@@ -349,8 +585,46 @@ namespace PCG
         {
             FlushPendingSave();
             EditorApplication.update -= OnEditorUpdate;
+            Undo.undoRedoPerformed -= OnUndoRedoPerformed;
             UnregisterCallback<KeyDownEvent>(OnKeyDown);
         }
+
+        private void RemoveEdgesForNode(string nodeGuid)
+        {
+            if (graphData == null || string.IsNullOrEmpty(nodeGuid))
+            {
+                return;
+            }
+
+            graphData.edges.RemoveAll(edge =>
+                edge != null &&
+                (edge.sourceNodeGUID == nodeGuid || edge.targetNodeGUID == nodeGuid));
+        }
+
+        private void OnUndoRedoPerformed()
+        {
+            pasteOperationCount = 0;
+            RebuildViewFromGraph();
+        }
+
+        private void RebuildViewFromGraph()
+        {
+            graphViewChanged -= OnGraphViewChanged;
+
+            foreach (var element in graphElements.ToList())
+            {
+                RemoveElement(element);
+            }
+
+            nodeDictionary.Clear();
+            graphViewChanged += OnGraphViewChanged;
+
+            if (graphData != null)
+            {
+                LoadNodes();
+            }
+        }
+
 
         private void ScheduleGraphSave()
         {
