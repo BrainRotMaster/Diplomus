@@ -13,14 +13,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: 973a106a-cc36-4eea-92ac-4b9c56fc73dd
-  position: {x: 285.16254, y: 307}
+  position: {x: -88.79526, y: 300}
   nodeName: Bounds Filter Node
-  centerX: 250
-  centerY: 50
-  centerZ: 50
-  sizeX: 20
-  sizeY: 20
-  sizeZ: 20
+  regionId: edd30582-8766-4038-9b6a-dad329c9edf7
+  regionName: PCGBoxRegion
   invert: 1
 --- !u!114 &-8481463430527116855
 MonoBehaviour:
@@ -35,7 +31,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: e28f8fe9-3112-4e0b-a254-44528f564248
-  position: {x: 1042, y: 443}
+  position: {x: 1083, y: 451}
   nodeName: Distance Filter Node
   minimumDistance: 1
 --- !u!114 &-8261567649776098121
@@ -103,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: 39598ac2-913a-4107-b547-e61a3a476aa5
-  position: {x: 806.9002, y: 294.626}
+  position: {x: 725.00024, y: 300}
   nodeName: Tag Set Node
   tagValue: 0
 --- !u!114 &-4409752228156557294
@@ -209,14 +205,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: c05a31b1-e7c9-421d-9fc6-8667ee7231aa
-  position: {x: 500.0001, y: 309.00003}
+  position: {x: 285.2047, y: 300}
   nodeName: Bounds Filter Node
-  centerX: 300
-  centerY: 50
-  centerZ: 50
-  sizeX: 20
-  sizeY: 20
-  sizeZ: 20
+  regionId: d78de50b-e97f-40cc-9f37-da705cc1f6ff
+  regionName: PCGBoxRegion (1)
   invert: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -428,14 +420,6 @@ MonoBehaviour:
     sourcePortName: 
     targetNodeGUID: 697db426-4b48-4f9e-bd69-56e13a8973f7
     targetPortName: 
-  - sourceNodeGUID: d1a33953-7d3e-47fc-bc41-93a8bcd57159
-    sourcePortName: 
-    targetNodeGUID: 697db426-4b48-4f9e-bd69-56e13a8973f7
-    targetPortName: 
-  - sourceNodeGUID: cb22b4f8-1361-4857-b2c9-635849e99bf2
-    sourcePortName: 
-    targetNodeGUID: 8bfc29ab-3987-42f4-9ba9-fbe292becef9
-    targetPortName: 
   - sourceNodeGUID: 8bfc29ab-3987-42f4-9ba9-fbe292becef9
     sourcePortName: 
     targetNodeGUID: d1a33953-7d3e-47fc-bc41-93a8bcd57159
@@ -452,13 +436,13 @@ MonoBehaviour:
     sourcePortName: 
     targetNodeGUID: 088b5d9a-a22d-4160-b0cf-39f45ea575d9
     targetPortName: 
-  - sourceNodeGUID: 973a106a-cc36-4eea-92ac-4b9c56fc73dd
-    sourcePortName: 
-    targetNodeGUID: c05a31b1-e7c9-421d-9fc6-8667ee7231aa
-    targetPortName: 
   - sourceNodeGUID: c05a31b1-e7c9-421d-9fc6-8667ee7231aa
     sourcePortName: 
     targetNodeGUID: 39598ac2-913a-4107-b547-e61a3a476aa5
+    targetPortName: 
+  - sourceNodeGUID: 973a106a-cc36-4eea-92ac-4b9c56fc73dd
+    sourcePortName: 
+    targetNodeGUID: c05a31b1-e7c9-421d-9fc6-8667ee7231aa
     targetPortName: 
   entryNodeGUID: 
 --- !u!114 &40049899402302673
@@ -474,7 +458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: d1a33953-7d3e-47fc-bc41-93a8bcd57159
-  position: {x: 530.99994, y: 539.49994}
+  position: {x: 726, y: 570.0001}
   nodeName: Tag Set Node
   tagValue: 1
 --- !u!114 &750076484111185935
@@ -546,7 +530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: 697db426-4b48-4f9e-bd69-56e13a8973f7
-  position: {x: 868, y: 449}
+  position: {x: 933, y: 451}
   nodeName: Merge Node
 --- !u!114 &3419209178291768886
 MonoBehaviour:
@@ -579,14 +563,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: 8bfc29ab-3987-42f4-9ba9-fbe292becef9
-  position: {x: 285, y: 540.00006}
+  position: {x: -88.79526, y: 570}
   nodeName: Bounds Filter Node
-  centerX: 250
-  centerY: 50
-  centerZ: 50
-  sizeX: 20
-  sizeY: 20
-  sizeZ: 20
+  regionId: 8c2fbe91-6fa9-4fa1-bc78-c2b3370214c2
+  regionName: PCGBoxRegion
   invert: 0
 --- !u!114 &4955943803773164837
 MonoBehaviour:
@@ -678,7 +658,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: cb22b4f8-1361-4857-b2c9-635849e99bf2
-  position: {x: -20.000038, y: 437.6425}
+  position: {x: -342.79523, y: 431}
   nodeName: Source Node
   sourceType: 0
   spacing: 3

@@ -5,48 +5,20 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Bounds Filter Node", menuName = "PCG/Nodes/Bounds Filter")]
 public class PCGBoundsFilterNodeData : PCGNodeData
 {
-    [SerializeField] private float centerX;
-    [SerializeField] private float centerY;
-    [SerializeField] private float centerZ;
-    [SerializeField] private float sizeX = 10f;
-    [SerializeField] private float sizeY = 10f;
-    [SerializeField] private float sizeZ = 10f;
+    [SerializeField] private string regionId;
+    [SerializeField] private string regionName;
     [SerializeField] private bool invert;
 
-    public float CenterX
+    public string RegionId
     {
-        get => centerX;
-        set => centerX = value;
+        get => regionId;
+        set => regionId = value;
     }
 
-    public float CenterY
+    public string RegionName
     {
-        get => centerY;
-        set => centerY = value;
-    }
-
-    public float CenterZ
-    {
-        get => centerZ;
-        set => centerZ = value;
-    }
-
-    public float SizeX
-    {
-        get => sizeX;
-        set => sizeX = value;
-    }
-
-    public float SizeY
-    {
-        get => sizeY;
-        set => sizeY = value;
-    }
-
-    public float SizeZ
-    {
-        get => sizeZ;
-        set => sizeZ = value;
+        get => regionName;
+        set => regionName = value;
     }
 
     public bool Invert
@@ -59,36 +31,15 @@ public class PCGBoundsFilterNodeData : PCGNodeData
     {
         return new List<PCGNodeParameter>
         {
-            new PCGNodeParameter("Center X", PCGParameterType.Float, centerX),
-            new PCGNodeParameter("Center Y", PCGParameterType.Float, centerY),
-            new PCGNodeParameter("Center Z", PCGParameterType.Float, centerZ),
-            new PCGNodeParameter("Size X", PCGParameterType.Float, sizeX)
-            {
-                minValue = 0.01f, maxValue = 100000f
-            },
-            new PCGNodeParameter("Size Y", PCGParameterType.Float, sizeY)
-            {
-                minValue = 0.01f, maxValue = 100000f
-            },
-            new PCGNodeParameter("Size Z", PCGParameterType.Float, sizeZ)
-            {
-                minValue = 0.01f, maxValue = 100000f
-            },
             new PCGNodeParameter("Invert", PCGParameterType.Bool, invert)
         };
     }
 
     public override void UpdateParameter(string name, object value)
     {
-        switch (name)
+        if (name == "Invert")
         {
-            case "Center X": centerX = (float)value; break;
-            case "Center Y": centerY = (float)value; break;
-            case "Center Z": centerZ = (float)value; break;
-            case "Size X": sizeX = (float)value; break;
-            case "Size Y": sizeY = (float)value; break;
-            case "Size Z": sizeZ = (float)value; break;
-            case "Invert": invert = (bool)value; break;
+            invert = (bool)value;
         }
     }
 
@@ -99,17 +50,17 @@ public class PCGBoundsFilterNodeData : PCGNodeData
             return inputPoints ?? new List<PCGPoint>();
         }
 
-        var filtered = new List<PCGPoint>();
-        var bounds = new Bounds(
-            new Vector3(centerX, centerY, centerZ),
-            new Vector3(
-                Mathf.Max(0.01f, sizeX),
-                Mathf.Max(0.01f, sizeY),
-                Mathf.Max(0.01f, sizeZ)));
+        var region = PCGBoxRegion.FindById(regionId);
+        if (region == null)
+        {
+            Debug.LogWarning($"Bounds Filter '{nodeName}' skipped because region '{regionName}' is missing.");
+            return inputPoints;
+        }
 
+        var filtered = new List<PCGPoint>();
         foreach (var point in inputPoints)
         {
-            bool containsPoint = bounds.Contains(point.position);
+            bool containsPoint = region.Contains(point.position);
             bool shouldKeep = invert ? !containsPoint : containsPoint;
 
             if (shouldKeep)
