@@ -1,7 +1,5 @@
 namespace PCG
 {
-    using UnityEngine;
-
     [System.Serializable]
     public class PCGNodeParameter
     {
@@ -10,7 +8,6 @@ namespace PCG
         public object value;
         public float minValue;
         public float maxValue;
-        public string[] options;
         public System.Type enumType;
 
         public PCGNodeParameter(string name, PCGParameterType type, object value)
@@ -35,8 +32,6 @@ namespace PCG
         Int,
         Bool,
         String,
-        Enum,
-        Dropdown,
-        GameObject
+        Enum
     }
 }

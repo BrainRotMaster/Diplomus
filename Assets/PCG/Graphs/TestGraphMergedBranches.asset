@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8636745226903121033
+--- !u!114 &-9222888595270027237
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a8dff89584862443ae40593c15696e2, type: 3}
+  m_Script: {fileID: 11500000, guid: b3edaf780ba0cdf478d47a26327b0a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUID: 973a106a-cc36-4eea-92ac-4b9c56fc73dd
-  position: {x: -88.79526, y: 300}
-  nodeName: Bounds Filter Node
-  regionId: edd30582-8766-4038-9b6a-dad329c9edf7
-  regionName: PCGBoxRegion
-  invert: 1
---- !u!114 &-8481463430527116855
+  GUID: c5e71b75-8ea8-4ee3-883e-e697c495e7d6
+  position: {x: -2059.5, y: 1091}
+  nodeName: Source Node
+  sourceType: 0
+  spacing: 1
+  randomPointCount: 10000
+--- !u!114 &-8591061639630279320
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -30,10 +30,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 412852091aa28a54581a663d2cc9bcfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUID: e28f8fe9-3112-4e0b-a254-44528f564248
-  position: {x: 1083, y: 451}
+  GUID: 09bc4b72-a48a-4950-8487-e0fd6be79455
+  position: {x: -50.999813, y: 319.47955}
   nodeName: Distance Filter Node
-  minimumDistance: 1
+  minimumDistance: 2
 --- !u!114 &-8261567649776098121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47,11 +47,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: 1fbe9c67-7b6f-4b03-8f8e-97bf04641664
-  position: {x: 1927.9829, y: 391}
+  position: {x: 1642.5, y: 1116}
   nodeName: Spawner Node
   prefabEntries:
-  - prefab: {fileID: 8221297005902463547, guid: 02f39c36404376a42b5bf2678e181053, type: 3}
+  - prefab: {fileID: 1439904337943108576, guid: ef62619642b0df743b22dd5120c6ac4d, type: 3}
     weight: 1
+  - prefab: {fileID: 2304540294968618315, guid: b8217b9c1183a5144b666d1dd63980c4, type: 3}
+    weight: 1
+  - prefab: {fileID: 2954823824624447290, guid: 194e9111af0c33840a49d573f2b26952, type: 3}
+    weight: 1
+--- !u!114 &-8183826605348124345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e79a8656aba6d0498ba0cea7e6b256e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: c0bd980e-6fd5-429f-ad42-eddb23091def
+  position: {x: 362, y: 845}
+  nodeName: Priority Set Node
+  priorityValue: 5
 --- !u!114 &-7882671527056274542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,6 +88,38 @@ MonoBehaviour:
   position: {x: 1969.9996, y: -30}
   nodeName: Distance Filter Node
   minimumDistance: 2
+--- !u!114 &-6855552110964292313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd4b415946594f34d851229fc577893b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 2132c538-6293-4069-9501-3b983c70caa9
+  position: {x: 152, y: 845}
+  nodeName: Tag Set Node
+  tagValue: 2
+--- !u!114 &-6854603404414446707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd4b415946594f34d851229fc577893b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: fcc32436-cb0f-4408-ab9b-300078cdbb25
+  position: {x: 152, y: 654}
+  nodeName: Tag Set Node
+  tagValue: 1
 --- !u!114 &-6749379481339108397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,7 +138,7 @@ MonoBehaviour:
   sourceType: 0
   spacing: 4
   randomPointCount: 10000
---- !u!114 &-6591985202477284903
+--- !u!114 &-6544660615943932130
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,13 +147,80 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd4b415946594f34d851229fc577893b, type: 3}
+  m_Script: {fileID: 11500000, guid: 2683eedcc9f5cb643916ee08a7ce808e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUID: 39598ac2-913a-4107-b547-e61a3a476aa5
-  position: {x: 725.00024, y: 300}
-  nodeName: Tag Set Node
-  tagValue: 0
+  GUID: 7e23c443-a5d8-41ff-b4ea-9f33a5a293c3
+  position: {x: -778, y: 654}
+  nodeName: Random Scale Node
+  scaleMode: 0
+  uniformMin: 5
+  uniformMax: 35
+  minScaleX: 1
+  maxScaleX: 1
+  minScaleY: 1
+  maxScaleY: 1
+  minScaleZ: 1
+  maxScaleZ: 1
+--- !u!114 &-6398334641841091532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d589371fb1c68bd46a97d99ca2ca3e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 711d6eab-a3e4-4aea-8de1-e267397b60ad
+  position: {x: 455.5, y: 1091}
+  nodeName: Split By Bounds Node
+  regionId: aac418af-f193-4403-af02-9230146a0b5a
+  regionName: PCGPolygonRegionInsideWater
+--- !u!114 &-5328068886701794611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7df65f8a8fd10140ba337c66f5b0270, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 1abf2f6d-91ec-425f-934b-7292699358e1
+  position: {x: -304, y: 845}
+  nodeName: Random Rotation Node
+  minRotationX: 0
+  maxRotationX: 0
+  minRotationY: 0
+  maxRotationY: 45
+  minRotationZ: 0
+  maxRotationZ: 0
+--- !u!114 &-5041146773591820710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a53b215e6fc0c4b9c88bf1e70cbea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 398e298a-763b-4376-85f2-ef8c3977ac3b
+  position: {x: -716, y: 319.47955}
+  nodeName: Project To Surface Node
+  rayStartOffset: 100
+  maxDistance: 200
+  maxSurfaceAngle: 45
+  alignToSurfaceNormal: 1
+  discardMisses: 1
+  layerMask: -1
 --- !u!114 &-4409752228156557294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,8 +237,161 @@ MonoBehaviour:
   position: {x: 68.5, y: -30}
   nodeName: Source Node
   sourceType: 0
-  spacing: 10000
+  spacing: 0.52
   randomPointCount: 10000
+--- !u!114 &-3606091206792354225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bb0f434e6c01dc4f9ef6d987532b4c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 0b9900bc-6351-4c26-96fd-da6c35d7beed
+  position: {x: -1131.9999, y: 319.47955}
+  nodeName: Random Offset Node
+  amountX: 0.5
+  amountY: 0
+  amountZ: 0.5
+--- !u!114 &-3338025091868002845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52a649c5d1ebb6e4892fb63cb9588894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 5c0dfb45-2027-49f7-84e7-e29ececfa629
+  position: {x: -1844.5, y: 1091}
+  nodeName: Density Noise Node
+  noiseScale: 0.13
+  densityMultiplier: 1.07
+  offsetX: 10
+  offsetZ: 10
+--- !u!114 &-3313798735292808014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52a649c5d1ebb6e4892fb63cb9588894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 3ff20a71-ae0a-468c-b5f2-139b300f5562
+  position: {x: -1408, y: 845}
+  nodeName: Density Noise Node
+  noiseScale: 0.07
+  densityMultiplier: 1.2
+  offsetX: 30
+  offsetZ: 50
+--- !u!114 &-3142190650203849381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3edaf780ba0cdf478d47a26327b0a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: e74c7075-b3be-4998-a4e0-ee2285982065
+  position: {x: -2093, y: 845}
+  nodeName: Source Node
+  sourceType: 0
+  spacing: 2
+  randomPointCount: 10000
+--- !u!114 &-3045887266642049563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d589371fb1c68bd46a97d99ca2ca3e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: efc10dab-f7e6-4fa4-b06e-e9e05a67e8ca
+  position: {x: -1889, y: 845}
+  nodeName: Split By Bounds Node
+  regionId: 0da12f44-484a-41e3-8226-59b2aee03d46
+  regionName: PCGPolygonRegionMushBiom
+--- !u!114 &-2557419637402047601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7df65f8a8fd10140ba337c66f5b0270, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 7c60025b-76e2-43d4-a2bf-a503c2750a2b
+  position: {x: -470.99985, y: 319.47955}
+  nodeName: Random Rotation Node
+  minRotationX: 0
+  maxRotationX: 0
+  minRotationY: 0
+  maxRotationY: 360
+  minRotationZ: 0
+  maxRotationZ: 0
+--- !u!114 &-2226533923090353620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2683eedcc9f5cb643916ee08a7ce808e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: b77d7282-8373-4417-b9fa-c72a2d23b2f0
+  position: {x: -778, y: 845}
+  nodeName: Random Scale Node
+  scaleMode: 0
+  uniformMin: 3
+  uniformMax: 4
+  minScaleX: 1
+  maxScaleX: 1
+  minScaleY: 1
+  maxScaleY: 1
+  minScaleZ: 1
+  maxScaleZ: 1
+--- !u!114 &-2014778280080809386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d589371fb1c68bd46a97d99ca2ca3e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 363fed7f-7756-4250-92e6-83461b6f2d61
+  position: {x: 606.0001, y: 319.47955}
+  nodeName: Split By Bounds Node
+  regionId: a618b3bd-a306-471a-8e41-342b77d92bf8
+  regionName: PCGPolygonRegion
 --- !u!114 &-1694717887364462721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,13 +421,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: e1b95015-0f7b-49b9-aaac-44dd0c03c312
-  position: {x: 1613.5, y: 390.5}
+  position: {x: 1410.5, y: 1116}
   nodeName: Filter Node
   filterType: 2
   randomChance: 0.5
   minDensity: 0.5
-  requiredTag: 0
---- !u!114 &-1008588786998893890
+  requiredTag: 2
+--- !u!114 &-1144475606771572053
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,18 +436,52 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61a53b215e6fc0c4b9c88bf1e70cbea5, type: 3}
+  m_Script: {fileID: 11500000, guid: cdfd10407a77fc941b58a9227c013958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUID: c6a44fb3-efd3-4618-8527-9fc73329c3c8
-  position: {x: 1260.3501, y: 450.50006}
-  nodeName: Project To Surface Node
-  rayStartOffset: 100
-  maxDistance: 200
-  maxSurfaceAngle: 90
-  alignToSurfaceNormal: 0
-  discardMisses: 1
-  layerMask: -1
+  GUID: f209bc38-d977-4200-a017-cd10163582ca
+  position: {x: -1227, y: 845}
+  nodeName: Filter Node
+  filterType: 1
+  randomChance: 0.57
+  minDensity: 0.53
+  requiredTag: 0
+--- !u!114 &-1127162936594514022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52a649c5d1ebb6e4892fb63cb9588894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 7a1af0bd-1aea-4fa8-94af-364316955784
+  position: {x: -1408, y: 654}
+  nodeName: Density Noise Node
+  noiseScale: 0.04
+  densityMultiplier: 1.2
+  offsetX: 10
+  offsetZ: 10
+--- !u!114 &-1097679119127215015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d589371fb1c68bd46a97d99ca2ca3e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 11fc0f22-cb0d-4d7c-a26e-516a8d0223c0
+  position: {x: -1889, y: 654}
+  nodeName: Split By Bounds Node
+  regionId: 0da12f44-484a-41e3-8226-59b2aee03d46
+  regionName: PCGPolygonRegionMushBiom
 --- !u!114 &-961453986095283687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,24 +498,6 @@ MonoBehaviour:
   position: {x: 363, y: 60}
   nodeName: Tag Set Node
   tagValue: 0
---- !u!114 &-542102074471028503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a8dff89584862443ae40593c15696e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GUID: c05a31b1-e7c9-421d-9fc6-8667ee7231aa
-  position: {x: 285.2047, y: 300}
-  nodeName: Bounds Filter Node
-  regionId: d78de50b-e97f-40cc-9f37-da705cc1f6ff
-  regionName: PCGBoxRegion (1)
-  invert: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,19 +638,91 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: -1008588786998893890}
   - {fileID: -8261567649776098121}
-  - {fileID: -6591985202477284903}
   - {fileID: 5597073377073820292}
   - {fileID: 5440507618013140197}
-  - {fileID: 2594724547866570883}
   - {fileID: -1250490572283737020}
   - {fileID: 1261410004932729432}
-  - {fileID: -8481463430527116855}
-  - {fileID: -8636745226903121033}
   - {fileID: 40049899402302673}
-  - {fileID: 4583524421860561429}
-  - {fileID: -542102074471028503}
+  - {fileID: 4663973376657953163}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: -2014778280080809386}
+  - {fileID: 0}
+  - {fileID: 8345173119205332642}
+  - {fileID: 6477198164029990113}
+  - {fileID: 4833750578207512542}
+  - {fileID: -3606091206792354225}
+  - {fileID: 5800184717540673087}
+  - {fileID: -5041146773591820710}
+  - {fileID: -2557419637402047601}
+  - {fileID: 257414656487906789}
+  - {fileID: -8591061639630279320}
+  - {fileID: 4255605629269220653}
+  - {fileID: 6944860128424662618}
+  - {fileID: -9222888595270027237}
+  - {fileID: 1998870084264017013}
+  - {fileID: -3338025091868002845}
+  - {fileID: 4549149101934306995}
+  - {fileID: 3984848165587057234}
+  - {fileID: 4540318474116128266}
+  - {fileID: 4718114711598558328}
+  - {fileID: 2750849096032358456}
+  - {fileID: -6398334641841091532}
+  - {fileID: 2864661657059126824}
+  - {fileID: 9175379874664273137}
+  - {fileID: -1127162936594514022}
+  - {fileID: 3758283217132999501}
+  - {fileID: -6544660615943932130}
+  - {fileID: 5476634469913673117}
+  - {fileID: 1306026008287659161}
+  - {fileID: 4398007906534509327}
+  - {fileID: 3281571472126388524}
+  - {fileID: -6854603404414446707}
+  - {fileID: 6878157793725407383}
+  - {fileID: 3507820370235995802}
+  - {fileID: 7416614871133716133}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: -1097679119127215015}
+  - {fileID: -3142190650203849381}
+  - {fileID: 1625900466712914913}
+  - {fileID: -2226533923090353620}
+  - {fileID: 4201541920918150418}
+  - {fileID: -5328068886701794611}
+  - {fileID: -1144475606771572053}
+  - {fileID: -3045887266642049563}
+  - {fileID: -3313798735292808014}
+  - {fileID: -6855552110964292313}
+  - {fileID: 748787240622768503}
+  - {fileID: 7740375342241288105}
+  - {fileID: 3568145092423695877}
+  - {fileID: 3698014645178026939}
+  - {fileID: -8183826605348124345}
   edges:
   - sourceNodeGUID: 5c5c7bc6-cd17-4f34-96cb-35aee329331d
     sourcePortName: 
@@ -404,47 +764,222 @@ MonoBehaviour:
     sourcePortName: 
     targetNodeGUID: 1fbe9c67-7b6f-4b03-8f8e-97bf04641664
     targetPortName: 
-  - sourceNodeGUID: 697db426-4b48-4f9e-bd69-56e13a8973f7
-    sourcePortName: 
-    targetNodeGUID: e28f8fe9-3112-4e0b-a254-44528f564248
-    targetPortName: 
   - sourceNodeGUID: 85bb8039-0f38-46cb-b2df-ea4e770939b6
     sourcePortName: 
     targetNodeGUID: 1d3f83b9-7ee9-410e-9883-9af755b63294
     targetPortName: 
-  - sourceNodeGUID: cb22b4f8-1361-4857-b2c9-635849e99bf2
-    sourcePortName: 
-    targetNodeGUID: 973a106a-cc36-4eea-92ac-4b9c56fc73dd
-    targetPortName: 
-  - sourceNodeGUID: 39598ac2-913a-4107-b547-e61a3a476aa5
-    sourcePortName: 
-    targetNodeGUID: 697db426-4b48-4f9e-bd69-56e13a8973f7
-    targetPortName: 
-  - sourceNodeGUID: 8bfc29ab-3987-42f4-9ba9-fbe292becef9
-    sourcePortName: 
+  - sourceNodeGUID: 92d18710-2d5d-437b-b5ba-75ace7e0da96
+    sourcePortName: Inside
+    targetNodeGUID: 363fed7f-7756-4250-92e6-83461b6f2d61
+    targetPortName: Input
+  - sourceNodeGUID: 363fed7f-7756-4250-92e6-83461b6f2d61
+    sourcePortName: Inside
     targetNodeGUID: d1a33953-7d3e-47fc-bc41-93a8bcd57159
-    targetPortName: 
-  - sourceNodeGUID: e28f8fe9-3112-4e0b-a254-44528f564248
-    sourcePortName: 
-    targetNodeGUID: c6a44fb3-efd3-4618-8527-9fc73329c3c8
-    targetPortName: 
-  - sourceNodeGUID: c6a44fb3-efd3-4618-8527-9fc73329c3c8
-    sourcePortName: 
-    targetNodeGUID: e1b95015-0f7b-49b9-aaac-44dd0c03c312
-    targetPortName: 
-  - sourceNodeGUID: c6a44fb3-efd3-4618-8527-9fc73329c3c8
-    sourcePortName: 
+    targetPortName: Input
+  - sourceNodeGUID: 92d18710-2d5d-437b-b5ba-75ace7e0da96
+    sourcePortName: Outside
+    targetNodeGUID: b5dc699b-f6a7-47cf-bafe-e7fb7dcb9caa
+    targetPortName: Input
+  - sourceNodeGUID: b5dc699b-f6a7-47cf-bafe-e7fb7dcb9caa
+    sourcePortName: Outside
+    targetNodeGUID: d1a33953-7d3e-47fc-bc41-93a8bcd57159
+    targetPortName: Input
+  - sourceNodeGUID: 8ea50b2e-fe65-4c32-9773-48215dd36d2c
+    sourcePortName: Inside
+    targetNodeGUID: d1a33953-7d3e-47fc-bc41-93a8bcd57159
+    targetPortName: Input
+  - sourceNodeGUID: 0f51c371-8ba1-4764-9465-8617e96f0cab
+    sourcePortName: Output
+    targetNodeGUID: 0b9900bc-6351-4c26-96fd-da6c35d7beed
+    targetPortName: Input
+  - sourceNodeGUID: 0b9900bc-6351-4c26-96fd-da6c35d7beed
+    sourcePortName: Output
+    targetNodeGUID: 4dca623b-2d1e-4d9c-8de9-4527475e2e16
+    targetPortName: Input
+  - sourceNodeGUID: 4dca623b-2d1e-4d9c-8de9-4527475e2e16
+    sourcePortName: Output
+    targetNodeGUID: 398e298a-763b-4376-85f2-ef8c3977ac3b
+    targetPortName: Input
+  - sourceNodeGUID: 398e298a-763b-4376-85f2-ef8c3977ac3b
+    sourcePortName: Output
+    targetNodeGUID: 7c60025b-76e2-43d4-a2bf-a503c2750a2b
+    targetPortName: Input
+  - sourceNodeGUID: 7c60025b-76e2-43d4-a2bf-a503c2750a2b
+    sourcePortName: Output
+    targetNodeGUID: a8972873-1edb-4e2d-8fcb-c6bde07e7c24
+    targetPortName: Input
+  - sourceNodeGUID: a8972873-1edb-4e2d-8fcb-c6bde07e7c24
+    sourcePortName: Output
+    targetNodeGUID: 09bc4b72-a48a-4950-8487-e0fd6be79455
+    targetPortName: Input
+  - sourceNodeGUID: 007e7f0b-1fff-46f5-8ab8-0f43e3f40aeb
+    sourcePortName: Output
+    targetNodeGUID: 0f51c371-8ba1-4764-9465-8617e96f0cab
+    targetPortName: Input
+  - sourceNodeGUID: 09bc4b72-a48a-4950-8487-e0fd6be79455
+    sourcePortName: Output
+    targetNodeGUID: 92d18710-2d5d-437b-b5ba-75ace7e0da96
+    targetPortName: Input
+  - sourceNodeGUID: d1a33953-7d3e-47fc-bc41-93a8bcd57159
+    sourcePortName: Output
     targetNodeGUID: 088b5d9a-a22d-4160-b0cf-39f45ea575d9
-    targetPortName: 
-  - sourceNodeGUID: c05a31b1-e7c9-421d-9fc6-8667ee7231aa
-    sourcePortName: 
-    targetNodeGUID: 39598ac2-913a-4107-b547-e61a3a476aa5
-    targetPortName: 
-  - sourceNodeGUID: 973a106a-cc36-4eea-92ac-4b9c56fc73dd
-    sourcePortName: 
-    targetNodeGUID: c05a31b1-e7c9-421d-9fc6-8667ee7231aa
-    targetPortName: 
-  entryNodeGUID: 
+    targetPortName: Input
+  - sourceNodeGUID: b5dc699b-f6a7-47cf-bafe-e7fb7dcb9caa
+    sourcePortName: Inside
+    targetNodeGUID: 8ea50b2e-fe65-4c32-9773-48215dd36d2c
+    targetPortName: Input
+  - sourceNodeGUID: 53bddf5e-eef0-439c-81e4-e5ee2cf7f869
+    sourcePortName: Output
+    targetNodeGUID: 8bb069c9-9ccb-46fc-84a4-46e57c7523f5
+    targetPortName: Input
+  - sourceNodeGUID: 8bb069c9-9ccb-46fc-84a4-46e57c7523f5
+    sourcePortName: Output
+    targetNodeGUID: dd72dc73-8eb6-45b5-9b4d-79620b03a20d
+    targetPortName: Input
+  - sourceNodeGUID: dd72dc73-8eb6-45b5-9b4d-79620b03a20d
+    sourcePortName: Output
+    targetNodeGUID: 2fb0bd77-f5f4-47e1-9733-b587dcab0069
+    targetPortName: Input
+  - sourceNodeGUID: 2fb0bd77-f5f4-47e1-9733-b587dcab0069
+    sourcePortName: Output
+    targetNodeGUID: cbf4f3de-9e60-4be8-a3e5-816942e5bf68
+    targetPortName: Input
+  - sourceNodeGUID: 5c0dfb45-2027-49f7-84e7-e29ececfa629
+    sourcePortName: Output
+    targetNodeGUID: 53bddf5e-eef0-439c-81e4-e5ee2cf7f869
+    targetPortName: Input
+  - sourceNodeGUID: 1f4168d8-095a-4f14-aa26-c6775eed4c83
+    sourcePortName: Inside
+    targetNodeGUID: 711d6eab-a3e4-4aea-8de1-e267397b60ad
+    targetPortName: Input
+  - sourceNodeGUID: 711d6eab-a3e4-4aea-8de1-e267397b60ad
+    sourcePortName: Outside
+    targetNodeGUID: 19343508-2ff1-4a55-a7d3-8ad63f6beb31
+    targetPortName: Input
+  - sourceNodeGUID: cbf4f3de-9e60-4be8-a3e5-816942e5bf68
+    sourcePortName: Output
+    targetNodeGUID: 57ea793e-cc2d-4ab6-a900-ac72ef51d905
+    targetPortName: Input
+  - sourceNodeGUID: 19343508-2ff1-4a55-a7d3-8ad63f6beb31
+    sourcePortName: Output
+    targetNodeGUID: e1b95015-0f7b-49b9-aaac-44dd0c03c312
+    targetPortName: Input
+  - sourceNodeGUID: 74d8acf4-6f66-4d80-886a-ec859ee281bd
+    sourcePortName: Output
+    targetNodeGUID: 475fc428-7c3d-4af0-b514-091fdd6cc27c
+    targetPortName: Input
+  - sourceNodeGUID: bed122d1-fbb8-49a4-b326-09ea3daaeb54
+    sourcePortName: Output
+    targetNodeGUID: 40d83003-f69f-449a-baa9-1edd2a207ee3
+    targetPortName: Input
+  - sourceNodeGUID: 40d83003-f69f-449a-baa9-1edd2a207ee3
+    sourcePortName: Output
+    targetNodeGUID: 7e23c443-a5d8-41ff-b4ea-9f33a5a293c3
+    targetPortName: Input
+  - sourceNodeGUID: 7e23c443-a5d8-41ff-b4ea-9f33a5a293c3
+    sourcePortName: Output
+    targetNodeGUID: dd2b26d4-72ba-44c6-bb46-45f680182af3
+    targetPortName: Input
+  - sourceNodeGUID: dd2b26d4-72ba-44c6-bb46-45f680182af3
+    sourcePortName: Output
+    targetNodeGUID: 75fae8d2-0e71-430f-a4af-8a517b17b33e
+    targetPortName: Input
+  - sourceNodeGUID: 7a1af0bd-1aea-4fa8-94af-364316955784
+    sourcePortName: Output
+    targetNodeGUID: bed122d1-fbb8-49a4-b326-09ea3daaeb54
+    targetPortName: Input
+  - sourceNodeGUID: cb22b4f8-1361-4857-b2c9-635849e99bf2
+    sourcePortName: Output
+    targetNodeGUID: c1d3a649-135c-439b-8fe5-892efc0053ef
+    targetPortName: Input
+  - sourceNodeGUID: c1d3a649-135c-439b-8fe5-892efc0053ef
+    sourcePortName: Outside
+    targetNodeGUID: 007e7f0b-1fff-46f5-8ab8-0f43e3f40aeb
+    targetPortName: Input
+  - sourceNodeGUID: c6cb209f-88f4-413f-92de-505fe03541d8
+    sourcePortName: Output
+    targetNodeGUID: 11fc0f22-cb0d-4d7c-a26e-516a8d0223c0
+    targetPortName: Input
+  - sourceNodeGUID: 11fc0f22-cb0d-4d7c-a26e-516a8d0223c0
+    sourcePortName: Inside
+    targetNodeGUID: 7a1af0bd-1aea-4fa8-94af-364316955784
+    targetPortName: Input
+  - sourceNodeGUID: 1003722a-cf4c-4b05-8022-fef78238048c
+    sourcePortName: Output
+    targetNodeGUID: fcc32436-cb0f-4408-ab9b-300078cdbb25
+    targetPortName: Input
+  - sourceNodeGUID: f209bc38-d977-4200-a017-cd10163582ca
+    sourcePortName: Output
+    targetNodeGUID: 84a006b1-6de4-4364-aa3e-c4aaf54a8a9c
+    targetPortName: Input
+  - sourceNodeGUID: 84a006b1-6de4-4364-aa3e-c4aaf54a8a9c
+    sourcePortName: Output
+    targetNodeGUID: b77d7282-8373-4417-b9fa-c72a2d23b2f0
+    targetPortName: Input
+  - sourceNodeGUID: b77d7282-8373-4417-b9fa-c72a2d23b2f0
+    sourcePortName: Output
+    targetNodeGUID: c15801f5-4d2c-49d4-bbd8-bc17a0f6730d
+    targetPortName: Input
+  - sourceNodeGUID: c15801f5-4d2c-49d4-bbd8-bc17a0f6730d
+    sourcePortName: Output
+    targetNodeGUID: 1abf2f6d-91ec-425f-934b-7292699358e1
+    targetPortName: Input
+  - sourceNodeGUID: 3ff20a71-ae0a-468c-b5f2-139b300f5562
+    sourcePortName: Output
+    targetNodeGUID: f209bc38-d977-4200-a017-cd10163582ca
+    targetPortName: Input
+  - sourceNodeGUID: e74c7075-b3be-4998-a4e0-ee2285982065
+    sourcePortName: Output
+    targetNodeGUID: efc10dab-f7e6-4fa4-b06e-e9e05a67e8ca
+    targetPortName: Input
+  - sourceNodeGUID: efc10dab-f7e6-4fa4-b06e-e9e05a67e8ca
+    sourcePortName: Inside
+    targetNodeGUID: 3ff20a71-ae0a-468c-b5f2-139b300f5562
+    targetPortName: Input
+  - sourceNodeGUID: 3a18049a-9e58-467f-a906-dae116e877c0
+    sourcePortName: Output
+    targetNodeGUID: 7ec45c31-7bce-41db-99c3-027c02447071
+    targetPortName: Input
+  - sourceNodeGUID: d0924f18-9a81-4c27-945c-f01dce1d8592
+    sourcePortName: Output
+    targetNodeGUID: 74d8acf4-6f66-4d80-886a-ec859ee281bd
+    targetPortName: Input
+  - sourceNodeGUID: d0924f18-9a81-4c27-945c-f01dce1d8592
+    sourcePortName: Output
+    targetNodeGUID: 3a18049a-9e58-467f-a906-dae116e877c0
+    targetPortName: Input
+  - sourceNodeGUID: 75fae8d2-0e71-430f-a4af-8a517b17b33e
+    sourcePortName: Output
+    targetNodeGUID: 1003722a-cf4c-4b05-8022-fef78238048c
+    targetPortName: Input
+  - sourceNodeGUID: 1abf2f6d-91ec-425f-934b-7292699358e1
+    sourcePortName: Output
+    targetNodeGUID: 2132c538-6293-4069-9501-3b983c70caa9
+    targetPortName: Input
+  - sourceNodeGUID: fcc32436-cb0f-4408-ab9b-300078cdbb25
+    sourcePortName: Output
+    targetNodeGUID: 5cca8e13-277c-42e8-9673-e5301c0168c4
+    targetPortName: Input
+  - sourceNodeGUID: 5cca8e13-277c-42e8-9673-e5301c0168c4
+    sourcePortName: Output
+    targetNodeGUID: d0924f18-9a81-4c27-945c-f01dce1d8592
+    targetPortName: Input
+  - sourceNodeGUID: 2132c538-6293-4069-9501-3b983c70caa9
+    sourcePortName: Output
+    targetNodeGUID: c0bd980e-6fd5-429f-ad42-eddb23091def
+    targetPortName: Input
+  - sourceNodeGUID: c0bd980e-6fd5-429f-ad42-eddb23091def
+    sourcePortName: Output
+    targetNodeGUID: d0924f18-9a81-4c27-945c-f01dce1d8592
+    targetPortName: Input
+  - sourceNodeGUID: 57ea793e-cc2d-4ab6-a900-ac72ef51d905
+    sourcePortName: Output
+    targetNodeGUID: 1f4168d8-095a-4f14-aa26-c6775eed4c83
+    targetPortName: Input
+  - sourceNodeGUID: c5e71b75-8ea8-4ee3-883e-e697c495e7d6
+    sourcePortName: Output
+    targetNodeGUID: 5c0dfb45-2027-49f7-84e7-e29ececfa629
+    targetPortName: Input
 --- !u!114 &40049899402302673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,9 +993,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: d1a33953-7d3e-47fc-bc41-93a8bcd57159
-  position: {x: 726, y: 570.0001}
+  position: {x: 1273.0002, y: 319.47955}
   nodeName: Tag Set Node
   tagValue: 1
+--- !u!114 &257414656487906789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b893e52ff832ef4cb922b8840e2eca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: a8972873-1edb-4e2d-8fcb-c6bde07e7c24
+  position: {x: -256.9999, y: 319.47955}
+  nodeName: Transform Node
+  offsetX: 0
+  offsetY: -0.5
+  offsetZ: 0
+  rotationX: 0
+  rotationY: 0
+  rotationZ: 0
+  scaleMultiplier: 1
+--- !u!114 &748787240622768503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfd10407a77fc941b58a9227c013958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 3a18049a-9e58-467f-a906-dae116e877c0
+  position: {x: 1377.9999, y: 845}
+  nodeName: Filter Node
+  filterType: 2
+  randomChance: 0.5
+  minDensity: 0.5
+  requiredTag: 2
 --- !u!114 &750076484111185935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,13 +1087,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: 088b5d9a-a22d-4160-b0cf-39f45ea575d9
-  position: {x: 1614, y: 555}
+  position: {x: 1501.0001, y: 319.47955}
   nodeName: Filter Node
   filterType: 2
   randomChance: 0.5
   minDensity: 0.5
   requiredTag: 1
---- !u!114 &2594724547866570883
+--- !u!114 &1306026008287659161
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -526,12 +1102,113 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 257ff76e4f140fb4f9b14e7fd5877084, type: 3}
+  m_Script: {fileID: 11500000, guid: d7df65f8a8fd10140ba337c66f5b0270, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUID: 697db426-4b48-4f9e-bd69-56e13a8973f7
-  position: {x: 933, y: 451}
-  nodeName: Merge Node
+  GUID: 75fae8d2-0e71-430f-a4af-8a517b17b33e
+  position: {x: -304, y: 654}
+  nodeName: Random Rotation Node
+  minRotationX: 0
+  maxRotationX: 0
+  minRotationY: 0
+  maxRotationY: 360
+  minRotationZ: 0
+  maxRotationZ: 0
+--- !u!114 &1625900466712914913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bb0f434e6c01dc4f9ef6d987532b4c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 84a006b1-6de4-4364-aa3e-c4aaf54a8a9c
+  position: {x: -965, y: 845}
+  nodeName: Random Offset Node
+  amountX: 0.3
+  amountY: 0
+  amountZ: 0.3
+--- !u!114 &1998870084264017013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d589371fb1c68bd46a97d99ca2ca3e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 1f4168d8-095a-4f14-aa26-c6775eed4c83
+  position: {x: -25.5, y: 1091}
+  nodeName: Split By Bounds Node
+  regionId: 5a83b3cf-62e1-450e-8491-241e67f4f9b4
+  regionName: PCGPolygonRegionWater
+--- !u!114 &2750849096032358456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfd10407a77fc941b58a9227c013958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 53bddf5e-eef0-439c-81e4-e5ee2cf7f869
+  position: {x: -1663.5, y: 1091}
+  nodeName: Filter Node
+  filterType: 1
+  randomChance: 0.57
+  minDensity: 0.35
+  requiredTag: 0
+--- !u!114 &2864661657059126824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b893e52ff832ef4cb922b8840e2eca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 57ea793e-cc2d-4ab6-a900-ac72ef51d905
+  position: {x: -532.5, y: 1091}
+  nodeName: Transform Node
+  offsetX: 0
+  offsetY: 0
+  offsetZ: 0
+  rotationX: 0
+  rotationY: 0
+  rotationZ: 0
+  scaleMultiplier: 1
+--- !u!114 &3281571472126388524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfd10407a77fc941b58a9227c013958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: bed122d1-fbb8-49a4-b326-09ea3daaeb54
+  position: {x: -1227, y: 654}
+  nodeName: Filter Node
+  filterType: 1
+  randomChance: 0.57
+  minDensity: 0.47
+  requiredTag: 0
 --- !u!114 &3419209178291768886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -550,7 +1227,7 @@ MonoBehaviour:
   sourceType: 0
   spacing: 4
   randomPointCount: 10000
---- !u!114 &4583524421860561429
+--- !u!114 &3507820370235995802
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -559,15 +1236,247 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a8dff89584862443ae40593c15696e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 03d2247bd1abd0349a24b93cd9dad0d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUID: 8bfc29ab-3987-42f4-9ba9-fbe292becef9
-  position: {x: -88.79526, y: 570}
-  nodeName: Bounds Filter Node
-  regionId: 8c2fbe91-6fa9-4fa1-bc78-c2b3370214c2
-  regionName: PCGBoxRegion
-  invert: 0
+  GUID: 475fc428-7c3d-4af0-b514-091fdd6cc27c
+  position: {x: 1643, y: 590}
+  nodeName: Spawner Node
+  prefabEntries:
+  - prefab: {fileID: 7570405467501425085, guid: 0ab22827d0f3f0b40a97e9430d684283, type: 3}
+    weight: 1
+  - prefab: {fileID: 8954726919292774957, guid: eae42a57b046b1a42a79ae6319bccca3, type: 3}
+    weight: 1
+  - prefab: {fileID: 7749838506462483410, guid: d354c41a99993964baca0254487708d1, type: 3}
+    weight: 1
+  - prefab: {fileID: 3318689441606926373, guid: d3ee913ed32937344b0587e70dc777a2, type: 3}
+    weight: 1
+--- !u!114 &3568145092423695877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 412852091aa28a54581a663d2cc9bcfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: d0924f18-9a81-4c27-945c-f01dce1d8592
+  position: {x: 689, y: 845}
+  nodeName: Distance Filter Node
+  minimumDistance: 2
+--- !u!114 &3698014645178026939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e79a8656aba6d0498ba0cea7e6b256e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 5cca8e13-277c-42e8-9673-e5301c0168c4
+  position: {x: 362, y: 654}
+  nodeName: Priority Set Node
+  priorityValue: 10
+--- !u!114 &3758283217132999501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bb0f434e6c01dc4f9ef6d987532b4c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 40d83003-f69f-449a-baa9-1edd2a207ee3
+  position: {x: -965, y: 654}
+  nodeName: Random Offset Node
+  amountX: 4
+  amountY: 0
+  amountZ: 4
+--- !u!114 &3984848165587057234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2683eedcc9f5cb643916ee08a7ce808e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: dd72dc73-8eb6-45b5-9b4d-79620b03a20d
+  position: {x: -1214.5, y: 1091}
+  nodeName: Random Scale Node
+  scaleMode: 0
+  uniformMin: 1
+  uniformMax: 4
+  minScaleX: 1
+  maxScaleX: 1
+  minScaleY: 1
+  maxScaleY: 1
+  minScaleZ: 1
+  maxScaleZ: 1
+--- !u!114 &4201541920918150418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a53b215e6fc0c4b9c88bf1e70cbea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: c15801f5-4d2c-49d4-bbd8-bc17a0f6730d
+  position: {x: -549, y: 845}
+  nodeName: Project To Surface Node
+  rayStartOffset: 100
+  maxDistance: 200
+  maxSurfaceAngle: 45
+  alignToSurfaceNormal: 1
+  discardMisses: 1
+  layerMask: -1
+--- !u!114 &4255605629269220653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfd10407a77fc941b58a9227c013958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 0f51c371-8ba1-4764-9465-8617e96f0cab
+  position: {x: -1393.9999, y: 319.47955}
+  nodeName: Filter Node
+  filterType: 1
+  randomChance: 0.57
+  minDensity: 0.5
+  requiredTag: 0
+--- !u!114 &4398007906534509327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 412852091aa28a54581a663d2cc9bcfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 1003722a-cf4c-4b05-8022-fef78238048c
+  position: {x: -58, y: 654}
+  nodeName: Distance Filter Node
+  minimumDistance: 4
+--- !u!114 &4540318474116128266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a53b215e6fc0c4b9c88bf1e70cbea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 2fb0bd77-f5f4-47e1-9733-b587dcab0069
+  position: {x: -985.5, y: 1091}
+  nodeName: Project To Surface Node
+  rayStartOffset: 100
+  maxDistance: 200
+  maxSurfaceAngle: 45
+  alignToSurfaceNormal: 1
+  discardMisses: 1
+  layerMask: -1
+--- !u!114 &4549149101934306995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bb0f434e6c01dc4f9ef6d987532b4c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 8bb069c9-9ccb-46fc-84a4-46e57c7523f5
+  position: {x: -1401.5, y: 1091}
+  nodeName: Random Offset Node
+  amountX: 0.5
+  amountY: 0
+  amountZ: 0.5
+--- !u!114 &4663973376657953163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d589371fb1c68bd46a97d99ca2ca3e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 92d18710-2d5d-437b-b5ba-75ace7e0da96
+  position: {x: 150.00006, y: 319.47955}
+  nodeName: Split By Bounds Node
+  regionId: 60f4b038-e0ff-4881-9e47-4c60bae45e94
+  regionName: PCGPolygonRegion (1)
+--- !u!114 &4718114711598558328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7df65f8a8fd10140ba337c66f5b0270, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: cbf4f3de-9e60-4be8-a3e5-816942e5bf68
+  position: {x: -744.5, y: 1091}
+  nodeName: Random Rotation Node
+  minRotationX: -20
+  maxRotationX: 20
+  minRotationY: 0
+  maxRotationY: 360
+  minRotationZ: -20
+  maxRotationZ: 20
+--- !u!114 &4833750578207512542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52a649c5d1ebb6e4892fb63cb9588894, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 007e7f0b-1fff-46f5-8ab8-0f43e3f40aeb
+  position: {x: -1574.9999, y: 319.47955}
+  nodeName: Density Noise Node
+  noiseScale: 0.1
+  densityMultiplier: 1.07
+  offsetX: 10
+  offsetZ: 10
 --- !u!114 &4955943803773164837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,11 +1549,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: cd23b629-8bfd-4f99-902c-1a2d5248bfaa
-  position: {x: 1912, y: 555}
+  position: {x: 1761.0002, y: 319.47955}
   nodeName: Spawner Node
   prefabEntries:
   - prefab: {fileID: 9154215057541871321, guid: 2554008d6447a2540b44e55f0c0b576e, type: 3}
-    weight: 1
+    weight: 5
+  - prefab: {fileID: 2636820298107493410, guid: a2bd798ea40c7e341aa61ad124d95342, type: 3}
+    weight: 5
+  - prefab: {fileID: 4577034113271871886, guid: 24457fdf8e66c3c49b7599931e0fdcb2, type: 3}
+    weight: 3
+--- !u!114 &5476634469913673117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a53b215e6fc0c4b9c88bf1e70cbea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: dd2b26d4-72ba-44c6-bb46-45f680182af3
+  position: {x: -549, y: 654}
+  nodeName: Project To Surface Node
+  rayStartOffset: 100
+  maxDistance: 200
+  maxSurfaceAngle: 45
+  alignToSurfaceNormal: 1
+  discardMisses: 1
+  layerMask: -1
 --- !u!114 &5597073377073820292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -658,11 +1592,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: cb22b4f8-1361-4857-b2c9-635849e99bf2
-  position: {x: -342.79523, y: 431}
+  position: {x: -2260, y: 319}
   nodeName: Source Node
   sourceType: 0
   spacing: 3
   randomPointCount: 10000
+--- !u!114 &5800184717540673087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2683eedcc9f5cb643916ee08a7ce808e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 4dca623b-2d1e-4d9c-8de9-4527475e2e16
+  position: {x: -944.9999, y: 319.47955}
+  nodeName: Random Scale Node
+  scaleMode: 0
+  uniformMin: 0.8
+  uniformMax: 1.2
+  minScaleX: 1
+  maxScaleX: 1
+  minScaleY: 1
+  maxScaleY: 1
+  minScaleZ: 1
+  maxScaleZ: 1
 --- !u!114 &5882026552488887830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -708,6 +1666,99 @@ MonoBehaviour:
   maxRotationY: 360
   minRotationZ: 0
   maxRotationZ: 0
+--- !u!114 &6477198164029990113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d589371fb1c68bd46a97d99ca2ca3e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 8ea50b2e-fe65-4c32-9773-48215dd36d2c
+  position: {x: 606.0001, y: 636.47955}
+  nodeName: Split By Bounds Node
+  regionId: aac418af-f193-4403-af02-9230146a0b5a
+  regionName: PCGPolygonRegionInsideWater
+--- !u!114 &6878157793725407383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdfd10407a77fc941b58a9227c013958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 74d8acf4-6f66-4d80-886a-ec859ee281bd
+  position: {x: 1378, y: 590}
+  nodeName: Filter Node
+  filterType: 2
+  randomChance: 0.5
+  minDensity: 0.5
+  requiredTag: 1
+--- !u!114 &6944860128424662618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd4b415946594f34d851229fc577893b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 19343508-2ff1-4a55-a7d3-8ad63f6beb31
+  position: {x: 1044.5, y: 1116}
+  nodeName: Tag Set Node
+  tagValue: 2
+--- !u!114 &7416614871133716133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d589371fb1c68bd46a97d99ca2ca3e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: c1d3a649-135c-439b-8fe5-892efc0053ef
+  position: {x: -2067, y: 319}
+  nodeName: Split By Bounds Node
+  regionId: 0da12f44-484a-41e3-8226-59b2aee03d46
+  regionName: PCGPolygonRegionMushBiom
+--- !u!114 &7740375342241288105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03d2247bd1abd0349a24b93cd9dad0d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 7ec45c31-7bce-41db-99c3-027c02447071
+  position: {x: 1643, y: 845}
+  nodeName: Spawner Node
+  prefabEntries:
+  - prefab: {fileID: 919132149155446097, guid: 880b941b729844c4a88ed981e3a0bab9, type: 3}
+    weight: 1
+  - prefab: {fileID: 919132149155446097, guid: ba7cbaadb67279945bf619c51b7b0893, type: 3}
+    weight: 1
+  - prefab: {fileID: 919132149155446097, guid: c19668a861b933b43b61a61a2076c12c, type: 3}
+    weight: 1
+  - prefab: {fileID: 919132149155446097, guid: d388258db04ff764da53b55f89b5425e, type: 3}
+    weight: 1
 --- !u!114 &8211523049818619826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -721,7 +1772,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: 1d3f83b9-7ee9-410e-9883-9af755b63294
-  position: {x: 646.99994, y: -29.999994}
+  position: {x: 637.80005, y: -30.000011}
   nodeName: Filter Node
   filterType: 0
   randomChance: 0.57
@@ -743,3 +1794,38 @@ MonoBehaviour:
   position: {x: 333, y: 30}
   nodeName: Tag Set Node
   tagValue: 0
+--- !u!114 &8345173119205332642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d589371fb1c68bd46a97d99ca2ca3e9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: b5dc699b-f6a7-47cf-bafe-e7fb7dcb9caa
+  position: {x: 606.0001, y: 479.4796}
+  nodeName: Split By Bounds Node
+  regionId: 5a83b3cf-62e1-450e-8491-241e67f4f9b4
+  regionName: PCGPolygonRegionWater
+--- !u!114 &9175379874664273137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3edaf780ba0cdf478d47a26327b0a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: c6cb209f-88f4-413f-92de-505fe03541d8
+  position: {x: -2093, y: 654}
+  nodeName: Source Node
+  sourceType: 0
+  spacing: 3
+  randomPointCount: 10000

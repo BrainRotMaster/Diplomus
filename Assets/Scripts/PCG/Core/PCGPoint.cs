@@ -10,9 +10,8 @@ namespace PCG
         public Quaternion rotation;
         public Vector3 scale;
         public float density;
-        public Color color;
-        public int seed;
         public int tag;
+        public int priority;
 
         public PCGPoint(Vector3 pos)
         {
@@ -20,9 +19,8 @@ namespace PCG
             rotation = Quaternion.identity;
             scale = Vector3.one;
             density = 1f;
-            color = Color.white;
-            seed = 0;
             tag = 0;
+            priority = 0;
         }
 
         public PCGPoint(Vector3 pos, Quaternion rot)
@@ -31,9 +29,8 @@ namespace PCG
             rotation = rot;
             scale = Vector3.one;
             density = 1f;
-            color = Color.white;
-            seed = 0;
             tag = 0;
+            priority = 0;
         }
     }
 }

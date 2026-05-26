@@ -2,10 +2,8 @@ namespace PCG
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using UnityEditor;
     using UnityEditor.Experimental.GraphView;
-    using UnityEditor.UIElements;
     using UnityEngine;
     using UnityEngine.UIElements;
 
@@ -13,11 +11,10 @@ namespace PCG
     {
         public PCGNodeData nodeData;
         public string GUID => nodeData.GUID;
-        public Port InputPort { get; private set; }
-        public Port OutputPort { get; private set; }
         public Action OnNodeChanged { get; set; }
 
-        private List<VisualElement> parameterFields = new List<VisualElement>();
+        private readonly Dictionary<string, Port> inputPortsByName = new Dictionary<string, Port>();
+        private readonly Dictionary<string, Port> outputPortsByName = new Dictionary<string, Port>();
 
         public virtual void Initialize(PCGNodeData data, Vector2 position)
         {
@@ -26,11 +23,7 @@ namespace PCG
 
             title = data.nodeName;
 
-            InputPort = CreatePort("Input", Direction.Input, Port.Capacity.Multi);
-            OutputPort = CreatePort("Output", Direction.Output, Port.Capacity.Multi);
-
-            inputContainer.Add(InputPort);
-            outputContainer.Add(OutputPort);
+            CreatePorts();
 
             CreateParameterFields();
             RefreshExpandedState();
@@ -60,6 +53,28 @@ namespace PCG
             return port;
         }
 
+        public Port GetInputPort(string portName)
+        {
+            if (string.IsNullOrEmpty(portName))
+            {
+                portName = PCGNodeData.DefaultInputPortName;
+            }
+
+            inputPortsByName.TryGetValue(portName, out var port);
+            return port;
+        }
+
+        public Port GetOutputPort(string portName)
+        {
+            if (string.IsNullOrEmpty(portName))
+            {
+                portName = PCGNodeData.DefaultOutputPortName;
+            }
+
+            outputPortsByName.TryGetValue(portName, out var port);
+            return port;
+        }
+
         protected virtual void CreateParameterFields()
         {
             var parameters = nodeData.GetParameters();
@@ -68,7 +83,6 @@ namespace PCG
                 var field = CreateFieldForParameter(param);
                 if (field != null)
                 {
-                    parameterFields.Add(field);
                     extensionContainer.Add(field);
                 }
             }
@@ -142,47 +156,6 @@ namespace PCG
                     }
                     break;
 
-                case PCGParameterType.GameObject:
-                    var container = new VisualElement();
-                    container.style.flexDirection = FlexDirection.Row;
-                    container.style.marginBottom = 4;
-                    container.style.marginTop = 4;
-
-                    var label = new Label(param.name);
-                    label.style.width = 80;
-                    container.Add(label);
-
-                    var objectField = new ObjectField();
-                    objectField.objectType = typeof(GameObject);
-                    objectField.allowSceneObjects = false;
-                    objectField.value = (GameObject)param.value;
-                    objectField.style.flexGrow = 1;
-
-                    objectField.RegisterValueChangedCallback(evt =>
-                    {
-                        RecordNodeUndo();
-                        param.value = evt.newValue;
-                        nodeData.UpdateParameter(param.name, evt.newValue);
-                        UpdateNodeData();
-                    });
-
-                    container.Add(objectField);
-                    return container;
-
-                case PCGParameterType.Dropdown:
-                    if (param.options != null && param.options.Length > 0)
-                    {
-                        var dropdown = new PopupField<string>(param.name, new List<string>(param.options), (int)param.value);
-                        dropdown.RegisterValueChangedCallback(evt =>
-                        {
-                            RecordNodeUndo();
-                            param.value = dropdown.index;
-                            nodeData.UpdateParameter(param.name, dropdown.index);
-                            UpdateNodeData();
-                        });
-                        return dropdown;
-                    }
-                    break;
             }
 
             return null;
@@ -202,9 +175,24 @@ namespace PCG
             }
         }
 
-        public override void OnSelected()
+        private void CreatePorts()
         {
-            base.OnSelected();
+            inputPortsByName.Clear();
+            outputPortsByName.Clear();
+
+            foreach (var portName in nodeData.GetInputPortNames())
+            {
+                var port = CreatePort(portName, Direction.Input, Port.Capacity.Multi);
+                inputPortsByName[portName] = port;
+                inputContainer.Add(port);
+            }
+
+            foreach (var portName in nodeData.GetOutputPortNames())
+            {
+                var port = CreatePort(portName, Direction.Output, Port.Capacity.Multi);
+                outputPortsByName[portName] = port;
+                outputContainer.Add(port);
+            }
         }
     }
 }

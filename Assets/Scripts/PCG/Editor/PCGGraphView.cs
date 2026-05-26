@@ -44,7 +44,9 @@ namespace PCG
         private class ClipboardEdgePayload
         {
             public string sourceGuid;
+            public string sourcePortName;
             public string targetGuid;
+            public string targetPortName;
         }
 
         public PCGGraphView(PCGGraphData data, PCGEditorWindow window)
@@ -106,7 +108,11 @@ namespace PCG
 
                 if (sourceNode != null && targetNode != null)
                 {
-                    ConnectNodes(sourceNode, targetNode);
+                    ConnectNodes(
+                        sourceNode,
+                        targetNode,
+                        edgeData.sourcePortName,
+                        edgeData.targetPortName);
                 }
                 else
                 {
@@ -179,12 +185,17 @@ namespace PCG
 
         public Edge ConnectNodes(PCGNodeView fromNode, PCGNodeView toNode)
         {
-            Port outputPort = fromNode.OutputPort;
-            Port inputPort = toNode.InputPort;
+            return ConnectNodes(fromNode, toNode, PCGNodeData.DefaultOutputPortName, PCGNodeData.DefaultInputPortName);
+        }
+
+        public Edge ConnectNodes(PCGNodeView fromNode, PCGNodeView toNode, string sourcePortName, string targetPortName)
+        {
+            Port outputPort = fromNode.GetOutputPort(sourcePortName);
+            Port inputPort = toNode.GetInputPort(targetPortName);
 
             if (outputPort == null || inputPort == null)
             {
-                Debug.LogWarning($"Cannot connect: ports missing. FromNode={fromNode?.title}, ToNode={toNode?.title}");
+                Debug.LogWarning($"Cannot connect: ports missing. FromNode={fromNode?.title}, ToNode={toNode?.title}, SourcePort={sourcePortName}, TargetPort={targetPortName}");
                 return null;
             }
 
@@ -199,18 +210,24 @@ namespace PCG
             outputPort.Connect(edge);
             inputPort.Connect(edge);
 
-            SaveEdgeData(fromNode.GUID, toNode.GUID, "Connect PCG Nodes");
+            SaveEdgeData(fromNode.GUID, toNode.GUID, outputPort.portName, inputPort.portName, "Connect PCG Nodes");
 
             return edge;
         }
 
-        private void SaveEdgeData(string sourceGUID, string targetGUID, string undoActionName = "Edit PCG Edge")
+        private void SaveEdgeData(string sourceGUID, string targetGUID, string sourcePortName, string targetPortName, string undoActionName = "Edit PCG Edge")
         {
             if (graphData == null) return;
 
+            sourcePortName = string.IsNullOrEmpty(sourcePortName) ? PCGNodeData.DefaultOutputPortName : sourcePortName;
+            targetPortName = string.IsNullOrEmpty(targetPortName) ? PCGNodeData.DefaultInputPortName : targetPortName;
+
             // Avoid duplicating serialized edges when the view reconnects an existing link.
             bool exists = graphData.edges.Any(e =>
-                e.sourceNodeGUID == sourceGUID && e.targetNodeGUID == targetGUID);
+                e.sourceNodeGUID == sourceGUID &&
+                e.targetNodeGUID == targetGUID &&
+                NormalizePortName(e.sourcePortName, PCGNodeData.DefaultOutputPortName) == sourcePortName &&
+                NormalizePortName(e.targetPortName, PCGNodeData.DefaultInputPortName) == targetPortName);
 
             if (!exists)
             {
@@ -218,7 +235,9 @@ namespace PCG
                 var edgeData = new PCGEdgeData
                 {
                     sourceNodeGUID = sourceGUID,
-                    targetNodeGUID = targetGUID
+                    sourcePortName = sourcePortName,
+                    targetNodeGUID = targetGUID,
+                    targetPortName = targetPortName
                 };
 
                 graphData.edges.Add(edgeData);
@@ -239,7 +258,9 @@ namespace PCG
                 {
                     var edgeToRemove = graphData.edges.Find(e =>
                         e.sourceNodeGUID == sourceNode.GUID &&
-                        e.targetNodeGUID == targetNode.GUID);
+                        e.targetNodeGUID == targetNode.GUID &&
+                        NormalizePortName(e.sourcePortName, PCGNodeData.DefaultOutputPortName) == NormalizePortName(edge.output.portName, PCGNodeData.DefaultOutputPortName) &&
+                        NormalizePortName(e.targetPortName, PCGNodeData.DefaultInputPortName) == NormalizePortName(edge.input.portName, PCGNodeData.DefaultInputPortName));
 
                     if (edgeToRemove != null)
                     {
@@ -285,7 +306,12 @@ namespace PCG
 
                     if (fromNode != null && toNode != null)
                     {
-                        SaveEdgeData(fromNode.GUID, toNode.GUID, "Connect PCG Nodes");
+                        SaveEdgeData(
+                            fromNode.GUID,
+                            toNode.GUID,
+                            edge.output.portName,
+                            edge.input.portName,
+                            "Connect PCG Nodes");
                     }
                 }
             }
@@ -299,27 +325,6 @@ namespace PCG
 
             Vector2 mousePosition = evt.localMousePosition;
             evt.menu.AppendAction("Add Node...", _ => OpenNodeSearch(mousePosition));
-        }
-
-        public void AddNode(PCGNodeData nodeData, Vector2 position)
-        {
-            if (graphData == null) return;
-
-            Undo.IncrementCurrentGroup();
-            Undo.SetCurrentGroupName("Create PCG Node");
-            int undoGroup = Undo.GetCurrentGroup();
-
-            nodeData.position = position;
-            nodeData.GUID = Guid.NewGuid().ToString();
-
-            Undo.RecordObject(graphData, "Create PCG Node");
-            PCGGraphAssetUtility.AddNodeToGraph(graphData, nodeData);
-            Undo.RegisterCreatedObjectUndo(nodeData, "Create PCG Node");
-            graphData.nodes.Add(nodeData);
-            ScheduleGraphSave();
-
-            CreateNodeFromData(nodeData);
-            Undo.CollapseUndoOperations(undoGroup);
         }
 
         public void CreateNodeFromDescriptor(PCGNodeDescriptor descriptor, Vector2 position)
@@ -436,7 +441,9 @@ namespace PCG
                     payload.edges.Add(new ClipboardEdgePayload
                     {
                         sourceGuid = edgeData.sourceNodeGUID,
-                        targetGuid = edgeData.targetNodeGUID
+                        sourcePortName = NormalizePortName(edgeData.sourcePortName, PCGNodeData.DefaultOutputPortName),
+                        targetGuid = edgeData.targetNodeGUID,
+                        targetPortName = NormalizePortName(edgeData.targetPortName, PCGNodeData.DefaultInputPortName)
                     });
                 }
             }
@@ -451,11 +458,18 @@ namespace PCG
                 return false;
             }
 
-            var payload = JsonUtility.FromJson<ClipboardPayload>(serializedData);
-            return payload != null &&
-                payload.type == ClipboardDataType &&
-                payload.nodes != null &&
-                payload.nodes.Count > 0;
+            try
+            {
+                var payload = JsonUtility.FromJson<ClipboardPayload>(serializedData);
+                return payload != null &&
+                    payload.type == ClipboardDataType &&
+                    payload.nodes != null &&
+                    payload.nodes.Count > 0;
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
         }
 
         private void UnserializeAndPaste(string operationName, string serializedData)
@@ -465,7 +479,16 @@ namespace PCG
                 return;
             }
 
-            var payload = JsonUtility.FromJson<ClipboardPayload>(serializedData);
+            ClipboardPayload payload;
+            try
+            {
+                payload = JsonUtility.FromJson<ClipboardPayload>(serializedData);
+            }
+            catch (ArgumentException)
+            {
+                return;
+            }
+
             if (payload == null || payload.type != ClipboardDataType || payload.nodes == null || payload.nodes.Count == 0)
             {
                 return;
@@ -532,7 +555,7 @@ namespace PCG
                 var targetNode = GetNodeByGUID(pastedTargetGuid);
                 if (sourceNode != null && targetNode != null)
                 {
-                    ConnectNodes(sourceNode, targetNode);
+                    ConnectNodes(sourceNode, targetNode, edgePayload.sourcePortName, edgePayload.targetPortName);
                 }
             }
 
@@ -599,6 +622,11 @@ namespace PCG
             graphData.edges.RemoveAll(edge =>
                 edge != null &&
                 (edge.sourceNodeGUID == nodeGuid || edge.targetNodeGUID == nodeGuid));
+        }
+
+        private static string NormalizePortName(string portName, string fallback)
+        {
+            return string.IsNullOrEmpty(portName) ? fallback : portName;
         }
 
         private void OnUndoRedoPerformed()

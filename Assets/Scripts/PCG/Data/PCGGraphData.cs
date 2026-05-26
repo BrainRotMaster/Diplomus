@@ -8,7 +8,6 @@ namespace PCG
     {
         public List<PCGNodeData> nodes = new List<PCGNodeData>();
         public List<PCGEdgeData> edges = new List<PCGEdgeData>();
-        public string entryNodeGUID;
 
         private Dictionary<string, PCGNodeData> nodeDictionary;
 
@@ -30,20 +29,6 @@ namespace PCG
             if (nodeDictionary == null) return null;
             nodeDictionary.TryGetValue(guid, out var node);
             return node;
-        }
-
-        public List<PCGNodeData> GetOutputNodes(string nodeGUID)
-        {
-            var result = new List<PCGNodeData>();
-            foreach (var edge in edges)
-            {
-                if (edge.sourceNodeGUID == nodeGUID)
-                {
-                    var targetNode = GetNodeByGUID(edge.targetNodeGUID);
-                    if (targetNode != null) result.Add(targetNode);
-                }
-            }
-            return result;
         }
     }
 }

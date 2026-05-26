@@ -1,6 +1,5 @@
 namespace PCG.Editor
 {
-    using System;
     using System.Collections.Generic;
 
     public static class PCGNodeRegistry
@@ -10,7 +9,7 @@ namespace PCG.Editor
             new PCGNodeDescriptor("Source Node", "Source", typeof(PCGSourceNodeData)),
             new PCGNodeDescriptor("Filter Node", "Filter", typeof(PCGFilterNodeData)),
             new PCGNodeDescriptor("Distance Filter Node", "Filter", typeof(PCGDistanceFilterNodeData)),
-            new PCGNodeDescriptor("Bounds Filter Node", "Filter", typeof(PCGBoundsFilterNodeData)),
+            new PCGNodeDescriptor("Split By Bounds Node", "Filter", typeof(PCGSplitByBoundsNodeData)),
             new PCGNodeDescriptor("Transform Node", "Transform", typeof(PCGTransformNodeData)),
             new PCGNodeDescriptor("Project To Surface Node", "Transform", typeof(PCGProjectToSurfaceNodeData)),
             new PCGNodeDescriptor("Random Rotation Node", "Transform", typeof(PCGRandomRotationNodeData)),
@@ -18,23 +17,11 @@ namespace PCG.Editor
             new PCGNodeDescriptor("Random Offset Node", "Transform", typeof(PCGRandomOffsetNodeData)),
             new PCGNodeDescriptor("Density Noise Node", "Attributes", typeof(PCGDensityNoiseNodeData)),
             new PCGNodeDescriptor("Tag Set Node", "Attributes", typeof(PCGAttributeSetNodeData)),
+            new PCGNodeDescriptor("Priority Set Node", "Attributes", typeof(PCGPrioritySetNodeData)),
             new PCGNodeDescriptor("Merge Node", "Utility", typeof(PCGMergeNodeData)),
             new PCGNodeDescriptor("Spawner Node", "Spawn", typeof(PCGSpawnerNodeData))
         };
 
         public static IReadOnlyList<PCGNodeDescriptor> Descriptors => descriptors;
-
-        public static PCGNodeDescriptor GetByType(Type nodeType)
-        {
-            foreach (var descriptor in descriptors)
-            {
-                if (descriptor.NodeType == nodeType)
-                {
-                    return descriptor;
-                }
-            }
-
-            return null;
-        }
     }
 }

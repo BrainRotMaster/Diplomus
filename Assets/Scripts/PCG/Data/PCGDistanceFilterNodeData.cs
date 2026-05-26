@@ -1,5 +1,6 @@
 using PCG;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Distance Filter Node", menuName = "PCG/Nodes/Distance Filter")]
@@ -35,9 +36,14 @@ public class PCGDistanceFilterNodeData : PCGNodeData
 
         float minDistanceSqr = minimumDistance * minimumDistance;
         var filtered = new List<PCGPoint>();
+        var sortedPoints = inputPoints
+            .Select((point, index) => new IndexedPoint(point, index))
+            .OrderByDescending(item => item.Point.priority)
+            .ThenBy(item => item.Index);
 
-        foreach (var point in inputPoints)
+        foreach (var item in sortedPoints)
         {
+            var point = item.Point;
             bool isTooClose = false;
             foreach (var existingPoint in filtered)
             {
@@ -59,4 +65,16 @@ public class PCGDistanceFilterNodeData : PCGNodeData
     }
 
     public override string GetViewTypeName() => "PCGDistanceFilterNodeView";
+
+    private readonly struct IndexedPoint
+    {
+        public IndexedPoint(PCGPoint point, int index)
+        {
+            Point = point;
+            Index = index;
+        }
+
+        public PCGPoint Point { get; }
+        public int Index { get; }
+    }
 }

@@ -43,28 +43,50 @@ namespace PCG
                 inputPoints ??= new List<PCGPoint>();
 
                 Debug.Log($"Executing node: {node.name} with {inputPoints.Count} input points");
-                var outputPoints = node.Process(inputPoints, context) ?? new List<PCGPoint>();
+                var outputStreams = node.ProcessMulti(inputPoints, context) ?? new PCGNodeOutput();
 
-                if (!outputsByNode.TryGetValue(node.GUID, out var childNodes) || childNodes.Count == 0)
+                if (!outputsByNode.TryGetValue(node.GUID, out var outgoingEdgesByPort) || outgoingEdgesByPort.Count == 0)
                 {
-                    finalResults.AddRange(outputPoints);
+                    foreach (var stream in outputStreams.Streams)
+                    {
+                        finalResults.AddRange(stream.Value);
+                    }
+
                     continue;
                 }
 
-                foreach (var childNode in childNodes)
+                foreach (var stream in outputStreams.Streams)
                 {
-                    if (!accumulatedInputs.TryGetValue(childNode.GUID, out var childInputs))
+                    string outputPortName = NormalizePortName(stream.Key, PCGNodeData.DefaultOutputPortName);
+                    List<PCGPoint> outputPoints = stream.Value ?? new List<PCGPoint>();
+
+                    if (!outgoingEdgesByPort.TryGetValue(outputPortName, out var outgoingEdges) || outgoingEdges.Count == 0)
                     {
-                        childInputs = new List<PCGPoint>();
-                        accumulatedInputs[childNode.GUID] = childInputs;
+                        finalResults.AddRange(outputPoints);
+                        continue;
                     }
 
-                    childInputs.AddRange(outputPoints);
-                    indegreeByNode[childNode.GUID]--;
-
-                    if (indegreeByNode[childNode.GUID] == 0)
+                    foreach (var edge in outgoingEdges)
                     {
-                        readyQueue.Enqueue(childNode);
+                        var childNode = graphData.GetNodeByGUID(edge.targetNodeGUID);
+                        if (childNode == null)
+                        {
+                            continue;
+                        }
+
+                        if (!accumulatedInputs.TryGetValue(childNode.GUID, out var childInputs))
+                        {
+                            childInputs = new List<PCGPoint>();
+                            accumulatedInputs[childNode.GUID] = childInputs;
+                        }
+
+                        childInputs.AddRange(outputPoints);
+                        indegreeByNode[childNode.GUID]--;
+
+                        if (indegreeByNode[childNode.GUID] == 0)
+                        {
+                            readyQueue.Enqueue(childNode);
+                        }
                     }
                 }
             }
@@ -98,13 +120,13 @@ namespace PCG
             return indegreeByNode;
         }
 
-        private Dictionary<string, List<PCGNodeData>> BuildOutputMap()
+        private Dictionary<string, Dictionary<string, List<PCGEdgeData>>> BuildOutputMap()
         {
-            var outputsByNode = new Dictionary<string, List<PCGNodeData>>();
+            var outputsByNode = new Dictionary<string, Dictionary<string, List<PCGEdgeData>>>();
 
             foreach (var node in validNodes)
             {
-                outputsByNode[node.GUID] = new List<PCGNodeData>();
+                outputsByNode[node.GUID] = new Dictionary<string, List<PCGEdgeData>>();
             }
 
             foreach (var edge in graphData.edges)
@@ -120,7 +142,14 @@ namespace PCG
                     continue;
                 }
 
-                outputsByNode[edge.sourceNodeGUID].Add(targetNode);
+                string sourcePortName = NormalizePortName(edge.sourcePortName, PCGNodeData.DefaultOutputPortName);
+                if (!outputsByNode[edge.sourceNodeGUID].TryGetValue(sourcePortName, out var portEdges))
+                {
+                    portEdges = new List<PCGEdgeData>();
+                    outputsByNode[edge.sourceNodeGUID][sourcePortName] = portEdges;
+                }
+
+                portEdges.Add(edge);
             }
 
             return outputsByNode;
@@ -146,6 +175,11 @@ namespace PCG
             {
                 Debug.LogWarning($"PCG graph executor skipped {skippedNodeCount} missing or invalid node entries.");
             }
+        }
+
+        private static string NormalizePortName(string portName, string fallback)
+        {
+            return string.IsNullOrEmpty(portName) ? fallback : portName;
         }
     }
 }

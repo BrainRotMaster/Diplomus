@@ -9,7 +9,6 @@ namespace PCG
         public Bounds generationBounds;
         public Transform generatorTransform;
         public Transform worldRoot;
-        public float globalDensityScale = 1f;
         public int pointsGenerated;
         public int pointsFiltered;
 
