@@ -1,5 +1,16 @@
 {
   "dependencies": {
+    "com.diplomus.pcg": {
+      "version": "https://github.com/BrainRotMaster/diplomus-pcg-package.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.modules.imgui": "1.0.0",
+        "com.unity.modules.physics": "1.0.0",
+        "com.unity.modules.uielements": "1.0.0"
+      },
+      "hash": "42d718b1f1517d06984fa3ea93b370534ad9ba00"
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.6",
       "depth": 0,
@@ -204,17 +215,6 @@
         "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
-    },
-    "com.vanya.diplomus-pcg": {
-      "version": "https://github.com/BrainRotMaster/diplomus-pcg-package.git",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.unity.modules.imgui": "1.0.0",
-        "com.unity.modules.physics": "1.0.0",
-        "com.unity.modules.uielements": "1.0.0"
-      },
-      "hash": "297f915f75e23bb606aea111eeff9f0303f0d22b"
     },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
