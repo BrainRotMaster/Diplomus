@@ -1,9 +1,9 @@
-# Diplomus
+# Diplomus PCG
 
-Unity diploma project with a node-based procedural content generation tool.
+Diplomus PCG - это проект на Unity, демонстрирующий node-based инструмент процедурной генерации контента.
+Инструмент позволяет создавать граф генерации в отдельном окне редактора, обрабатывать поток точек через ноды и спавнить объекты в сцене через компонент `PCGGenerator`.
 
-The PCG tool is packaged as an embedded Unity Package Manager package:
+## Требования
 
-- `Packages/com.vanya.diplomus-pcg`
-
-Open the editor from `Tools > PCG Graph Editor`.
+- Unity 6000.0 или новее.
+- https://github.com/BrainRotMaster/diplomus-pcg-package.git
