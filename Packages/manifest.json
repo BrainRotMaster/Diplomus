@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.vanya.diplomus-pcg": "file:com.vanya.diplomus-pcg",
+    "com.vanya.diplomus-pcg": "https://github.com/BrainRotMaster/diplomus-pcg-package.git",
     "com.unity.ai.navigation": "2.0.6",
     "com.unity.collab-proxy": "2.10.2",
     "com.unity.ide.rider": "3.0.31",
