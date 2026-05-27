@@ -205,6 +205,16 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.vanya.diplomus-pcg": {
+      "version": "file:com.vanya.diplomus-pcg",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.modules.imgui": "1.0.0",
+        "com.unity.modules.physics": "1.0.0",
+        "com.unity.modules.uielements": "1.0.0"
+      }
+    },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
       "depth": 0,

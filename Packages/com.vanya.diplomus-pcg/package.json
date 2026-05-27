@@ -1,0 +1,21 @@
+{
+  "name": "com.vanya.diplomus-pcg",
+  "version": "0.1.0",
+  "displayName": "Diplomus PCG",
+  "description": "Node-based procedural content generation tool for Unity, built as a diploma project package.",
+  "unity": "6000.0",
+  "author": {
+    "name": "Vanya"
+  },
+  "keywords": [
+    "pcg",
+    "procedural",
+    "graph",
+    "editor-tool"
+  ],
+  "dependencies": {
+    "com.unity.modules.imgui": "1.0.0",
+    "com.unity.modules.physics": "1.0.0",
+    "com.unity.modules.uielements": "1.0.0"
+  }
+}

@@ -72,22 +72,6 @@ MonoBehaviour:
   position: {x: 362, y: 845}
   nodeName: Priority Set Node
   priorityValue: 5
---- !u!114 &-7882671527056274542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 412852091aa28a54581a663d2cc9bcfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GUID: 7dcb018a-167a-4528-9997-d202bb817068
-  position: {x: 1969.9996, y: -30}
-  nodeName: Distance Filter Node
-  minimumDistance: 2
 --- !u!114 &-6855552110964292313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,24 +205,6 @@ MonoBehaviour:
   alignToSurfaceNormal: 1
   discardMisses: 1
   layerMask: -1
---- !u!114 &-4409752228156557294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3edaf780ba0cdf478d47a26327b0a86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GUID: 5c5c7bc6-cd17-4f34-96cb-35aee329331d
-  position: {x: 68.5, y: -30}
-  nodeName: Source Node
-  sourceType: 0
-  spacing: 0.52
-  randomPointCount: 10000
 --- !u!114 &-3606091206792354225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,22 +358,6 @@ MonoBehaviour:
   nodeName: Split By Bounds Node
   regionId: a618b3bd-a306-471a-8e41-342b77d92bf8
   regionName: PCGPolygonRegion
---- !u!114 &-1694717887364462721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd4b415946594f34d851229fc577893b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GUID: 9b53ecaf-184c-4e5d-aa79-7308f7a2c6a6
-  position: {x: 273, y: -30}
-  nodeName: Tag Set Node
-  tagValue: 0
 --- !u!114 &-1250490572283737020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,8 +461,6 @@ MonoBehaviour:
   m_Name: TestGraphMergedBranches
   m_EditorClassIdentifier: 
   nodes:
-  - {fileID: -4409752228156557294}
-  - {fileID: -1694717887364462721}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -543,14 +491,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 5133345711451618096}
-  - {fileID: 8211523049818619826}
-  - {fileID: 5163582691840162046}
-  - {fileID: 5882026552488887830}
-  - {fileID: 956425279650055268}
-  - {fileID: 5974609267003291432}
-  - {fileID: 4955943803773164837}
-  - {fileID: -7882671527056274542}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -724,38 +664,6 @@ MonoBehaviour:
   - {fileID: 3698014645178026939}
   - {fileID: -8183826605348124345}
   edges:
-  - sourceNodeGUID: 5c5c7bc6-cd17-4f34-96cb-35aee329331d
-    sourcePortName: 
-    targetNodeGUID: 9b53ecaf-184c-4e5d-aa79-7308f7a2c6a6
-    targetPortName: 
-  - sourceNodeGUID: 1d3f83b9-7ee9-410e-9883-9af755b63294
-    sourcePortName: 
-    targetNodeGUID: f3cee1ae-1227-4535-be51-2a201d66833d
-    targetPortName: 
-  - sourceNodeGUID: f3cee1ae-1227-4535-be51-2a201d66833d
-    sourcePortName: 
-    targetNodeGUID: 4b84a6e8-f01a-4c5e-8a55-871c19e5ee86
-    targetPortName: 
-  - sourceNodeGUID: 4b84a6e8-f01a-4c5e-8a55-871c19e5ee86
-    sourcePortName: 
-    targetNodeGUID: 5ca8f03a-c04b-4039-900c-5b52c130d1cb
-    targetPortName: 
-  - sourceNodeGUID: 5ca8f03a-c04b-4039-900c-5b52c130d1cb
-    sourcePortName: 
-    targetNodeGUID: 3d69b70c-ce25-4abc-a411-a78888f24bea
-    targetPortName: 
-  - sourceNodeGUID: 3d69b70c-ce25-4abc-a411-a78888f24bea
-    sourcePortName: 
-    targetNodeGUID: 9e053419-80b4-4e7f-8377-cf00d5f2f99d
-    targetPortName: 
-  - sourceNodeGUID: 9e053419-80b4-4e7f-8377-cf00d5f2f99d
-    sourcePortName: 
-    targetNodeGUID: 7dcb018a-167a-4528-9997-d202bb817068
-    targetPortName: 
-  - sourceNodeGUID: 9b53ecaf-184c-4e5d-aa79-7308f7a2c6a6
-    sourcePortName: 
-    targetNodeGUID: 85bb8039-0f38-46cb-b2df-ea4e770939b6
-    targetPortName: 
   - sourceNodeGUID: 088b5d9a-a22d-4160-b0cf-39f45ea575d9
     sourcePortName: 
     targetNodeGUID: cd23b629-8bfd-4f99-902c-1a2d5248bfaa
@@ -763,10 +671,6 @@ MonoBehaviour:
   - sourceNodeGUID: e1b95015-0f7b-49b9-aaac-44dd0c03c312
     sourcePortName: 
     targetNodeGUID: 1fbe9c67-7b6f-4b03-8f8e-97bf04641664
-    targetPortName: 
-  - sourceNodeGUID: 85bb8039-0f38-46cb-b2df-ea4e770939b6
-    sourcePortName: 
-    targetNodeGUID: 1d3f83b9-7ee9-410e-9883-9af755b63294
     targetPortName: 
   - sourceNodeGUID: 92d18710-2d5d-437b-b5ba-75ace7e0da96
     sourcePortName: Inside
@@ -888,17 +792,9 @@ MonoBehaviour:
     sourcePortName: Output
     targetNodeGUID: bed122d1-fbb8-49a4-b326-09ea3daaeb54
     targetPortName: Input
-  - sourceNodeGUID: cb22b4f8-1361-4857-b2c9-635849e99bf2
-    sourcePortName: Output
-    targetNodeGUID: c1d3a649-135c-439b-8fe5-892efc0053ef
-    targetPortName: Input
   - sourceNodeGUID: c1d3a649-135c-439b-8fe5-892efc0053ef
     sourcePortName: Outside
     targetNodeGUID: 007e7f0b-1fff-46f5-8ab8-0f43e3f40aeb
-    targetPortName: Input
-  - sourceNodeGUID: c6cb209f-88f4-413f-92de-505fe03541d8
-    sourcePortName: Output
-    targetNodeGUID: 11fc0f22-cb0d-4d7c-a26e-516a8d0223c0
     targetPortName: Input
   - sourceNodeGUID: 11fc0f22-cb0d-4d7c-a26e-516a8d0223c0
     sourcePortName: Inside
@@ -927,10 +823,6 @@ MonoBehaviour:
   - sourceNodeGUID: 3ff20a71-ae0a-468c-b5f2-139b300f5562
     sourcePortName: Output
     targetNodeGUID: f209bc38-d977-4200-a017-cd10163582ca
-    targetPortName: Input
-  - sourceNodeGUID: e74c7075-b3be-4998-a4e0-ee2285982065
-    sourcePortName: Output
-    targetNodeGUID: efc10dab-f7e6-4fa4-b06e-e9e05a67e8ca
     targetPortName: Input
   - sourceNodeGUID: efc10dab-f7e6-4fa4-b06e-e9e05a67e8ca
     sourcePortName: Inside
@@ -975,6 +867,18 @@ MonoBehaviour:
   - sourceNodeGUID: 57ea793e-cc2d-4ab6-a900-ac72ef51d905
     sourcePortName: Output
     targetNodeGUID: 1f4168d8-095a-4f14-aa26-c6775eed4c83
+    targetPortName: Input
+  - sourceNodeGUID: cb22b4f8-1361-4857-b2c9-635849e99bf2
+    sourcePortName: Output
+    targetNodeGUID: c1d3a649-135c-439b-8fe5-892efc0053ef
+    targetPortName: Input
+  - sourceNodeGUID: c6cb209f-88f4-413f-92de-505fe03541d8
+    sourcePortName: Output
+    targetNodeGUID: 11fc0f22-cb0d-4d7c-a26e-516a8d0223c0
+    targetPortName: Input
+  - sourceNodeGUID: e74c7075-b3be-4998-a4e0-ee2285982065
+    sourcePortName: Output
+    targetNodeGUID: efc10dab-f7e6-4fa4-b06e-e9e05a67e8ca
     targetPortName: Input
   - sourceNodeGUID: c5e71b75-8ea8-4ee3-883e-e697c495e7d6
     sourcePortName: Output
@@ -1053,27 +957,6 @@ MonoBehaviour:
   position: {x: 303, y: 0}
   nodeName: Tag Set Node
   tagValue: 0
---- !u!114 &956425279650055268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61a53b215e6fc0c4b9c88bf1e70cbea5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GUID: 5ca8f03a-c04b-4039-900c-5b52c130d1cb
-  position: {x: 1304.9999, y: -30}
-  nodeName: Project To Surface Node
-  rayStartOffset: 100
-  maxDistance: 200
-  maxSurfaceAngle: 45
-  alignToSurfaceNormal: 1
-  discardMisses: 1
-  layerMask: -1
 --- !u!114 &1261410004932729432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1477,65 +1360,6 @@ MonoBehaviour:
   densityMultiplier: 1.07
   offsetX: 10
   offsetZ: 10
---- !u!114 &4955943803773164837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b893e52ff832ef4cb922b8840e2eca6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GUID: 9e053419-80b4-4e7f-8377-cf00d5f2f99d
-  position: {x: 1763.9999, y: -30}
-  nodeName: Transform Node
-  offsetX: 0
-  offsetY: -0.5
-  offsetZ: 0
-  rotationX: 0
-  rotationY: 0
-  rotationZ: 0
-  scaleMultiplier: 1
---- !u!114 &5133345711451618096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52a649c5d1ebb6e4892fb63cb9588894, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GUID: 85bb8039-0f38-46cb-b2df-ea4e770939b6
-  position: {x: 445.99988, y: -30}
-  nodeName: Density Noise Node
-  noiseScale: 0.1
-  densityMultiplier: 1.2
-  offsetX: 10
-  offsetZ: 10
---- !u!114 &5163582691840162046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bb0f434e6c01dc4f9ef6d987532b4c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GUID: f3cee1ae-1227-4535-be51-2a201d66833d
-  position: {x: 888.99976, y: -30}
-  nodeName: Random Offset Node
-  amountX: 0.5
-  amountY: 0
-  amountZ: 0.5
 --- !u!114 &5440507618013140197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1621,51 +1445,6 @@ MonoBehaviour:
   maxScaleY: 1
   minScaleZ: 1
   maxScaleZ: 1
---- !u!114 &5882026552488887830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2683eedcc9f5cb643916ee08a7ce808e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GUID: 4b84a6e8-f01a-4c5e-8a55-871c19e5ee86
-  position: {x: 1075.9999, y: -30}
-  nodeName: Random Scale Node
-  scaleMode: 0
-  uniformMin: 0.8
-  uniformMax: 1.2
-  minScaleX: 1
-  maxScaleX: 1
-  minScaleY: 1
-  maxScaleY: 1
-  minScaleZ: 1
-  maxScaleZ: 1
---- !u!114 &5974609267003291432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7df65f8a8fd10140ba337c66f5b0270, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GUID: 3d69b70c-ce25-4abc-a411-a78888f24bea
-  position: {x: 1549.9999, y: -30}
-  nodeName: Random Rotation Node
-  minRotationX: 0
-  maxRotationX: 0
-  minRotationY: 0
-  maxRotationY: 360
-  minRotationZ: 0
-  maxRotationZ: 0
 --- !u!114 &6477198164029990113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1759,25 +1538,6 @@ MonoBehaviour:
     weight: 1
   - prefab: {fileID: 919132149155446097, guid: d388258db04ff764da53b55f89b5425e, type: 3}
     weight: 1
---- !u!114 &8211523049818619826
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdfd10407a77fc941b58a9227c013958, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GUID: 1d3f83b9-7ee9-410e-9883-9af755b63294
-  position: {x: 637.80005, y: -30.000011}
-  nodeName: Filter Node
-  filterType: 0
-  randomChance: 0.57
-  minDensity: 1.43
-  requiredTag: 0
 --- !u!114 &8307826833718222472
 MonoBehaviour:
   m_ObjectHideFlags: 0
