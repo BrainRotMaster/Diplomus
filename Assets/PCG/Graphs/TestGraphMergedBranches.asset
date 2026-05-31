@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: 1fbe9c67-7b6f-4b03-8f8e-97bf04641664
-  position: {x: 1642.5, y: 1116}
+  position: {x: 1549.25, y: 1116}
   nodeName: Spawner Node
   prefabEntries:
   - prefab: {fileID: 1439904337943108576, guid: ef62619642b0df743b22dd5120c6ac4d, type: 3}
@@ -371,7 +371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: e1b95015-0f7b-49b9-aaac-44dd0c03c312
-  position: {x: 1410.5, y: 1116}
+  position: {x: 1304.9999, y: 1116}
   nodeName: Filter Node
   filterType: 2
   randomChance: 0.5
@@ -897,7 +897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: d1a33953-7d3e-47fc-bc41-93a8bcd57159
-  position: {x: 1273.0002, y: 319.47955}
+  position: {x: 1122.0001, y: 319.00006}
   nodeName: Tag Set Node
   tagValue: 1
 --- !u!114 &257414656487906789
@@ -935,7 +935,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: 3a18049a-9e58-467f-a906-dae116e877c0
-  position: {x: 1377.9999, y: 845}
+  position: {x: 1305.0001, y: 845.0001}
   nodeName: Filter Node
   filterType: 2
   randomChance: 0.5
@@ -970,7 +970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: 088b5d9a-a22d-4160-b0cf-39f45ea575d9
-  position: {x: 1501.0001, y: 319.47955}
+  position: {x: 1304.5001, y: 319.00012}
   nodeName: Filter Node
   filterType: 2
   randomChance: 0.5
@@ -1123,7 +1123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: 475fc428-7c3d-4af0-b514-091fdd6cc27c
-  position: {x: 1643, y: 590}
+  position: {x: 1549, y: 601}
   nodeName: Spawner Node
   prefabEntries:
   - prefab: {fileID: 7570405467501425085, guid: 0ab22827d0f3f0b40a97e9430d684283, type: 3}
@@ -1373,7 +1373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: cd23b629-8bfd-4f99-902c-1a2d5248bfaa
-  position: {x: 1761.0002, y: 319.47955}
+  position: {x: 1548.9999, y: 319}
   nodeName: Spawner Node
   prefabEntries:
   - prefab: {fileID: 9154215057541871321, guid: 2554008d6447a2540b44e55f0c0b576e, type: 3}
@@ -1475,7 +1475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: 74d8acf4-6f66-4d80-886a-ec859ee281bd
-  position: {x: 1378, y: 590}
+  position: {x: 1304.5001, y: 654.00024}
   nodeName: Filter Node
   filterType: 2
   randomChance: 0.5
@@ -1527,7 +1527,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GUID: 7ec45c31-7bce-41db-99c3-027c02447071
-  position: {x: 1643, y: 845}
+  position: {x: 1549.0002, y: 845.00006}
   nodeName: Spawner Node
   prefabEntries:
   - prefab: {fileID: 919132149155446097, guid: 880b941b729844c4a88ed981e3a0bab9, type: 3}

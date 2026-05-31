@@ -1,0 +1,136 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8376401191167148273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2683eedcc9f5cb643916ee08a7ce808e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 585317fb-25f4-47a9-93f9-96cdad65953b
+  position: {x: 906, y: 199}
+  nodeName: Random Scale Node
+  scaleMode: 0
+  uniformMin: 0.2
+  uniformMax: 0.4
+  minScaleX: 1
+  maxScaleX: 1
+  minScaleY: 1
+  maxScaleY: 1
+  minScaleZ: 1
+  maxScaleZ: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae94e66fccc95df4fa3c1b8263912fab, type: 3}
+  m_Name: demoGraph1
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 3163229821074393377}
+  - {fileID: 3744516442172703022}
+  - {fileID: -8376401191167148273}
+  - {fileID: 471682258575718986}
+  - {fileID: 1565279354156185476}
+  edges:
+  - sourceNodeGUID: 346eb879-5f96-4e98-80f5-67000021f13b
+    sourcePortName: Output
+    targetNodeGUID: 8883b48c-de3e-4ce1-9ed5-3e7998f4bba2
+    targetPortName: Input
+  - sourceNodeGUID: 8883b48c-de3e-4ce1-9ed5-3e7998f4bba2
+    sourcePortName: Output
+    targetNodeGUID: 269a35e7-9368-4e93-b571-edf7f4ed7733
+    targetPortName: Input
+  - sourceNodeGUID: 269a35e7-9368-4e93-b571-edf7f4ed7733
+    sourcePortName: Output
+    targetNodeGUID: 585317fb-25f4-47a9-93f9-96cdad65953b
+    targetPortName: Input
+  - sourceNodeGUID: 585317fb-25f4-47a9-93f9-96cdad65953b
+    sourcePortName: Output
+    targetNodeGUID: b95a920d-61b7-4a5e-b644-e1b51d6987eb
+    targetPortName: Input
+--- !u!114 &471682258575718986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bb0f434e6c01dc4f9ef6d987532b4c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 8883b48c-de3e-4ce1-9ed5-3e7998f4bba2
+  position: {x: 540, y: 199}
+  nodeName: Random Offset Node
+  amountX: 0.5
+  amountY: 0
+  amountZ: 0.5
+--- !u!114 &1565279354156185476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03d2247bd1abd0349a24b93cd9dad0d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: b95a920d-61b7-4a5e-b644-e1b51d6987eb
+  position: {x: 1118, y: 199}
+  nodeName: Spawner Node
+  prefabEntries:
+  - prefab: {fileID: 4577034113271871886, guid: 24457fdf8e66c3c49b7599931e0fdcb2, type: 3}
+    weight: 1
+--- !u!114 &3163229821074393377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3edaf780ba0cdf478d47a26327b0a86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 346eb879-5f96-4e98-80f5-67000021f13b
+  position: {x: 352, y: 199}
+  nodeName: Source Node
+  sourceType: 0
+  spacing: 2
+  randomPointCount: 100
+--- !u!114 &3744516442172703022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7df65f8a8fd10140ba337c66f5b0270, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GUID: 269a35e7-9368-4e93-b571-edf7f4ed7733
+  position: {x: 717, y: 199}
+  nodeName: Random Rotation Node
+  minRotationX: 0
+  maxRotationX: 0
+  minRotationY: 0
+  maxRotationY: 360
+  minRotationZ: 0
+  maxRotationZ: 0
